@@ -1,0 +1,8 @@
+Home Page Steps and Features
+Section1:What should happen off of a page refresh,entering a new page, or openining the site
+1.  Check Local Storage
+1.2 See if there is someone with stay logged in, if there is make that person the currentUser✅
+        1.2.1 If not check sessionStorage for a currentSessionUser if there is one make them the currentUser✅
+1.3 See if the special was declined, if it was make it so it is deleted✅
+1.4 Check if the cookies banner was accepted or declined, if it was accepted applyy the collect cookies and don't allow the banner to pop up, if not dont collect and make banner not pop up✅
+1.5 

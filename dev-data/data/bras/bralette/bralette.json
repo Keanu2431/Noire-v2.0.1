@@ -1,0 +1,108 @@
+[
+  {
+    "PID": "11205777",
+    "name": "Forever Reckless",
+    "reccomended": ["11205888", "11205999"],
+    "description": "Our most popular bras for everyday. This essential style features a full coverage fit and softly padded Memory Fit cups that molds to your curves. Combining smooth microfiber and delicate lace details.",
+    "reviews": {},
+    "details-list": [
+      "Lightly lined",
+      "Underwire",
+      "Supersoft, double-lined sides for the smoothest shape"
+    ],
+    "data": {
+      "price": 15.5,
+      "colors": {
+        "black": {
+          "images": ["item5.1.webp", "item5.2.webp"],
+          "sizes": {
+            "xs": { "qty": 10 },
+            "s": { "qty": 10 },
+            "m": { "qty": 10 },
+            "l": { "qty": 10 },
+            "xl": { "qty": 10 }
+          }
+        },
+        "purple": {
+          "images": ["item4.1.webp", "item4.2.webp"],
+          "sizes": {
+            "xs": { "qty": 10 },
+            "s": { "qty": 10 },
+            "m": { "qty": 10 },
+            "l": { "qty": 10 },
+            "xl": { "qty": 10 }
+          }
+        }
+      }
+    },
+    "category": "bralette"
+  },
+  {
+    "PID": "11205888",
+    "name": "Youth Fountain",
+    "reccomended": ["11205777", "11205999"],
+    "description": "Whether staying in or going out, a cleavage-enhancing bustier—finished in luxe satin and contrasting lace—is flawless from every angle. Featuring our famous Bombshell push-up that boosts your frame by two whole cup sizes.",
+    "reviews": {},
+    "details-list": [
+      "maximum lift",
+      "fully adjustable",
+      "Underwire",
+      "Supersoft, double-lined sides for the smoothest shape"
+    ],
+    "data": {
+      "price": 20.5,
+      "colors": {
+        "gold": {
+          "images": ["item1.1.webp", "item1.2.webp"],
+          "sizes": {
+            "xs": { "qty": 10 },
+            "s": { "qty": 10 },
+            "m": { "qty": 10 },
+            "l": { "qty": 10 },
+            "xl": { "qty": 10 }
+          }
+        },
+        "cheetah": {
+          "images": ["item3.1.webp", "item3.2.webp"],
+          "sizes": {
+            "xs": { "qty": 10 },
+            "s": { "qty": 10 },
+            "m": { "qty": 10 },
+            "l": { "qty": 10 },
+            "xl": { "qty": 10 }
+          }
+        }
+      }
+    },
+    "category": "bralette"
+  },
+  {
+    "PID": "11205999",
+    "name": "Be free",
+    "reccomended": ["11205777", "11205888"],
+    "description": "No matter the situation, feel your fullest with the new all airflow design",
+    "reviews": {},
+    "details-list": [
+      "maximum lift",
+      "fully adjustable",
+      "Underwire",
+      "Supersoft, double-lined sides for the smoothest shape"
+    ],
+    "data": {
+      "price": 30,
+      "colors": {
+        "teal": {
+          "images": ["item2.1.webp", "item2.2.webp"],
+          "sizes": {
+            "xs": { "qty": 10 },
+            "s": { "qty": 10 },
+            "m": { "qty": 10 },
+            "l": { "qty": 10 },
+            "xl": { "qty": 10 }
+          }
+        }
+      }
+    },
+    "category": "bralette"
+  }
+]

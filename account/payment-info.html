@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noire</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="account.css" />
+    <script src="/script.js" defer></script>
+    <script src="account.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- bs5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+      defer
+    ></script>
+  </head>
+  <body>
+    <!-- sign in form/pop=up -->
+    <div id="login-pop up">
+      <!-- Button trigger modal -->
+      <button
+        id="login-activate"
+        type="button"
+        class="btn btn-primary hidden"
+        data-bs-toggle="modal"
+        data-bs-target="#login-label"
+      >
+        login
+      </button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="login-label"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="login-labelLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                id="modal-close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- pop up container modals -->
+            <div class="modal-body login-container" id="for-login">
+              <h1>sign in</h1>
+              <h3 style="color: var(--primary-color-lighter)">
+                makes for a personalized shopping experience
+              </h3>
+
+              <form action="" id="login-form" class="login-signup">
+                <input
+                  class="login"
+                  type="text"
+                  name="login-username"
+                  id="login-username"
+                  data-login="username"
+                  placeholder="USERNAME"
+                  required
+                />
+
+                <input
+                  class="login"
+                  type="password"
+                  name="login-password"
+                  id="login-password"
+                  data-login="password"
+                  placeholder="PASSWORD"
+                  required
+                />
+                <h3
+                  class="hidden"
+                  id="login-error-message"
+                  style="color: red; font-size: 18px"
+                >
+                  We do not recognize your sign-in information. Please try again
+                </h3>
+                <div id="lower-row-form">
+                  <div>
+                    <input
+                      type="checkbox"
+                      name="stay-logged-in"
+                      id="stay-logged-in"
+                    />
+                    <label for="stay-logged-in">stay logged in</label>
+                  </div>
+                  <h6 id="forgot-password-btn">Forgot password?</h6>
+                </div>
+                <button type="submit" class="noire-btn" id="login-submit-btn">
+                  LOGIN
+                </button>
+              </form>
+              <div id="register-footer">
+                <h1>create an account</h1>
+                <h3 style="color: var(--primary-color-lighter)">
+                  register with noire to enjoy a personalized experience
+                </h3>
+                <button id="switch-register" type="button" class="noire-btn">
+                  REGISTER
+                </button>
+              </div>
+            </div>
+            <div class="modal-body login-container hidden" id="for-register">
+              <h1>register</h1>
+              <h3 style="color: var(--primary-color-lighter)">
+                register with noire to enjoy a personalized experience
+              </h3>
+              <form action="" id="register-form" class="login-signup">
+                <h3 class="error-text hidden" id="register-email-error">
+                  email already registered or invalid
+                </h3>
+                <input
+                  class="register"
+                  type="email"
+                  name="register-email"
+                  id="register-email"
+                  data-register="email"
+                  placeholder="EMAIL"
+                  required
+                />
+                <h3 class="error-text hidden" id="register-username-error">
+                  username is already registered or invalid <br />username must
+                  be between 8-32 characters
+                </h3>
+
+                <input
+                  class="register"
+                  type="text"
+                  name="register-username"
+                  id="register-username"
+                  data-register="username"
+                  placeholder="USERNAME"
+                  required
+                />
+
+                <input
+                  class="register"
+                  type="password"
+                  name="register-password"
+                  id="register-password"
+                  data-register="password"
+                  placeholder="PASSWORD"
+                  required
+                />
+                <h3 id="register-password-error" class="hidden">
+                  <ul>
+                    <li class="error-text">
+                      password must Be Between 8-32 Characters
+                    </li>
+                    <li class="error-text">
+                      must include atleast one number , special character and
+                      capital letter
+                    </li>
+                    <!-- <li class="error-text">h</li> -->
+                  </ul>
+                </h3>
+                <button
+                  type="submit"
+                  class="noire-btn"
+                  id="register-submit-btn"
+                >
+                  REGISTER
+                </button>
+                <h3
+                  style="
+                    color: var(--primary-color-lighter);
+                    font-size: 16px;
+                    margin-top: 12px;
+                  "
+                >
+                  view our <a href="/privacy-policy.html"> privacy policy</a> &
+                  <a href="/terms-and-conditions.html"> terms and conditions</a>
+                </h3>
+              </form>
+            </div>
+            <div class="modal-body login-container hidden" id="for-reset">
+              <h1>Reset Password</h1>
+              <h3 style="color: var(--primary-color-lighter)" id="reset-title">
+                enter username
+              </h3>
+              <form action="" id="reset-form" class="login-signup">
+                <input
+                  class="reset"
+                  type="text"
+                  name="reset-username"
+                  id="reset-username"
+                  data-reset="username"
+                  placeholder="USERNAME"
+                />
+                <h3
+                  class="hidden"
+                  id="reset-error-user"
+                  style="color: red; font-size: 18px"
+                >
+                  We do not recognize username. Please try again
+                </h3>
+                <button type="submit" class="noire-btn" id="reset-submit">
+                  RESET
+                </button>
+              </form>
+              <form
+                action=""
+                id="reset-password-form"
+                class="login-signup hidden"
+              >
+                <input
+                  class="reset"
+                  type="password"
+                  name="reset-passsword-1"
+                  id="reset-passsword-1"
+                  data-reset="passsword-1"
+                  placeholder="ENTER NEW PASSWORD"
+                  style="text-transform: none"
+                />
+                <input
+                  class="reset"
+                  type="password"
+                  name="reset-passsword-2"
+                  id="reset-passsword-2"
+                  data-reset="passsword-2"
+                  placeholder="CONFIRM PASSWORD"
+                  style="text-transform: none"
+                />
+
+                <button
+                  type="submit"
+                  class="noire-btn"
+                  id="reset-password-submit"
+                >
+                  RESET
+                </button>
+              </form>
+            </div>
+            <div
+              class="modal-body login-container hidden"
+              id="for-forgot-success"
+            >
+              <h1>Reset Password</h1>
+              <h1
+                style="
+                  color: var(--secondary-color);
+                  top: 48px;
+                  position: relative;
+                "
+              >
+                if and account exist for this username a reset link will be sent
+                in 2-3 minutes
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- banner -->
+    <div id="banner-container">
+      <div id="rows">
+        <div class="row-0">
+          <div class="search-container">
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search..."
+                aria-label="Search"
+                id="search-text"
+              />
+              <button
+                class="btn btn-outline-success"
+                type="submit"
+                id="search-button"
+              >
+                <span class="material-icons"> search </span>
+              </button>
+            </form>
+          </div>
+          <div id="center-logo">
+            <a href="/index.html">
+              <img src="/images/Logos/logo.png" alt="" class="banner-logo"
+            /></a>
+          </div>
+          <div class="banner-icons">
+            <h2 class="tag" id="wishlist">
+              <a href="/account/wishlist.html"
+                ><span class="material-icons"> favorite </span></a
+              >
+            </h2>
+            <!-- <h2 class="tag hidden" id="logged-in">
+              <span class="material-icons">person</span>
+            </h2> -->
+            <h2 class="tag" id="sign-in" data-status="">
+              <span class="material-icons">person</span>
+            </h2>
+            <!-- UI DROPDOWN -->
+            <div id="account-dropdown" class="UI-drop-container hidden">
+              <div class="UI-dropdown">
+                <a id="profile" href="/account/profile.html">profile</a>
+
+                <a id="orders-returns" href="/account/orders-returns.html"
+                  >orders & returns</a
+                >
+
+                <a id="payment-info" href="/account/payment-info.html">
+                  payment info</a
+                >
+
+                <a id="shipping-info" href="/account/shipping-info.html"
+                  >shipping info</a
+                >
+
+                <a id="wishlist" href="/account/wishlist.html">wishlist</a>
+
+                <h2 id="log-out-btn">Log Out</h2>
+              </div>
+            </div>
+            <!-- UI ^DROPDOWN^ -->
+            <h2 class="tag" id="bag">
+              <span class="material-icons"> shopping_bag </span>
+            </h2>
+          </div>
+        </div>
+        <div class="row-1">
+          <a href="/closet.html" class="tag" id="banner-hider-tag"
+            >the closet</a
+          >
+          <a
+            href="/Products/new/all.html"
+            class="tag"
+            id="banner-tag"
+            data-tag="new-arrivals"
+            >new arrivals</a
+          >
+          <a href="/best-sellers.html" class="tag" id="banner-hider-tag"
+            >best sellers</a
+          >
+          <a
+            href="/Products/bras/all.html"
+            class="tag"
+            id="banner-tag"
+            data-tag="bras"
+            >bras</a
+          >
+          <a
+            href="/Products/panties/all.html"
+            class="tag"
+            id="banner-tag"
+            data-tag="panties"
+            >panties</a
+          >
+          <a
+            href="/Products/lingerie/all.html"
+            class="tag"
+            id="banner-tag"
+            data-tag="lingerie"
+            >Lingerie</a
+          >
+          <a
+            href="/Products/sleep/all.html"
+            class="tag"
+            id="banner-tag"
+            data-tag="sleep-wear"
+            >sleep wear</a
+          >
+          <a
+            href="/Products/accessories/all.html"
+            class="tag"
+            id="banner-tag"
+            data-tag="accessories"
+            >accessories</a
+          >
+          <a href="/for-him.html" class="tag" id="banner-hider-tag">for him</a>
+          <a
+            href="/Products/mens/all.html"
+            class="tag"
+            id="banner-tag"
+            data-tag="mens"
+            >mens</a
+          >
+          <a
+            href="/sale.html"
+            class="tag"
+            style="color: red"
+            data-tag="sale"
+            id="banner-hider-tag"
+            >sale</a
+          >
+          <!-- news is noire now -->
+          <a
+            href="/noire-now/noire.html"
+            class="tag"
+            id="banner-tag"
+            data-tag="noire-now"
+            >noire now</a
+          >
+        </div>
+      </div>
+      <div class="banner-dropdown-container hidden">
+        <!-- new arrivals -->
+        <div class="hidden" id="items-holder" data-tag="new-arrivals">
+          <div class="dropdown-item-flex" data-tag="new-arrivals">
+            <div class="column-item" id="column-0">
+              <a href="/Products/new/all.html"
+                ><h1 class="tag column-title">new arrivals</h1></a
+              >
+              <div class="inner-tags">
+                <a
+                  href="/Products/new/special.html"
+                  style="color: var(--secondary-color)"
+                  >50% of sitewide</a
+                >
+                <a href="/Products/new/special.html">see all</a>
+                <a href="/Products/new/bras.html">bras</a>
+                <a href="/Products/new/panties.html">panties</a>
+                <a href="/Products/new/lingerie.html">lingerie</a>
+                <a href="/Products/new/sleep-wear.html">sleep wear</a>
+                <a
+                  href="/Products/new/accessories.html"
+                  style="text-decoration: none"
+                  >Accessories</a
+                >
+                <a href="/Products/new/mens.html">mens</a>
+              </div>
+            </div>
+            <div class="column-item" id="column-1">
+              <a href="/Products/new/sets.html">
+                <h1 class="tag column-title">Sets</h1></a
+              >
+              <div class="inner-tags">
+                <a href="/Products/new/sets/bras-and-panties.html"
+                  >bras & panties</a
+                >
+                <a href="/Products/new/sets/bralette-and-panties.html"
+                  >bralette & panties</a
+                >
+
+                <a href="/Products/new/sets/sleep.html">sleep sets</a>
+              </div>
+              <!-- accessories -->
+            </div>
+            <div class="two-image-box">
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler1.jpeg"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/best-sellers.html" class="tag"
+                  >See what everyone's buying</a
+                >
+                <h3>top of the line quality</h3>
+              </div>
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler2.webp"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/for-him.html" class="tag"
+                  >buy something for the occasion</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- bras -->
+        <div class="hidden" id="items-holder" data-tag="bras">
+          <div class="dropdown-item-flex" data-tag="new-arrivals">
+            <div class="column-item" id="column-0">
+              <a href="/Products/bras/all.html"
+                ><h1 class="tag column-title">bras</h1></a
+              >
+              <div class="inner-tags">
+                <a
+                  href="/Products/bras/special"
+                  style="color: var(--secondary-color)"
+                  >BOGO 20% OFF</a
+                >
+                <a href="/Products/bras/all.html">see all</a>
+                <a href="/Products/bras/bralette.html">bralette</a>
+                <a href="/Products/bras/push-up.html">push up</a>
+                <a href="/Products/bras/lace.html">lace</a>
+                <a href="/Products/bras/strapless.html">strapless</a>
+              </div>
+            </div>
+            <div class="column-item" id="column-1">
+              <h1 class="tag column-title">sets</h1>
+              <div class="inner-tags">
+                <a href="/Products/sets/bras-and-panties.html"
+                  >bras & panties</a
+                >
+                <a href="/Products/sets/bralette-and-panties.html"
+                  >bralette & panties</a
+                >
+
+                <a href="/Products/sets/active-wear.html">active wear</a>
+              </div>
+            </div>
+            <div class="one-image-box">
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-bras-2.jpeg"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/closet.html" class="tag">need help picking?</a>
+                <h3>we've got you</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- panties -->
+        <div class="hidden" id="items-holder" data-tag="panties">
+          <div class="dropdown-item-flex" data-tag="new-arrivals">
+            <div class="column-item" id="column-0">
+              <a href="/Products/panties/all.html"
+                ><h1 class="tag column-title">panties</h1></a
+              >
+              <div class="inner-tags">
+                <a href="/Products/panties/all.html">see all</a>
+                <a href="/Products/panties/thong.html">thong</a>
+                <a href="/Products/panties/shorts.html">boy shorts</a>
+                <a href="/Products/panties/high-waist.html">high waist</a>
+              </div>
+            </div>
+            <div class="column-item" id="column-1">
+              <h1 class="tag column-title">sets</h1>
+              <div class="inner-tags">
+                <a href="/Products/sets/bras-and-panties.html"
+                  >bras & panties</a
+                >
+                <a href="/Products/sets/bralette-and-panties.html"
+                  >bralette & panties</a
+                >
+
+                <a href="/Products/sets/active-wear.html">active wear</a>
+              </div>
+            </div>
+            <div class="two-image-box">
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-panties-1.webp"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/Products/panties/thong.html" class="tag"
+                  >thongs & g-strings</a
+                >
+                <h3>feeling yourself? we are</h3>
+              </div>
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-panties-2.jpeg"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/best-sellers.html" class="tag">something for all</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- lingerie -->
+        <div class="hidden" id="items-holder" data-tag="lingerie">
+          <div class="dropdown-item-flex" data-tag="new-arrivals">
+            <div class="column-item" id="column-0">
+              <a href="/Products/lingerie/all.html"
+                ><h1 class="tag column-title">lingerie</h1></a
+              >
+              <div class="inner-tags">
+                <a href="/Products/lingerie/all.html">see all</a>
+                <a href="/Products/lingerie/bodysuit.html">bodysuits</a>
+                <a href="/Products/lingerie/curvy.html">curvy</a>
+                <a href="/Products/lingerie/slips.html">slips</a>
+                <a href="/Products/lingerie/corsets.html">corsets</a>
+              </div>
+            </div>
+            <div class="column-item" id="column-1">
+              <h1 class="tag column-title">accessories</h1>
+              <div class="inner-tags">
+                <a href="/Products/lingerie/accessories/all.html">see all</a>
+                <a href="/Products/lingerie/accessories/strings.html"
+                  >strings</a
+                >
+
+                <a href="/Products/lingerie/accessories/head-wear.html"
+                  >head wear</a
+                >
+              </div>
+            </div>
+            <div class="one-image-box">
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-lingerie-1.webp"
+                  alt=""
+                  srcset=""
+                />
+
+                <h3>be the center of attention</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- sleep wear -->
+        <div class="hidden" id="items-holder" data-tag="sleep-wear">
+          <div class="dropdown-item-flex" data-tag="new-arrivals">
+            <div class="column-item" id="column-0">
+              <a href="/Products/sleep/all.html"
+                ><h1 class="tag column-title">sleep wear</h1></a
+              >
+              <div class="inner-tags">
+                <a href="/Products/sleep/all.html">see all</a>
+                <a href="/Products/sleep/pajamas.html">Pajamas</a>
+                <a href="/Products/sleep/robes.html">robes</a>
+                <a href="/Products/sleep/slides.html">slides</a>
+              </div>
+            </div>
+            <div class="column-item" id="column-1">
+              <h1 class="tag column-title">accessories</h1>
+              <div class="inner-tags">
+                <a href="/Products/sleep/eye-wear.html">eye wear</a>
+              </div>
+            </div>
+            <div class="two-image-box">
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-sleepwear-1.jpeg"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/sale.html" class="tag">save some money.</a>
+              </div>
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-sleepwear-2.jpeg"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/Products/accessories/all.html" class="tag"
+                  >top off your fit</a
+                >
+                <h3>not everyone can stand out</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- accessories -->
+        <div class="hidden" id="items-holder" data-tag="accessories">
+          <div class="dropdown-item-flex" data-tag="new-arrivals">
+            <div class="column-item" id="column-0">
+              <a href="/Products/accessories/all.html"
+                ><h1 class="tag column-title">accessories</h1></a
+              >
+              <div class="inner-tags">
+                <a href="/Products/accessories/all.html">see all</a>
+                <a href="/Products/accessories/bracelets.html">bracelets</a>
+                <a href="/Products/accessories/anklets.html">anklets</a>
+                <a href="/Products/accessories/necklace.html">necklace</a>
+                <a href="/Products/accessories/rings.html">rings</a>
+
+                <!-- <a href="#">stockings</a>
+                <a href="#">headwear</a> -->
+              </div>
+            </div>
+
+            <div class="two-image-box">
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-accessories-1.webp"
+                  alt=""
+                  srcset=""
+                />
+                <h3>Love your style? we try our best</h3>
+              </div>
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-accessories-2.webp"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/Products/mens/all.html" class="tag"
+                  >don't be selfish</a
+                >
+                <h3>spread the love</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- mens -->
+        <div class="hidden" id="items-holder" data-tag="mens">
+          <div class="dropdown-item-flex" data-tag="new-arrivals">
+            <div class="column-item" id="column-0">
+              <a href="/Products/mens/all.html"
+                ><h1 class="tag column-title">mens</h1></a
+              >
+              <div class="inner-tags">
+                <a href="/Products/mens/all.html">see all</a>
+                <a href="/Products/mens/underwear.html">underwear</a>
+                <a href="/Products/mens/robe.html">robe</a>
+                <a href="/Products/mens/socks.html">socks</a>
+              </div>
+            </div>
+
+            <div class="two-image-box">
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-mens-1.jpeg"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/noire-now/noire.html" class="tag"
+                  >see what's going on</a
+                >
+              </div>
+              <div class="image-card">
+                <img
+                  src="/images/Models/Filler/filler-mens-2.jpeg"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/for-him.html" class="tag">catered to your wants</a>
+                <h3>you'll both enjoy it</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- noire now -->
+        <div class="hidden" id="items-holder" data-tag="noire-now">
+          <div class="dropdown-item-flex" data-tag="new-arrivals">
+            <div class="column-item" id="column-0">
+              <h1 class="tag column-title">be in the know</h1>
+              <div class="inner-tags">
+                <a href="/noire-now/vsecret-collab.html">noire X VSecret</a>
+                <a href="/noire-now/prada-collab.html">noire x prada</a>
+                <!-- fall drop make it link to the first banner on home page -->
+                <a href="/noire-now/fall-22-drop.html">Fall drop</a>
+                <a href="/noire-now/upcoming.html">what's next?</a>
+              </div>
+            </div>
+            <div class="column-item" id="column-1">
+              <h1 class="tag column-title">Guide</h1>
+              <div class="inner-tags">
+                <a href="/guide/sizing.html">General sizing</a>
+                <a href="/guide/bra-guide.html">bra guide</a>
+                <a href="/guide/underwear-guide.html">
+                  <!-- guide for both men and women underwear -->
+                  underwear guide</a
+                >
+              </div>
+            </div>
+            <div class="one-image-box">
+              <div class="image-card">
+                <img
+                  src="/Images/Models/Filler/filler-noire-now-1.jpeg"
+                  alt=""
+                  srcset=""
+                />
+                <a href="/noire-now/upcoming.html" class="tag"
+                  >always evolving</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FIX THE DROPDOWN ITEM FLEX DATA TAG -->
+      </div>
+    </div>
+    <!-- special pop-up -->
+    <div id="special-pop-up" class="hidden" data-deny="true">
+      <a href="/Products/new/special.html">
+        <img
+          src="/Images/Home/Banner Images/special.jpg"
+          alt=""
+          id="special-image"
+        />
+      </a>
+      <button type="button" class="noire-btn" id="special-close">
+        Not Interested
+      </button>
+    </div>
+    <!-- keep content class -->
+    <div class="content">
+      <div class="profile-container">
+        <div class="container-tabs">
+          <h2>
+            <a class="tabs" href="profile.html">My Account</a>
+          </h2>
+          <h2>
+            <a class="tabs" href="orders-returns.html">orders & returns</a>
+          </h2>
+          <h2>
+            <a class="tabs active-tab" href="payment-info.html">payment info</a>
+          </h2>
+          <h2><a class="tabs" href="shipping-info.html">shipping info</a></h2>
+          <h2><a class="tabs" href="wishlist.html">wishlist</a></h2>
+          <h2>
+            <a class="tabs" href="email-preferences.html">email preferences</a>
+          </h2>
+          <h2>
+            <a class="tabs" href="password.html">password</a>
+          </h2>
+        </div>
+        <div class="payment-methods">
+          <h2 style="text-align: center" id="payment-title">payment methods</h2>
+
+          <h2 id="add-card">Add card</h2>
+        </div>
+      </div>
+
+      <!-- cookies container -->
+      <div class="cookies-container">
+        <h3>
+          this website uses cookies to give users the best experience.
+          <a href="/cookies-about.html">learn more</a>
+        </h3>
+
+        <div class="button-holder">
+          <button type="button" class="noire-btn" id="cookies-no">
+            Decline
+          </button>
+          <button type="button" class="noire-btn" id="cookies-yes">
+            Accept
+          </button>
+        </div>
+      </div>
+      <!-- footer -->
+      <div id="footer-holder">
+        <div id="footer">
+          <div class="left-side">
+            <div class="tag-footer">
+              <h3>info</h3>
+              <a href="/affiliate.html">affiliate program</a>
+              <a href="/guide/sizing.html">size guide</a>
+              <a href="/blogger.html">fashion blogger</a>
+              <!-- use this link as a refference https://us.shein.com/Fashion-Blogger-a-475.html -->
+              <a href="/cookies-about.html">Cookies</a>
+            </div>
+            <div class="tag-footer">
+              <h3>service</h3>
+              <a href="/privacy-policy.html">privacy policy </a>
+              <a href="/return-policy.html">return policy </a>
+              <a href="/contact.html">contact us</a>
+            </div>
+          </div>
+          <div class="right-side">
+            <h1>sign up and stay in the know</h1>
+            <form action="" id="sign-up">
+              <input
+                type="email"
+                name="sign-up-email"
+                id="sign-up-email"
+                placeholder="Your Email Address"
+                size="32"
+                required
+              />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <h4 style="color: white">©2022 Noire X LumpkinStudios</h4>
+      </div>
+    </div>
+  </body>
+</html>

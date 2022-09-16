@@ -1,0 +1,69 @@
+[
+  {
+    "PID": "31225777",
+    "name": "Double Punch",
+    "reccomended": ["31225888"],
+    "description": "Take yourself to the next level with an sexy upgrade, become your inner princess",
+    "reviews": {},
+    "details-list": [
+      "Lightly lined",
+      "Underwire",
+      "Supersoft, double-lined sides for the smoothest shape"
+    ],
+    "data": {
+      "price": 30.75,
+      "colors": {
+        "black": {
+          "images": ["item1.1.webp", "item1.2.webp"],
+          "sizes": {
+            "xs": { "qty": 10 },
+            "s": { "qty": 10 },
+            "m": { "qty": 10 },
+            "l": { "qty": 10 },
+            "xl": { "qty": 10 }
+          }
+        },
+        "red": {
+          "images": ["item1.3.webp", "item1.4.webp"],
+          "sizes": {
+            "xs": { "qty": 10 },
+            "s": { "qty": 10 },
+            "m": { "qty": 10 },
+            "l": { "qty": 10 },
+            "xl": { "qty": 10 }
+          }
+        }
+      }
+    },
+    "category": "push-up"
+  },
+  {
+    "PID": "31225888",
+    "name": "Simple Diva",
+    "reccomended": ["31225777"],
+    "description": "bring a different sense of confidence that follows you from the subway to the walkway.",
+    "reviews": {},
+    "details-list": [
+      "maximum lift",
+      "fully adjustable",
+      "Underwire",
+      "Supersoft, double-lined sides for the smoothest shape"
+    ],
+    "data": {
+      "price": 30,
+      "colors": {
+        "black": {
+          "images": ["item2.1.webp", "item2.2.webp"],
+          "sizes": {
+            "xs": { "qty": 10 },
+            "s": { "qty": 10 },
+            "m": { "qty": 10 },
+            "l": { "qty": 10 },
+            "xl": { "qty": 10 }
+          }
+        }
+      }
+    },
+    "category": "push-up"
+  }
+]
