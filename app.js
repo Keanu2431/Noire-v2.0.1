@@ -13,11 +13,20 @@ app.use(express.json());
 const findSpecific = function (arr, pid) {
   return arr.find((el) => Number(el.PID) === Number(pid));
 };
-const checkUserAndPass = function (user, pass) {
+const verifyUserAndPass = function (user, pass) {
   return allUsers.find((el) => {
     return (
       el.userName.toLowerCase() === user.toLowerCase() &&
       el.userPassword === pass
+    );
+  });
+};
+const checkUsers = (user, email) => {
+  return allUsers.find((el) => {
+    // console.log(user, email);
+    return (
+      el.userName.toLowerCase() === user.toLowerCase() ||
+      el.userEmail.toLowerCase() === email.toLowerCase()
     );
   });
 };
@@ -85,10 +94,10 @@ const getProducts = (req, res) => {
 const verifyUser = (req, res) => {
   const username = req.params.user;
   const password = req.params.password;
-  if (username && password && checkUserAndPass(username, password)) {
+  if (username && password && verifyUserAndPass(username, password)) {
     res.status(200).json({
       status: 'success',
-      data: checkUserAndPass(username, password),
+      data: verifyUserAndPass(username, password),
     });
   } else {
     res.status(404).json({
@@ -114,11 +123,41 @@ const verifyUser = (req, res) => {
   //   }
   // }
 };
+const createUser = (req, res) => {
+  const newAcc = req.body;
+  console.log(newAcc.userName, newAcc.userEmail);
+  console.log(checkUsers(newAcc.userName, newAcc.userEmail));
+  // if(
+  //   // new acc.userID isnt the same as anyone else and newacc.username isnt the same as any other and newacc.email isnt the same
+  //   // generate a unique userID and push to the object
+  // )
+  if (!checkUsers(newAcc.userName, newAcc.userEmail)) {
+    console.log('username isn`t taken and email isn not taken');
+    // pushing new acc to array
+    allUsers.push(newAcc);
+    // rewriting the file
+    fs.writeFileSync(
+      `${__dirname}/dev-data/data/users/user-acc.json`,
+      JSON.stringify(allUsers)
+    );
+    // sending the response
+    res.status(201).json({
+      status: 'success',
+      message: 'user registered',
+      data: newAcc,
+    });
+  } else {
+    res.status(400).json({
+      status: 'failed',
+      message: 'user name or email already exist',
+    });
+  }
+};
 
 // ROUTES
 app.route('/products/:cat?/:subCat?/:PID?').get(getProducts);
 app.route('/users/login/:user?/:password?').get(verifyUser);
-app.route('users');
+app.route('/users/register').post(createUser);
 // updating data
 const editData = function (category) {
   braletteData.forEach((el) => {
@@ -132,6 +171,3 @@ const editData = function (category) {
 app.listen(port, () => {
   console.log(`running on port:${port}`);
 });
-
-const keanu = checkUserAndPass('Keanu2431', 'B@bycat19');
-console.log(keanu);
