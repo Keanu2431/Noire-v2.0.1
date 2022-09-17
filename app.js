@@ -30,6 +30,12 @@ const checkUsers = (user, email) => {
     );
   });
 };
+const updateUsers = () => {
+  fs.writeFileSync(
+    `${__dirname}/dev-data/data/users/user-acc.json`,
+    JSON.stringify(allUsers)
+  );
+};
 // const item = allBras.find((el) => {
 //   return el.PID == 11205999;
 // });
@@ -105,41 +111,25 @@ const verifyUser = (req, res) => {
       message: 'No user with this matching username and password',
     });
   }
-  // if (
-  //   allUsers.find((el) => {
-  //     return el.userName.toLowerCase() == username.toLowerCase();
-  //   })
-  // ) {
-  //   const verifiedUsername = allUsers.find((el) => {
-  //     return el.userName.toLowerCase() == username.toLowerCase();
-  //   });
-  //   console.log(`there is a user`, verifiedUsername);
-  //   if (verifiedUsername.userPassword === password) {
-  //     console.log('user is logged in');
-  //     res.status(200).json({
-  //       status: 'success',
-  //       data: verifiedUsername,
-  //     });
-  //   }
-  // }
 };
 const createUser = (req, res) => {
   const newAcc = req.body;
-  console.log(newAcc.userName, newAcc.userEmail);
-  console.log(checkUsers(newAcc.userName, newAcc.userEmail));
-  // if(
-  //   // new acc.userID isnt the same as anyone else and newacc.username isnt the same as any other and newacc.email isnt the same
-  //   // generate a unique userID and push to the object
-  // )
+  newAcc.userID = Math.floor(10000000 + Math.random() * 50000000);
+  if (allUsers.find((el) => Number(el.userID) == Number(newAcc.userID))) {
+    newAcc.userID = Math.floor(10000000 + Math.random() * 50000000);
+  }
+  if (allUsers.find((el) => Number(el.userID) == Number(newAcc.userID))) {
+    newAcc.userID = Math.floor(10000000 + Math.random() * 50000000);
+  }
+  if (allUsers.find((el) => Number(el.userID) == Number(newAcc.userID))) {
+    newAcc.userID = Math.floor(10000000 + Math.random() * 50000000);
+  }
   if (!checkUsers(newAcc.userName, newAcc.userEmail)) {
     console.log('username isn`t taken and email isn not taken');
     // pushing new acc to array
     allUsers.push(newAcc);
     // rewriting the file
-    fs.writeFileSync(
-      `${__dirname}/dev-data/data/users/user-acc.json`,
-      JSON.stringify(allUsers)
-    );
+    updateUsers();
     // sending the response
     res.status(201).json({
       status: 'success',
@@ -153,11 +143,67 @@ const createUser = (req, res) => {
     });
   }
 };
+// edit user can be used to add anything you want
+const editUser = (req, res) => {
+  const newInfo = req.body;
+  if (!req.params.id) {
+    res
+      .status(400)
+      .json({ status: 'failed', message: 'bad request, need user ID' });
+    return;
+  } else if (req.params.id) {
+    const index = allUsers.findIndex((el) => el.userID == req.params.id);
+    const { user } = allUsers[index];
+    const data = req.body;
+    // for (const key in data) {
+    //   console.log(key, typeof user);
+    //   console.log(`obj.${key} = ${data[key]}`);
+    // }
 
+    // const request = Object.entries(req.body);
+    // request.forEach((element) => {
+    //   console.log(element);
+    //   const [key, value] = element;
+    //   console.log(key, value);
+    // });
+
+    res.status(200).json({
+      status: 'success',
+      data: allUsers[index],
+    });
+  }
+};
+const deleteUser = (req, res) => {
+  const acc = req.body;
+  if (!acc.userID || !acc.userName || !acc.userPassword) return;
+  const userIndex = allUsers.findIndex((el) => el.userID == acc.userID);
+  if (userIndex == -1) {
+    res.status(404).json({
+      status: 'failed',
+      message: 'Account Not Found',
+    });
+    return;
+  }
+  console.log(userIndex);
+  allUsers.splice(userIndex, 1);
+  updateUsers();
+  res.status(404).json({
+    status: 'success',
+    message: 'user deleted',
+  });
+};
+const createData = (req, res) => {};
 // ROUTES
 app.route('/products/:cat?/:subCat?/:PID?').get(getProducts);
-app.route('/users/login/:user?/:password?').get(verifyUser);
-app.route('/users/register').post(createUser);
+// this route is for basic user info
+app
+  .route('/users/:user?/:password?/:id?')
+  .get(verifyUser)
+  .post(createUser)
+  .delete(deleteUser)
+  .patch(editUser)
+  .put(createData);
+// app.route('/users/register').post(createUser);
 // updating data
 const editData = function (category) {
   braletteData.forEach((el) => {
