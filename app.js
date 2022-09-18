@@ -194,15 +194,19 @@ const deleteUser = (req, res) => {
 };
 const createData = (req, res) => {};
 // ROUTES
-app.route('/products/:cat?/:subCat?/:PID?').get(getProducts);
+const productsRouter = express.Router();
+const usersRouter = express.Router();
+app.route('/:cat?/:subCat?/:PID?').get(getProducts);
 // this route is for basic user info
 app
-  .route('/users/:user?/:password?/:id?')
+  .route('/:user?/:password?/:id?')
   .get(verifyUser)
   .post(createUser)
   .delete(deleteUser)
   .patch(editUser)
   .put(createData);
+app.use('/products', productsRouter);
+app.use('/users', usersRouter);
 // app.route('/users/register').post(createUser);
 // updating data
 const editData = function (category) {
