@@ -1,22 +1,23 @@
 const fs = require('fs');
 const Bras = require('../model/productModel');
 
-// DATA
-const braletteData = JSON.parse(
-  fs.readFileSync(`${__dirname}./../dev-data/data/bras/bralette/bralette.json`)
-);
-const laceData = JSON.parse(
-  fs.readFileSync(`${__dirname}./../dev-data/data/bras/lace/lace.json`)
-);
-const straplessData = JSON.parse(
-  fs.readFileSync(
-    `${__dirname}./../dev-data/data/bras/strapless/strapless.json`
-  )
-);
-const pushupData = JSON.parse(
-  fs.readFileSync(`${__dirname}./../dev-data/data/bras/push-up/push-up.json`)
-);
-const allBras = [...braletteData, ...laceData, ...straplessData, ...pushupData];
+// // DATA
+// const braletteData = JSON.parse(
+//   fs.readFileSync(`${__dirname}./../dev-data/data/bras/bralette/bralette.json`)
+// );
+// const laceData = JSON.parse(
+//   fs.readFileSync(`${__dirname}./../dev-data/data/bras/lace/lace.json`)
+// );
+// const straplessData = JSON.parse(
+//   fs.readFileSync(
+//     `${__dirname}./../dev-data/data/bras/strapless/strapless.json`
+//   )
+// );
+// const pushupData = JSON.parse(
+//   fs.readFileSync(`${__dirname}./../dev-data/data/bras/push-up/push-up.json`)
+// );
+// const allBras = [...braletteData, ...laceData, ...straplessData, ...pushupData];
+
 // USSER DATA
 // const allUsers = JSON.parse(
 //   fs.readFileSync(`${__dirname}/dev-data/data/users/user-acc.json`)
