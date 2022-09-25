@@ -9,7 +9,7 @@ exports.getProducts = async (req, res) => {
   try {
     const queryObj = { ...req.query };
     const queryParams = { ...req.params };
-    const sub = queryParams.subCat.toUpperCase();
+    const sub = queryParams.subCat?.toUpperCase();
     console.log(queryObj);
     let data;
     // let subCat;
@@ -25,31 +25,34 @@ exports.getProducts = async (req, res) => {
       // console.log(data[0].colors[0].color);
       // 1) we're going to take the colors matched in the array then find each item with a loop
       let matchArray = [];
-      // emptying the data
-
+      // data = [];
       //
-      data.forEach((el) => {
+      data?.forEach((el) => {
         matchArray.push(el.colors.filter((el) => el.color == queryObj.color));
       });
+
       // removing empty array
       matchArray = matchArray.filter((el) => el != '').flat(3);
+
+      // emptying the data var
+
+      data = [];
+
       // searching for each of the elements
-      matchArray.forEach(async (el) => {
-        data.push(await Product.find({ colors: el }));
-        // console.log(await Product.find({ colors: el }));
-        console.log(data);
-      });
-      // console.log(await Product.find({ colors: matchArray[0] }));
-      // this return the first matching element
-      // const matchingColor = data.find((el) =>
-      //   el.colors.filter((el) => el.color == queryObj.color)
-      // );
+      for (let index = 0; index < matchArray.length; index++) {
+        const element = matchArray[index];
+        const item = await Product.find({ colors: element });
+        // pushing matching elements to data array
+        data.push(item);
+        data = data.flat();
+      }
     }
     res.status(200).json({
       status: 'success',
-      data: [...data],
+      data: data,
     });
   } catch (error) {
+    console.log(error);
     res.status(400).json({
       status: 'fail',
       message: 'bad request',
