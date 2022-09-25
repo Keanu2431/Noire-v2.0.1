@@ -1,4 +1,5 @@
-const fs = require('fs');
+const User = require('../model/userModel');
+const Users = require('../model/userModel');
 exports.verifyUserAndPass = (user, pass) => {
   return allUsers.find((el) => {
     return (
@@ -38,52 +39,41 @@ exports.verifyUser = (req, res) => {
     });
   }
 };
-exports.createUser = (req, res) => {
-  const newAcc = req.body;
-  newAcc.userID = Math.floor(10000000 + Math.random() * 50000000);
-  if (allUsers.find((el) => Number(el.userID) == Number(newAcc.userID))) {
-    newAcc.userID = Math.floor(10000000 + Math.random() * 50000000);
-  }
-  if (allUsers.find((el) => Number(el.userID) == Number(newAcc.userID))) {
-    newAcc.userID = Math.floor(10000000 + Math.random() * 50000000);
-  }
-  if (allUsers.find((el) => Number(el.userID) == Number(newAcc.userID))) {
-    newAcc.userID = Math.floor(10000000 + Math.random() * 50000000);
-  }
-  if (!checkUsers(newAcc.userName, newAcc.userEmail)) {
-    console.log('username isn`t taken and email isn not taken');
-    // pushing new acc to array
-    allUsers.push(newAcc);
-    // rewriting the file
-    updateUsers();
-    // sending the response
+exports.createUser = async (req, res) => {
+  try {
+    // check DB to see if their is anyone with the submitted email || username
+    const newUser = await Users.create(req.body);
     res.status(201).json({
-      status: 'success',
-      message: 'user registered',
-      data: newAcc,
+      status: 'Success User Created',
+      data: {
+        user: newUser,
+      },
     });
-  } else {
-    res.status(400).json({
-      status: 'failed',
-      message: 'user name or email already exist',
-    });
+  } catch (error) {
+    res.status(400).json({ status: 'Fail', message: error });
   }
 };
 // edit user can be used to add anything you want
-exports.editUser = (req, res) => {
-  const newInfo = req.body;
-  if (!req.params.id) {
-    res
-      .status(400)
-      .json({ status: 'failed', message: 'bad request, need user ID' });
-    return;
-  } else if (req.params.id) {
-    const index = allUsers.findIndex((el) => el.userID == req.params.id);
-    const { user } = allUsers[index];
-    const data = req.body;
-    res.status(200).json({
+exports.editPassword = async (req, res) => {
+  try {
+    const newPassword = await User.findOneAndUpdate(
+      req.body.userName,
+      {
+        password: req.body.newPassword,
+      },
+      { new: true }
+    );
+    console.log(req.body);
+    res.status(201).json({
       status: 'success',
-      data: allUsers[index],
+      data: {
+        newPassword,
+      },
+      body: req.body,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'bad request',
     });
   }
 };

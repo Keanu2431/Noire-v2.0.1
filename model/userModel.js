@@ -1,13 +1,20 @@
 const mongoose = require('mongoose');
-const { use } = require('../routes/braRoutes');
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String },
   lastName: { type: String },
-  emailAddress: { type: String, required: [true, 'User Needs An Email'] },
-  userName: { required: [true, 'Needs a username'], type: String },
+  emailAddress: {
+    type: String,
+    required: [true, 'User Needs An Email'],
+    unique: true,
+  },
+  userName: {
+    required: [true, 'Needs a username'],
+    type: String,
+    unique: true,
+  },
   password: { required: [true, 'Needs a password'], type: String },
-  phoneNumber: String,
+  phoneNumber: { type: String, unique: true },
   birthDay: String,
   braSize: String,
   braletteSize: String,

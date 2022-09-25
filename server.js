@@ -14,6 +14,12 @@ console.log(app.get('env'));
 
 mongoose.connect(DB);
 console.log('Connected To DB');
+app.use(express.static('./Public'));
+
+//home-page
+app.get(`/`, (req, res) => {
+  res.sendFile(__dirname + './index.html');
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

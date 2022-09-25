@@ -2,16 +2,20 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
   category: { required: [true, 'Product Needs A Category'], type: String },
-  subCategory: { required: [false, 'Product Needs A Category'], type: String },
+  subCategory: {
+    required: [true, 'Product Needs A Sub-Category'],
+    type: String,
+  },
   name: {
     type: String,
     required: [true, 'Product Needs A Name'],
+    unique: [true, 'Product Needs A Unique Name'],
   },
   ProductID: {
     type: String,
-    default: `${this.category}-${Math.floor(
-      10000000 + Math.random() * 50000000
-    )}`,
+    required: [true, ' Needs a UNIQUE 8 digit ID (SubCat Abbreviation+Number)'],
+    unique: true,
+    // Math.floor(10000000 + Math.random() * 50000000)
   },
   description: {
     required: [true, 'Needs A desciption'],

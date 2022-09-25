@@ -5,17 +5,16 @@ const morgan = require('morgan');
 const fs = require('fs');
 const app = express();
 
-const braRouter = require('./routes/braRoutes');
+const productRouter = require('./routes/productRoutes');
 const usersRouter = require('./routes/userRoute');
 // MIDDLEWARE
 // app.use(express.static(`${__dirname}/public`));
-
 app.use(morgan('dev'));
 app.use(express.json());
 
 // ROUTES
 
-app.use('/products', braRouter);
+app.use('/products', productRouter);
 app.use('/users', usersRouter);
 
 module.exports = app;
