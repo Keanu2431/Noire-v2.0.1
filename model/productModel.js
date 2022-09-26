@@ -26,9 +26,16 @@ const productSchema = new mongoose.Schema({
     default: [],
   },
   reviews: { default: [], type: Array },
+  ratings: { type: Array },
+  purchases: Number,
+  rating: Number,
   details: {
     type: Array,
     default: ['Made from the finest cloth for affordability'],
+  },
+  sizesAvailable: {
+    required: [true, 'Add upp all sizes per color and tally it here'],
+    type: Object,
   },
   price: { required: [true, 'Needs A price'], type: Number },
   colors: {
@@ -38,7 +45,14 @@ const productSchema = new mongoose.Schema({
     ],
     type: Array,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+    select: false,
+  },
 });
 
 const Product = mongoose.model('Product', productSchema);
+// productSchema.add({ sizesAvailable: Array });
 module.exports = Product;
+// db.products.updateMany({},{$set:{createdAt: { type: Date, default: Date.now(), select: false,}} }})
