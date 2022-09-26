@@ -123,12 +123,12 @@ exports.getProducts = async (req, res) => {
 
 exports.postNewProduct = async (req, res) => {
   try {
-    const newBra = await Bras.create(req.body);
+    const newProduct = await Product.create(req.body);
 
     res.status(201).json({
       status: 'success',
       data: {
-        newBra,
+        newProduct,
       },
     });
   } catch (error) {

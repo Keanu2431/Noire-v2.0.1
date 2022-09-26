@@ -11,14 +11,14 @@ const userSchema = new mongoose.Schema({
   emailAddress: {
     type: String,
     required: [true, 'User Needs An Email'],
-    unique: true,
     set: (v) => v.toLowerCase(),
+    unique: true,
   },
   userName: {
     required: [true, 'Needs a username'],
     type: String,
-    unique: true,
     set: (v) => v.toLowerCase(),
+    unique: true,
   },
   password: { required: [true, 'Needs a password'], type: String },
   phoneNumber: { type: String, unique: true },
