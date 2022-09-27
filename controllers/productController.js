@@ -2,6 +2,22 @@ const fs = require('fs');
 const Product = require('../model/productModel');
 
 // handlers
+exports.getAllProducts = async (req, res) => {
+  try {
+    const data = await Product.find({});
+    res.status(200).json({
+      status: 'success',
+      results: data.length,
+      data: data,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'Fail',
+      message: 'Bad Request',
+      error: error,
+    });
+  }
+};
 exports.getProducts = async (req, res) => {
   // 127.0.0.1:3000/products/bras/bralette?sortBy=LowToHigh&color=black&size=M
   // sort by price,  rating, new arrivals, relevancee
@@ -75,7 +91,7 @@ exports.getProducts = async (req, res) => {
       }
     }
     // sorting
-    // by price
+    // by price,rating,recentcy
     if (queryObj.sortBy) {
       const sort = queryObj.sortBy;
       if (sort == 'LowToHigh') {
@@ -102,7 +118,29 @@ exports.getProducts = async (req, res) => {
         data.sort(function (a, b) {
           return b.rating - a.rating;
         });
+      } else if (sort == 'Newest') {
+        data.sort(function (a, b) {
+          // Turn your strings into dates, and then subtract them
+          // to get a value that is either negative, positive, or zero.
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        });
+      } else if (sort == 'Oldest') {
+        console.log(sort);
+        data.sort(function (a, b) {
+          // Turn your strings into dates, and then subtract them
+          // to get a value that is either negative, positive, or zero.
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
       }
+    }
+    if (Array(queryObj.sortBy).flat().length > 1) {
+      res.status(400).json({
+        status: 'Fail',
+        message: 'Bad Request',
+        err: "Can't sort by more than one query, needs one or less sortBy queries",
+      });
+
+      return;
     }
     // limit results next, maybe use middleware func?
 
@@ -114,7 +152,7 @@ exports.getProducts = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      status: 'fail',
+      status: 'Fail',
       message: 'bad request',
       err: error,
     });

@@ -1,20 +1,38 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-  category: { required: [true, 'Product Needs A Category'], type: String },
+  category: {
+    required: [true, 'Product Needs A Category'],
+    type: String,
+    set: (v) => v.toUpperCase(),
+  },
   subCategory: {
     required: [true, 'Product Needs A Sub-Category'],
     type: String,
+    set: (v) =>
+      v
+        .toUpperCase()
+        .split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join('-'),
   },
   name: {
     type: String,
     required: [true, 'Product Needs A Name'],
     unique: [true, 'Product Needs A Unique Name'],
+    set: (text) =>
+      text
+        .toLowerCase()
+        .split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' '),
   },
   ProductID: {
     type: String,
-    required: [true, ' Needs a UNIQUE 8 digit ID (SubCat Abbreviation+Number)'],
+    required: [true, 'Needs a UNIQUE 8 digit ID (SubCat Abbreviation+Number)'],
     unique: true,
+    set: (v) =>
+      v.toUpperCase() + '-' + Math.floor(10000000 + Math.random() * 50000000),
     // Math.floor(10000000 + Math.random() * 50000000)
   },
   description: {
@@ -46,9 +64,8 @@ const productSchema = new mongoose.Schema({
     type: Array,
   },
   createdAt: {
-    type: Date,
-    default: Date.now(),
-    select: false,
+    type: Number,
+    default: new Date().getTime(),
   },
 });
 
