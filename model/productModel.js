@@ -67,6 +67,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: new Date().getTime(),
   },
+  timesSold: Number,
 });
 
 const Product = mongoose.model('Product', productSchema);

@@ -30,8 +30,9 @@ exports.getProducts = async (req, res) => {
     console.log(queryParams);
     let data;
     //finding all items in the category
-    if (queryParams.category) {
+    if (queryParams.category && queryParams.subCat == undefined) {
       // subCategory: sub
+      console.log(undefined);
       data = await Product.find({
         category: queryParams.category.toUpperCase(),
       });
