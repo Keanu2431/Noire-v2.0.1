@@ -549,6 +549,6 @@ updateUsersObject();
 // section 0 on page checks
 
 //
-fetch('http://127.0.0.1:3000/users/')
+fetch('http://127.0.0.1:3000/products/')
   .then((data) => data.json())
   .then((data) => console.log(data));
