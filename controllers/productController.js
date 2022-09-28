@@ -1,4 +1,3 @@
-const fs = require('fs');
 const Product = require('../model/productModel');
 
 // handlers
@@ -32,7 +31,7 @@ exports.getProducts = async (req, res) => {
     //finding all items in the category
     if (queryParams.category && queryParams.subCat == undefined) {
       // subCategory: sub
-      console.log(undefined);
+      console.log('show all in category');
       data = await Product.find({
         category: queryParams.category.toUpperCase(),
       });
