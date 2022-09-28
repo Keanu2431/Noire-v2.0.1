@@ -549,10 +549,6 @@ updateUsersObject();
 // section 0 on page checks
 
 //
-// fetch('http://127.0.0.1:3000/users/password-reset', {
-//   method: 'PATCH',
-//   headers: { 'Content-Type': 'application/json' },
-//   body: JSON.stringify({ userName: 'Keanu2431', newPassword: 'B@bycat21' }),
-// })
-//   .then((data) => data.json())
-//   .then((data) => console.log(data));
+fetch('http://127.0.0.1:3000/users/')
+  .then((data) => data.json())
+  .then((data) => console.log(data));
