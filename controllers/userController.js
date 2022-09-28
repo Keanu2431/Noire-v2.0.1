@@ -1,28 +1,4 @@
 const User = require('../model/userModel');
-// helper
-exports.verifyUserAndPass = (user, pass) => {
-  return allUsers.find((el) => {
-    return (
-      el.userName.toLowerCase() === user.toLowerCase() &&
-      el.userPassword === pass
-    );
-  });
-};
-exports.verifyUser = (req, res) => {
-  const username = req.params.user;
-  const password = req.params.password;
-  if (username && password && verifyUserAndPass(username, password)) {
-    res.status(200).json({
-      status: 'success',
-      data: verifyUserAndPass(username, password),
-    });
-  } else {
-    res.status(404).json({
-      status: 'failed',
-      message: 'No user with this matching username and password',
-    });
-  }
-};
 
 exports.createUser = async (req, res) => {
   try {
@@ -58,6 +34,21 @@ exports.editPassword = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: 'bad request',
+    });
+  }
+};
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({
+      status: 'success',
+      result: users.length,
+      data: users,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'bad request path does not exist',
     });
   }
 };

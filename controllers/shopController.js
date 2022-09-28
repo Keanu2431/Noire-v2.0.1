@@ -1,22 +1,35 @@
 const Product = require('../model/productModel');
 
 exports.getOneProduct = async (req, res) => {
-  console.log('route');
+  console.time();
   try {
-    // let item = req.params.productID;
-    // console.log(item);
-    const data = await Product.find({ ProductID: 'PJS-31705316' });
+    const queryParams = { ...req.params };
+    const queryObj = { ...req.query };
+    let data;
+    let id = queryParams.productID;
+
+    let all = await Product.find();
+
+    data = all.find((el) => el.ProductID === id);
+
+    if (queryObj?.color) {
+      let color = queryObj.color.toLowerCase();
+      // change images for the corresponding images/color
+    }
     res.status(200).json({
       staus: 'Success',
+      results: data?.length,
+      queryCheck: id,
       data: data,
     });
   } catch (error) {
     console.log(error);
     res.status(400).json({
       status: 'Fail',
-      message: 'bad request',
+      message: 'bad request,check',
       err: error,
     });
   }
+  console.timeEnd();
 };
-// { ProductID: 'PJS-31705316' }
+// { ProductID: "LCE-16633236" }
