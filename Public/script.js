@@ -266,7 +266,7 @@ const resetPassSwitchBtn = document.querySelector(`#forgot-password-btn`);
 //functions
 const loginActivateFunc = function () {
   if (signedInStatus == `signed-in`) {
-    window.location.href = `/account/profile.html`;
+    window.location.href = `/account/profile`;
   } else {
     registerModal.classList.add(`hidden`);
     resetPassModal.classList.add(`hidden`);

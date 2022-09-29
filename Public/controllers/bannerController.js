@@ -34,7 +34,7 @@ const loggedUIDrop = () => {
   }
 };
 const loginActivateFunc = function () {
-  if (mainModel.state.loggedIn === true) {
+  if (mainModel.state.user !== undefined) {
     window.location.href = `/account`;
   } else {
     HeaderView.registerModal.classList.add(`hidden`);
