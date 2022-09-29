@@ -1,4 +1,6 @@
+import * as mainModel from '../model/mainModel.js';
+
 export const state = {
-  loggedIn: true,
-  user: {},
+  loggedIn: false,
+  user: undefined,
 };

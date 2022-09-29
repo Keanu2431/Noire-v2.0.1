@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   password: { required: [true, 'Needs a password'], type: String },
-  phoneNumber: { type: String, unique: true },
+  phoneNumber: { type: String, unique: false },
   birthDay: String,
   braSize: String,
   braletteSize: String,

@@ -1,5 +1,7 @@
 import HeaderView from '../views/headerView.js';
 import * as mainModel from '../model/mainModel.js';
+
+// FUNC
 const tagDrop = (e) => {
   // console.log(e.target);
   HeaderView.tagData = e.target.dataset.tag;
@@ -27,10 +29,37 @@ const tagDrop = (e) => {
   });
 };
 const loggedUIDrop = () => {
-  if (mainModel.state.loggedIn === true) {
+  if (mainModel.state.user !== undefined) {
     HeaderView.loggedInUI.classList.remove(`hidden`);
   }
 };
+const loginActivateFunc = function () {
+  if (mainModel.state.loggedIn === true) {
+    window.location.href = `/account`;
+  } else {
+    HeaderView.registerModal.classList.add(`hidden`);
+    HeaderView.resetPassModal.classList.add(`hidden`);
+    HeaderView.loginModal.classList.remove(`hidden`);
+    // HeaderView.loginErr.classList.add(`hidden`);
+    HeaderView.loginActivate.click();
+  }
+};
+const registerSwitch = function () {
+  HeaderView.loginModal.classList.add(`hidden`);
+  HeaderView.resetPassModal.classList.add(`hidden`);
+
+  HeaderView.registerModal.classList.remove(`hidden`);
+  HeaderView.registerModal.classList.add(`fade-in`);
+};
+const resetPassSwitch = function () {
+  HeaderView.loginModal.classList.add(`hidden`);
+  HeaderView.registerModal.classList.add(`hidden`);
+  HeaderView.resetPassModal.classList.remove(`hidden`);
+  HeaderView.resetPassModal.classList.add(`fade-in`);
+};
+// LOGIN ACTIVATE
+HeaderView.loginBtn.addEventListener('click', loginActivateFunc);
+// BANNER  DROP CONTROLL
 HeaderView.bannerTags.forEach((tag) => {
   //   console.log(tag);
   tag.addEventListener('mouseover', tagDrop);
@@ -55,3 +84,8 @@ HeaderView.loginBtn?.addEventListener(`mouseover`, loggedUIDrop);
 // bannerTags.forEach(function (tag) {
 //     tag.addEventListener(`mouseover`, tagDrop);
 //   });
+// register switch
+HeaderView.registerSwitchBtn?.addEventListener('click', registerSwitch);
+// reset pass switch
+HeaderView.resetPassSwitchBtn?.addEventListener(`click`, resetPassSwitch);
+console.log(mainModel.state.user);

@@ -10,14 +10,57 @@ class HeaderView {
     this.logOutBtn = document.querySelector(`#log-out-btn`);
     this.loginBtn = document.querySelector(`#sign-in`);
   }
-
+  loginActivate = document.querySelector(`#login-activate`);
+  loginModal = document.querySelector(`#for-login`);
+  registerModal = document.querySelector(`#for-register`);
+  resetPassModal = document.querySelector(`#for-reset`);
+  registerSwitchBtn = document.querySelector(`#switch-register`);
+  resetPassSwitchBtn = document.querySelector(`#forgot-password-btn`);
   tagData = '';
   holder = '';
 }
 export default new HeaderView();
 
 //
+
 //
+//
+// loginActivate = document.querySelector(`#login-activate`);
+// loginModal = document.querySelector(`#for-login`);
+// registerModal = document.querySelector(`#for-register`);
+// resetPassModal = document.querySelector(`#for-reset`);
+// registerSwitchBtn = document.querySelector(`#switch-register`);
+// resetPassSwitchBtn = document.querySelector(`#forgot-password-btn`);
+//functions
+const loginActivateFunc = function () {
+  if (signedInStatus == `signed-in`) {
+    window.location.href = `/account/profile.html`;
+  } else {
+    registerModal.classList.add(`hidden`);
+    resetPassModal.classList.add(`hidden`);
+    loginModal.classList.remove(`hidden`);
+    loginErr.classList.add(`hidden`);
+    loginActivate.click();
+  }
+};
+const registerSwitch = function () {
+  loginModal.classList.add(`hidden`);
+  resetPassModal.classList.add(`hidden`);
+
+  registerModal.classList.remove(`hidden`);
+  registerModal.classList.add(`fade-in`);
+};
+const resetPassSwitch = function () {
+  loginModal.classList.add(`hidden`);
+  registerModal.classList.add(`hidden`);
+  resetPassModal.classList.remove(`hidden`);
+  resetPassModal.classList.add(`fade-in`);
+};
+// IMPLEMENTATION
+// loginBtn?.addEventListener(`click`, loginActivateFunc);
+// registerSwitchBtn?.addEventListener(`click`, registerSwitch);
+// resetPassSwitchBtn?.addEventListener(`click`, resetPassSwitch);
+// SECTION 3 SWITCHING LOGIN/REGISTER/FORGOT Modal
 //
 // loginBtn?.addEventListener(`mouseover`, loggedUIDrop);
 // bannerTags.forEach(function (tag) {

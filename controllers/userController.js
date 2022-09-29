@@ -6,12 +6,15 @@ exports.createUser = async (req, res) => {
     const newUser = await User.create(req.body);
     res.status(201).json({
       status: 'Success User Created',
-      data: {
-        user: newUser,
-      },
+
+      user: { username: newUser.userName, email: newUser.emailAddress },
     });
   } catch (error) {
-    res.status(400).json({ status: 'Fail', message: error });
+    res.status(400).json({
+      status: 'Fail',
+      message: error,
+      details: 'something went wrong',
+    });
   }
 };
 exports.editPassword = async (req, res) => {
