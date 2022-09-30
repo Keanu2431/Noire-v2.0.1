@@ -28,10 +28,12 @@ exports.protect = async function (req, res, next) {
     //   3)check if user still exist
     const user = await User.findById(decoded.id);
     if (!user) {
-      throw { status: 'fail', status: 404, message: 'User no longer exist' };
+      throw { status: 'fail', status: 401, message: 'User no longer exist' };
     }
     // check if user changed pass after token was issued
 
+    // grant access
+    req.user = user;
     next();
   } catch (error) {
     res.status(401).json({
@@ -39,4 +41,23 @@ exports.protect = async function (req, res, next) {
       error,
     });
   }
+};
+exports.restrictTo = (...roles) => {
+  return async (req, res, next) => {
+    try {
+      // roles is an array of args
+      if (!roles.includes(req.user.role)) {
+        console.log(req.user.role);
+        throw {
+          message: 'role not permitted for this action',
+        };
+      }
+      next();
+    } catch (error) {
+      res.status(403).json({
+        status: 'unauthorized/forbidden',
+        data: error,
+      });
+    }
+  };
 };

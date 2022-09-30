@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     set: (v) => v.toLowerCase(),
     unique: true,
   },
+  role: { type: String, enum: ['CLIENT', 'ADMIN'], default: 'CLIENT' },
   password: {
     required: [true, 'Needs a password'],
     type: String,
@@ -40,6 +41,7 @@ const userSchema = new mongoose.Schema({
   userCards: { type: Array, required: [false], default: [] },
   //   users shipping Array
   userShipping: { type: Array, required: [false], default: [] },
+  passwordChangedAt: Number,
 });
 // middleware that runs between the time we recieve the data and time we save to database
 userSchema.pre('save', async function (next) {
@@ -56,6 +58,11 @@ userSchema.methods.correctPassword = async function (
   console.log(userPassword);
   return await bcrypt.compare(candidatePassword, userPassword);
 };
-
+userSchema.methods.changedPasswordAfter = async function (jwtTimestamp) {
+  if (this.passwordChangedAt) {
+    console.log(this.passwordChangedAt, jwtTimestamp);
+  }
+  return false;
+};
 const User = mongoose.model('Users', userSchema);
 module.exports = User;

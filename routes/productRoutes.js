@@ -6,8 +6,16 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(authController.protect, productController.postNewProduct)
-  .get(authController.protect, productController.getAllProducts);
+  .post(
+    authController.protect,
+    // authController.restrictTo('ADMIN'),
+    productController.postNewProduct
+  )
+  .get(
+    authController.protect,
+    // authController.restrictTo('ADMIN'),
+    productController.getAllProducts
+  );
 router.route('/:category/:subCat?/').get(productController.getProducts);
 
 module.exports = router;
