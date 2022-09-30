@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const util = require('util');
+const User = require('../model/userModel');
 exports.protect = async function (req, res, next) {
   try {
     // 1) get token and check if exist
@@ -18,13 +19,17 @@ exports.protect = async function (req, res, next) {
       };
     }
     // 2) validate/verify token
+    // decoded tokeen
     const decoded = await util.promisify(jwt.verify)(
       token,
       process.env.SECRET_STRING
     );
     console.log(decoded);
     //   3)check if user still exist
-
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      throw { status: 'fail', status: 404, message: 'User no longer exist' };
+    }
     // check if user changed pass after token was issued
 
     next();
