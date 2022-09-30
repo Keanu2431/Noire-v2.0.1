@@ -7,6 +7,12 @@ class RegisterLoginView {
       `#register-password-error`
     );
     this.loginForm = document.querySelector('#login-form');
+    this.loginErr = document.querySelector(`#login-error-message`);
+    this.modalCloseBtn = document.querySelector(`#modal-close`);
+  }
+  clearForms() {
+    this._parentElement.reset();
+    this.loginForm.reset();
   }
 }
 

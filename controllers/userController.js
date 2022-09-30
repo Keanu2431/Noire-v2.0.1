@@ -44,6 +44,7 @@ const signToken = (id) => {
     expiresIn: process.env.JWT_EXP,
   });
 };
+const responseCookie = function () {};
 exports.createUser = async (req, res) => {
   try {
     const bodyReq = req.body;
@@ -119,6 +120,11 @@ exports.createUser = async (req, res) => {
     };
     const newUser = await User.create(properData);
     const token = signToken(newUser._id);
+    res.cookie('jwt', token, {
+      expiresIn: new Date(Date.now() + process.env.JWT_COOKIE_EXP),
+      httpOnly: true,
+      // secure: true,
+    });
     res.status(201).json({
       status: 'success',
       // sending the token essentially logs the user in when creating an account
@@ -176,7 +182,9 @@ exports.getAllUsers = async (req, res) => {
 };
 exports.loginAuth = async (req, res, next) => {
   try {
+    console.log(req.body);
     const { userName, password } = req.body;
+    console.log(userName, password);
     // check if username and password were submitted
     if (!userName || !password) {
       throw {
@@ -184,10 +192,9 @@ exports.loginAuth = async (req, res, next) => {
         message: 'Please provide both an password and a username',
       };
     }
-    // check if user exist
+    // check if user exist and pass is correct
     // adding select('+field') makes it so we get the field in the output that we hid in model
     const user = await User.findOne({ userName }).select('+password');
-    console.log(user);
     // const correctPass = await user.correctPassword(password, user.password);
 
     if (!user || !(await user.correctPassword(password, user.password))) {
@@ -198,12 +205,17 @@ exports.loginAuth = async (req, res, next) => {
       };
     }
     // const compareBcrypt = await bcrypt.hash(password, 16);
-
-    // and pass is correct
+    console.log('logged in');
+    //
     const token = signToken(user._id);
+    res.cookie('jwt', token, {
+      expiresIn: new Date(Date.now() + process.env.JWT_COOKIE_EXP),
+      httpOnly: true,
+      // secure: true,
+    });
     res.status(200).json({
       status: 'success',
-      token,
+      // token,
     });
   } catch (error) {
     console.log(error);

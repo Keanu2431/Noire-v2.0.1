@@ -6,6 +6,11 @@ import * as CONFIG from '../config.js';
 import * as mainModel from '../model/mainModel.js';
 
 // const registerBtn = document.querySelector('#register-submit-btn');
+RegisterLoginView.modalCloseBtn.addEventListener('click', function () {
+  RegisterLoginView._parentElement.reset();
+  RegisterLoginView.loginForm.reset();
+});
+
 RegisterLoginView._parentElement.addEventListener('submit', async function (e) {
   e.preventDefault();
   //   alert('sub');
@@ -58,6 +63,12 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
     },
     body: JSON.stringify(user),
   }).then((data) => data.json());
-  console.log(resData);
+  if (resData.status == 'fail') {
+    RegisterLoginView.loginErr.classList.remove('hidden');
+  } else {
+    RegisterLoginView.modalCloseBtn.click();
+    RegisterLoginView.loginForm.reset();
+    mainModel.state.user = true;
+  }
   // {"emailAddress":"lumppkinkeddfsdfsdfdgjdnu@gmail.com","userName":"kerfsddsdffgfsmitkan","password":"Babyc@t24"}
 });
