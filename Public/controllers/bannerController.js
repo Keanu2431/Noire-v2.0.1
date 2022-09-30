@@ -88,4 +88,3 @@ HeaderView.loginBtn?.addEventListener(`mouseover`, loggedUIDrop);
 HeaderView.registerSwitchBtn?.addEventListener('click', registerSwitch);
 // reset pass switch
 HeaderView.resetPassSwitchBtn?.addEventListener(`click`, resetPassSwitch);
-console.log(mainModel.state.user);

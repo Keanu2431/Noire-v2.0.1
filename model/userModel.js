@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   createdAt: {
     type: Number,
@@ -19,7 +19,11 @@ const userSchema = new mongoose.Schema({
     set: (v) => v.toLowerCase(),
     unique: true,
   },
-  password: { required: [true, 'Needs a password'], type: String },
+  password: {
+    required: [true, 'Needs a password'],
+    type: String,
+    select: false,
+  },
   phoneNumber: { type: String, unique: false },
   birthDay: String,
   braSize: String,
@@ -37,6 +41,21 @@ const userSchema = new mongoose.Schema({
   //   users shipping Array
   userShipping: { type: Array, required: [false], default: [] },
 });
+// middleware that runs between the time we recieve the data and time we save to database
+userSchema.pre('save', async function (next) {
+  // if password hasn't been modified, exit the function and move to next middleware
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 16);
+});
+
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  console.log(candidatePassword);
+  console.log(userPassword);
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model('Users', userSchema);
 module.exports = User;
