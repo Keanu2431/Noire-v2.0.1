@@ -8,12 +8,12 @@ router
   .route('/')
   .post(
     authController.protect,
-    // authController.restrictTo('ADMIN'),
+    authController.restrictTo('ADMIN'),
     productController.postNewProduct
   )
   .get(
     authController.protect,
-    // authController.restrictTo('ADMIN'),
+    authController.restrictTo('ADMIN'),
     productController.getAllProducts
   );
 router.route('/:category/:subCat?/').get(productController.getProducts);

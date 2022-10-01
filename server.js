@@ -17,10 +17,14 @@ console.log('Connected To DB');
 app.use(express.static('./Public'));
 
 //home-page
-app.get(`/`, (req, res) => {
-  res.sendFile(__dirname + './index.html');
-});
-
+// app.get('/', (req, res, next) => {
+//   res.sendFile(__dirname + './index.html');
+// });
+// account page
+// app.get('/account', (req, res, next) => {
+//   console.log(__dirname);
+//   // res.sendFile();
+// });
 const port = 3000;
 app.listen(port, () => {
   console.log(`running on port:${port}`);

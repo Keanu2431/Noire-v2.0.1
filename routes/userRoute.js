@@ -13,5 +13,8 @@ router
 router.route('/login').post(userController.loginAuth);
 router.route('/register').post(userController.createUser);
 router.route('/password-reset').patch(userController.editPassword);
+router.route('/cookie').post(async function (req, res, next) {
+  console.log(req);
+});
 
 module.exports = router;

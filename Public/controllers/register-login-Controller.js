@@ -56,19 +56,45 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
     userName: loginData[0][1].toLowerCase(),
     password: loginData[1][1],
   };
-  const resData = await fetch(CONFIG.LOGIN_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  }).then((data) => data.json());
-  if (resData.status == 'fail') {
-    RegisterLoginView.loginErr.classList.remove('hidden');
-  } else {
+  try {
+    const resData = await axios({
+      method: 'POST',
+      url: CONFIG.LOGIN_URL,
+      data: user,
+    });
+    console.log(resData);
+
     RegisterLoginView.modalCloseBtn.click();
     RegisterLoginView.loginForm.reset();
-    mainModel.state.user = true;
+    mainModel.state.loggedIn = true;
+  } catch (error) {
+    RegisterLoginView.loginErr.classList.remove('hidden');
+
+    console.log(error.response.data);
   }
+
   // {"emailAddress":"lumppkinkeddfsdfsdfdgjdnu@gmail.com","userName":"kerfsddsdffgfsmitkan","password":"Babyc@t24"}
 });
+// RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
+//   e.preventDefault();
+//   const loginData = [...new FormData(this).entries()];
+//   const user = {
+//     userName: loginData[0][1].toLowerCase(),
+//     password: loginData[1][1],
+//   };
+//   const resData = await fetch(CONFIG.LOGIN_URL, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(user),
+//   }).then((data) => data.json());
+//   if (resData.status == 'fail') {
+//     RegisterLoginView.loginErr.classList.remove('hidden');
+//   } else {
+//     RegisterLoginView.modalCloseBtn.click();
+//     RegisterLoginView.loginForm.reset();
+//     mainModel.state.user = true;
+//   }
+//   // {"emailAddress":"lumppkinkeddfsdfsdfdgjdnu@gmail.com","userName":"kerfsddsdffgfsmitkan","password":"Babyc@t24"}
+// });

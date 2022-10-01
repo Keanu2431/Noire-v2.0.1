@@ -29,12 +29,12 @@ const tagDrop = (e) => {
   });
 };
 const loggedUIDrop = () => {
-  if (mainModel.state.user !== undefined) {
+  if (mainModel.state.loggedIn === true) {
     HeaderView.loggedInUI.classList.remove(`hidden`);
   }
 };
 const loginActivateFunc = function () {
-  if (mainModel.state.user !== undefined) {
+  if (mainModel.state.loggedIn === true) {
     window.location.href = `/account`;
   } else {
     HeaderView.registerModal.classList.add(`hidden`);
