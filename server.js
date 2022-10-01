@@ -14,7 +14,7 @@ console.log(app.get('env'));
 
 mongoose.connect(DB);
 console.log('Connected To DB');
-app.use(express.static('./Public'));
+// app.use(express.static('./Public'));
 
 //home-page
 // app.get('/', (req, res, next) => {

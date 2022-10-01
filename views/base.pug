@@ -1,0 +1,450 @@
+doctype html
+head
+  link(rel='shortcut icon' href='/Images/Logos/logo.png' type='image/x-icon')
+  link(rel='shortcut icon' href='/Images/Logos/logo.png' type='image/x-icon')
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Noire
+  link(rel='stylesheet' href='style.css')
+  // <script src="/script.js" defer></script>
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js')
+  script(src='./controllers/bannerController.js' type='module')
+  script(src='./controllers/register-login-Controller.js' type='module')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+  // bs5
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js' integrity='sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa' crossorigin='anonymous' defer='')
+// sign in form/pop=up
+div(id='login-pop up')
+  // Button trigger modal
+  button#login-activate.btn.btn-primary.hidden(type='button' data-bs-toggle='modal' data-bs-target='#login-label')
+    | login
+  // Modal
+  #login-label.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='login-labelLabel' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered
+      .modal-content
+        .modal-header
+          button#modal-close.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+        // pop up container modals
+        #for-login.modal-body.login-container
+          h1 sign in
+          h3(style='color: var(--primary-color-lighter)')
+            | makes for a personalized shopping experience
+          form#login-form.login-signup(action='')
+            input#login-username.login(type='text' name='login-username' data-login='username' placeholder='USERNAME' required='')
+            input#login-password.login(type='password' name='login-password' data-login='password' placeholder='PASSWORD' required='')
+            h3#login-error-message.hidden(style='color: red; font-size: 18px')
+              | We do not recognize your sign-in information. Please try again
+            #lower-row-form
+              div
+                input#stay-logged-in(type='checkbox' name='stay-logged-in')
+                label(for='stay-logged-in') stay logged in
+              h6#forgot-password-btn Forgot password?
+            button#login-submit-btn.noire-btn(type='submit')
+              | LOGIN
+          #register-footer
+            h1 create an account
+            h3(style='color: var(--primary-color-lighter)')
+              | register with noire to enjoy a personalized experience
+            button#switch-register.noire-btn(type='button')
+              | REGISTER
+        #for-register.modal-body.login-container.hidden
+          h1 register
+          h3(style='color: var(--primary-color-lighter)')
+            | register with noire to enjoy a personalized experience
+          form#register-form.login-signup(action='')
+            h3#register-email-error.error-text.hidden
+              | email already registered or invalid
+            input#register-email.register(type='email' name='register-email' data-register='email' placeholder='EMAIL' required='')
+            h3#register-username-error.error-text.hidden
+              | username is already registered or invalid 
+              br
+              | username must
+              |                   be between 8-32 characters
+            input#register-username.register(type='text' name='register-username' data-register='username' placeholder='USERNAME' required='')
+            input#register-password.register(type='password' name='register-password' data-register='password' placeholder='PASSWORD' required='')
+            h3#register-password-error.hidden
+              ul
+                li.error-text
+                  | password must Be Between 8-32 Characters
+                li.error-text
+                  | must include atleast one number , special character and
+                  | capital letter
+                // <li class="error-text">h</li>
+            button#register-submit-btn.noire-btn(type='submit')
+              | REGISTER
+            h3(style='\
+            color: var(--primary-color-lighter);\
+            font-size: 16px;\
+            margin-top: 12px;\
+            ')
+              | view our 
+              a(href='/privacy-policy.html')  privacy policy
+              |  &amp;
+              a(href='/terms-and-conditions.html')  terms and conditions
+        #for-reset.modal-body.login-container.hidden
+          h1 Reset Password
+          h3#reset-title(style='color: var(--primary-color-lighter)')
+            | enter username
+          form#reset-form.login-signup(action='')
+            input#reset-username.reset(type='text' name='reset-username' data-reset='username' placeholder='USERNAME')
+            h3#reset-error-user.hidden(style='color: red; font-size: 18px')
+              | We do not recognize username. Please try again
+            button#reset-submit.noire-btn(type='submit')
+              | RESET
+          form#reset-password-form.login-signup.hidden(action='')
+            input#reset-passsword-1.reset(type='password' name='reset-passsword-1' data-reset='passsword-1' placeholder='ENTER NEW PASSWORD' style='text-transform: none')
+            input#reset-passsword-2.reset(type='password' name='reset-passsword-2' data-reset='passsword-2' placeholder='CONFIRM PASSWORD' style='text-transform: none')
+            button#reset-password-submit.noire-btn(type='submit')
+              | RESET
+        #for-forgot-success.modal-body.login-container.hidden
+          h1 Reset Password
+          h1(style='\
+          color: var(--secondary-color);\
+          top: 48px;\
+          position: relative;\
+          ')
+            | if and account exist for this username a reset link will be sent
+            | in 2-3 minutes
+// banner
+#banner-container
+  #rows
+    .row-0
+      .search-container
+        form.d-flex(role='search')
+          input#search-text.form-control.me-2(type='search' placeholder='Search...' aria-label='Search')
+          button#search-button.btn.btn-outline-success(type='submit')
+            span.material-icons  search 
+      #center-logo
+        a(href='/index.html')
+          img.banner-logo(src='/images/Logos/logo.png' alt='')
+      .banner-icons
+        h2#wishlist.tag
+          a(href='/account/wishlist.html')
+            span.material-icons  favorite 
+        //
+          <h2 class="tag hidden" id="logged-in">
+          <span class="material-icons">person</span>
+          </h2>
+        h2#sign-in.tag(data-status='')
+          span.material-icons person
+        // UI DROPDOWN
+        #account-dropdown.UI-drop-container.hidden
+          .UI-dropdown
+            a#profile(href='/account/profile.html') profile
+            a#orders-returns(href='/account/orders-returns.html') orders &amp; returns
+            a#payment-info(href='/account/payment-info.html')
+              | payment info
+            a#shipping-info(href='/account/shipping-info.html') shipping info
+            a#wishlist(href='/account/wishlist.html') wishlist
+            h2#log-out-btn Log Out
+        // UI ^DROPDOWN^
+        h2#bag.tag
+          span.material-icons  shopping_bag 
+    .row-1
+      a#banner-hider-tag.tag(href='/closet.html') the closet
+      a#banner-tag.tag(href='/Products/new/all.html' data-tag='new-arrivals') new arrivals
+      a#banner-hider-tag.tag(href='/best-sellers.html') best sellers
+      a#banner-tag.tag(href='/Products/bras/all.html' data-tag='bras') bras
+      a#banner-tag.tag(href='/Products/panties/all.html' data-tag='panties') panties
+      a#banner-tag.tag(href='/Products/lingerie/all.html' data-tag='lingerie') Lingerie
+      a#banner-tag.tag(href='/Products/sleep/all.html' data-tag='sleep-wear') sleep wear
+      a#banner-tag.tag(href='/Products/accessories/all.html' data-tag='accessories') accessories
+      a#banner-hider-tag.tag(href='/for-him.html') for him
+      a#banner-tag.tag(href='/Products/mens/all.html' data-tag='mens') mens
+      a#banner-hider-tag.tag(href='/sale.html' style='color: red' data-tag='sale') sale
+      // news is noire now
+      a#banner-tag.tag(href='/noire-now/noire.html' data-tag='noire-now') noire now
+  .banner-dropdown-container.hidden
+    // new arrivals
+    #items-holder.hidden(data-tag='new-arrivals')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/Products/new/all.html')
+            h1.tag.column-title new arrivals
+          .inner-tags
+            a(href='/Products/new/special.html' style='color: var(--secondary-color)') 50% of sitewide
+            a(href='/Products/new/special.html') see all
+            a(href='/Products/new/bras.html') bras
+            a(href='/Products/new/panties.html') panties
+            a(href='/Products/new/lingerie.html') lingerie
+            a(href='/Products/new/sleep-wear.html') sleep wear
+            a(href='/Products/new/accessories.html' style='text-decoration: none') Accessories
+            a(href='/Products/new/mens.html') mens
+        #column-1.column-item
+          a(href='/Products/new/sets.html')
+            h1.tag.column-title Sets
+          .inner-tags
+            a(href='/Products/new/sets/bras-and-panties.html') bras &amp; panties
+            a(href='/Products/new/sets/bralette-and-panties.html') bralette &amp; panties
+            a(href='/Products/new/sets/sleep.html') sleep sets
+          // accessories
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler1.jpeg' alt='' srcset='')
+            a.tag(href='/best-sellers.html') See what everyone&apos;s buying
+            h3 top of the line quality
+          .image-card
+            img(src='/images/Models/Filler/filler2.webp' alt='' srcset='')
+            a.tag(href='/for-him.html') buy something for the occasion
+    // bras
+    #items-holder.hidden(data-tag='bras')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/Products/bras/all.html')
+            h1.tag.column-title bras
+          .inner-tags
+            a(href='/Products/bras/special' style='color: var(--secondary-color)') BOGO 20% OFF
+            a(href='/Products/bras/all.html') see all
+            a(href='/Products/bras/bralette.html') bralette
+            a(href='/Products/bras/push-up.html') push up
+            a(href='/Products/bras/lace.html') lace
+            a(href='/Products/bras/strapless.html') strapless
+        #column-1.column-item
+          h1.tag.column-title sets
+          .inner-tags
+            a(href='/Products/sets/bras-and-panties.html') bras &amp; panties
+            a(href='/Products/sets/bralette-and-panties.html') bralette &amp; panties
+            a(href='/Products/sets/active-wear.html') active wear
+        .one-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-bras-2.jpeg' alt='' srcset='')
+            a.tag(href='/closet.html') need help picking?
+            h3 we&apos;ve got you
+    // panties
+    #items-holder.hidden(data-tag='panties')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/Products/panties/all.html')
+            h1.tag.column-title panties
+          .inner-tags
+            a(href='/Products/panties/all.html') see all
+            a(href='/Products/panties/thong.html') thong
+            a(href='/Products/panties/shorts.html') shorts
+            a(href='/Products/panties/high-waist.html') high waist
+        #column-1.column-item
+          h1.tag.column-title sets
+          .inner-tags
+            a(href='/Products/sets/bras-and-panties.html') bras &amp; panties
+            a(href='/Products/sets/bralette-and-panties.html') bralette &amp; panties
+            a(href='/Products/sets/active-wear.html') active wear
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-panties-1.webp' alt='' srcset='')
+            a.tag(href='/Products/panties/thong.html') thongs &amp; g-strings
+            h3 feeling yourself? we are
+          .image-card
+            img(src='/images/Models/Filler/filler-panties-2.jpeg' alt='' srcset='')
+            a.tag(href='/best-sellers.html') something for all
+    // lingerie
+    #items-holder.hidden(data-tag='lingerie')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/Products/lingerie/all.html')
+            h1.tag.column-title lingerie
+          .inner-tags
+            a(href='/Products/lingerie/all.html') see all
+            a(href='/Products/lingerie/bodysuit.html') bodysuits
+            a(href='/Products/lingerie/curvy.html') curvy
+            a(href='/Products/lingerie/slips.html') slips
+            a(href='/Products/lingerie/corsets.html') corsets
+        #column-1.column-item
+          h1.tag.column-title accessories
+          .inner-tags
+            a(href='/Products/lingerie/accessories/all.html') see all
+            a(href='/Products/lingerie/accessories/strings.html') strings
+            a(href='/Products/lingerie/accessories/head-wear.html') head wear
+        .one-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-lingerie-1.webp' alt='' srcset='')
+            h3 be the center of attention
+    // sleep wear
+    #items-holder.hidden(data-tag='sleep-wear')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/Products/sleep/all.html')
+            h1.tag.column-title sleep wear
+          .inner-tags
+            a(href='/Products/sleep/all.html') see all
+            a(href='/Products/sleep/pajamas.html') Pajamas
+            a(href='/Products/sleep/robes.html') robes
+            a(href='/Products/sleep/slides.html') slides
+        #column-1.column-item
+          h1.tag.column-title accessories
+          .inner-tags
+            a(href='/Products/sleep/eye-wear.html') eye wear
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-sleepwear-1.jpeg' alt='' srcset='')
+            a.tag(href='/sale.html') save some money.
+          .image-card
+            img(src='/images/Models/Filler/filler-sleepwear-2.jpeg' alt='' srcset='')
+            a.tag(href='/Products/accessories/all.html') top off your fit
+            h3 not everyone can stand out
+    // accessories
+    #items-holder.hidden(data-tag='accessories')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/Products/accessories/all.html')
+            h1.tag.column-title accessories
+          .inner-tags
+            a(href='/Products/accessories/all.html') see all
+            a(href='/Products/accessories/bracelets.html') bracelets
+            a(href='/Products/accessories/anklets.html') anklets
+            a(href='/Products/accessories/necklace.html') necklace
+            a(href='/Products/accessories/rings.html') rings
+            //
+              <a href="#">stockings</a>
+              <a href="#">headwear</a>
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-accessories-1.webp' alt='' srcset='')
+            h3 Love your style? we try our best
+          .image-card
+            img(src='/images/Models/Filler/filler-accessories-2.webp' alt='' srcset='')
+            a.tag(href='/Products/mens/all.html') don&apos;t be selfish
+            h3 spread the love
+    // mens
+    #items-holder.hidden(data-tag='mens')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/Products/mens/all.html')
+            h1.tag.column-title mens
+          .inner-tags
+            a(href='/Products/mens/all.html') see all
+            a(href='/Products/mens/underwear.html') underwear
+            a(href='/Products/mens/robe.html') robe
+            a(href='/Products/mens/socks.html') socks
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-mens-1.jpeg' alt='' srcset='')
+            a.tag(href='/noire-now/noire.html') see what&apos;s going on
+          .image-card
+            img(src='/images/Models/Filler/filler-mens-2.jpeg' alt='' srcset='')
+            a.tag(href='/for-him.html') catered to your wants
+            h3 you&apos;ll both enjoy it
+    // noire now
+    #items-holder.hidden(data-tag='noire-now')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          h1.tag.column-title be in the know
+          .inner-tags
+            a(href='/noire-now/vsecret-collab.html') noire X VSecret
+            a(href='/noire-now/prada-collab.html') noire x prada
+            // fall drop make it link to the first banner on home page
+            a(href='/noire-now/fall-22-drop.html') Fall drop
+            a(href='/noire-now/upcoming.html') what&apos;s next?
+        #column-1.column-item
+          h1.tag.column-title Guide
+          .inner-tags
+            a(href='/guide/sizing.html') General sizing
+            a(href='/guide/bra-guide.html') bra guide
+            a(href='/guide/underwear-guide.html')
+              // guide for both men and women underwear
+              | underwear guide
+        .one-image-box
+          .image-card
+            img(src='/Images/Models/Filler/filler-noire-now-1.jpeg' alt='' srcset='')
+            a.tag(href='/noire-now/upcoming.html') always evolving
+    // FIX THE DROPDOWN ITEM FLEX DATA TAG
+// special pop-up
+#special-pop-up.hidden(data-deny='true')
+  a(href='/Products/new/special.html')
+    img#special-image(src='/Images/Home/Banner Images/special.jpg' alt='')
+  button#special-close.noire-btn(type='button')
+    | Not Interested
+// keep content class
+.content
+  .home-container
+    .container-title
+      h2 Bringing back comfort to you
+      h1 you&apos;ll love it
+    // fall banneer
+    .banner-container
+      a(href='/noire-now/fall-22-drop.html')
+        img.image-banner(src='/Images/Home/Banner Images/banner-fall-22.jpg' alt='')
+    // categories banner
+    .banner-container
+      h1 Shop by category
+      .home-categories
+        a(href='/Products/bras/all.html')
+          img(src='/Images/Home/Banner Images/category-bra-card.png' alt='' srcset='')
+        a(href='/Products/panties/all.html')
+          img(src='/Images/Home/Banner Images/category-panties-card.png' alt='' srcset='')
+        a(href='/Products/lingerie/all.html')
+          img(src='/Images/Home/Banner Images/catergory-lingerie-card.png' alt='' srcset='')
+    // should i add a promotion video?
+    // create a slide that shows reviews
+    .banner-container
+      h1 why all the rave?
+      .carousel.slide(id='carouselExampleSlidesOnly reviews-slides' data-bs-ride='carousel')
+        .carousel-inner
+          .carousel-item.active
+            img.d-block.w-100(src='/Images/Home/Banner Images/review-slide-1.png' alt='...')
+          .carousel-item
+            img.d-block.w-100(src='/Images/Home/Banner Images/review-slide-2.png' alt='...')
+          .carousel-item
+            img.d-block.w-100(src='/Images/Home/Banner Images/review-slider-3.png' alt='...')
+      h2 customer&apos;s love the love
+    // hand picked favorites
+    // i'll be creating the product cards
+    // create footer then take a break and work on a seperate project or continie tutorial
+    .banner-container
+      h1 Hand picked favorites
+      .selected-product-container
+        a(href='#')
+          .smaller(data-smaller='0')
+            img(src='/Images/Home/Selected Images/selected-0.jpg' alt='')
+            h2 Azure Misty
+            h3 $45
+        a(href='#')
+          .smaller(data-smaller='1')
+            img(src='/Images/Home/Selected Images/selected-1.jpg' alt='')
+            h2
+              | Spandex Half 
+              br
+              |                   leggings
+            h3 $15
+        a(href='#')
+          .smaller(data-smaller='2')
+            img(src='/Images/Home/Selected Images/selected-2.jpg' alt='')
+            h2 Black Cotton Active
+            h3 $35
+        a(href='#')
+          .smaller(data-smaller='3')
+            img(src='/Images/Home/Selected Images/selected-3.jpg' alt='')
+            h2 Floral Print lace
+            h3 $20
+  // cookies container
+  .cookies-container
+    h3
+      | this website uses cookies to give users the best experience.
+      a(href='/cookies-about.html') learn more
+    .button-holder
+      button#cookies-no.noire-btn(type='button')
+        | Decline
+      button#cookies-yes.noire-btn(type='button')
+        | Accept
+  // footer
+  #footer-holder
+    #footer
+      .left-side
+        .tag-footer
+          h3 info
+          a(href='/affiliate.html') affiliate program
+          a(href='/guide/sizing.html') size guide
+          a(href='/blogger.html') fashion blogger
+          // use this link as a refference https://us.shein.com/Fashion-Blogger-a-475.html
+          a(href='/cookies-about.html') Cookies
+        .tag-footer
+          h3 service
+          a(href='/privacy-policy.html') privacy policy 
+          a(href='/return-policy.html') return policy 
+          a(href='/contact.html') contact us
+      .right-side
+        h1 sign up and stay in the know
+        form#sign-up(action='')
+          input#sign-up-email(type='email' name='sign-up-email' placeholder='Your Email Address' size='32' required='')
+          button(type='submit') Subscribe
+    h4(style='color: white') &copy;2022 Noire X LumpkinStudios
