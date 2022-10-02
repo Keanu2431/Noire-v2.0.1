@@ -28,7 +28,6 @@ app.use(cookieParser());
 
 app.use((req, res, next) => {
   console.log('parser');
-  console.log(req.cookies);
   next();
 });
 // ROUTES

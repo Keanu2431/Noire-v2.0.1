@@ -5,8 +5,14 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: new Date().getTime(),
   },
-  firstName: { type: String },
-  lastName: { type: String },
+  firstName: {
+    type: String,
+    set: (v) => v.charAt(0).toUpperCase() + v.slice(1),
+  },
+  lastName: {
+    type: String,
+    set: (v) => v.charAt(0).toUpperCase() + v.slice(1),
+  },
   emailAddress: {
     type: String,
     required: [true, 'User Needs An Email'],

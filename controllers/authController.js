@@ -70,8 +70,9 @@ exports.isLoggedIn = async function (req, res, next) {
 
     // grant access
     res.locals.user = user;
-    // console.log('locals');
-    // console.log(res.locals.user);
+    console.log(user);
+    console.log('locals');
+    console.log(res.locals.user);
     next();
   } catch (error) {
     return next();

@@ -24,45 +24,31 @@ exports.renderHome = async (req, res, next) => {
   }
 };
 exports.renderProfile = async (req, res, next) => {
-  res
-    .status(200)
-    .render('profile', { user: 'Keanu2431', name: 'Keanu Lumpkin' });
+  res.status(200).render('profile');
   next();
 };
 exports.renderOrders = async (req, res, next) => {
-  res
-    .status(200)
-    .render('orders', { user: 'Keanu2431', name: 'Keanu Lumpkin' });
+  res.status(200).render('orders');
   next();
 };
 exports.renderWishlist = async (req, res, next) => {
-  res
-    .status(200)
-    .render('wishlist', { user: 'Keanu2431', name: 'Keanu Lumpkin' });
+  res.status(200).render('wishlist');
   next();
 };
 exports.renderResetPass = async (req, res, next) => {
-  res
-    .status(200)
-    .render('reset-pass', { user: 'Keanu2431', name: 'Keanu Lumpkin' });
+  res.status(200).render('reset-pass');
   next();
 };
 exports.renderPayment = async (req, res, next) => {
-  res
-    .status(200)
-    .render('pay-info', { user: 'Keanu2431', name: 'Keanu Lumpkin' });
+  res.status(200).render('pay-info');
   next();
 };
 exports.renderShipping = async (req, res, next) => {
-  res
-    .status(200)
-    .render('ship-info', { user: 'Keanu2431', name: 'Keanu Lumpkin' });
+  res.status(200).render('ship-info');
   next();
 };
 exports.render_E_Pref = async (req, res, next) => {
-  res
-    .status(200)
-    .render('e-pref', { user: 'Keanu2431', name: 'Keanu Lumpkin' });
+  res.status(200).render('e-pref');
   next();
 };
 // router.get('/account/email-preferences', viewsController.render_E_Pref);

@@ -25,7 +25,10 @@ block bodyContent
                 .user-div
                     .inp-div
                         label#label-text(for='first-profile')  first name
-                        input#first-profile(type='text' value=`${user}` name='first-profile')
+                        if user.firstName 
+                            input#first-profile(type='text' value=`${user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}` name='first-profile')
+                        else
+                            input#first-profile(type='text' name='first-profile')
                     .inp-div
                         label#label-text(for='last-profile')  last name
                         input#last-profile(type='text' name='last-profile')
