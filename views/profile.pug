@@ -25,7 +25,7 @@ block bodyContent
                 .user-div
                     .inp-div
                         label#label-text(for='first-profile')  first name
-                        input#first-profile(type='text' name='first-profile')
+                        input#first-profile(type='text' value=`${user}` name='first-profile')
                     .inp-div
                         label#label-text(for='last-profile')  last name
                         input#last-profile(type='text' name='last-profile')
@@ -38,6 +38,7 @@ block bodyContent
                         input#number-profile(type='tel' name='number-profile')
                     .inp-div
                         label#label-text(for='birthday-profile')  birthday
+                        br
                         input#birthday-profile(type='date' name='birthday-profile')
                     br
                     h2 size information
