@@ -44,6 +44,39 @@ exports.protect = async function (req, res, next) {
     });
   }
 };
+exports.isLoggedIn = async function (req, res, next) {
+  try {
+    // 1) get token and check if exist
+    let token;
+    if (req.cookies.jwt) {
+      token = req.cookies.jwt;
+      console.log(token);
+    }
+    if (!token) {
+      return next();
+    }
+    // 2) validate/verify token
+    // decoded tokeen
+    const decoded = await util.promisify(jwt.verify)(
+      token,
+      process.env.SECRET_STRING
+    );
+    //   3)check if user still exist
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return next();
+    }
+    // check if user changed pass after token was issued
+
+    // grant access
+    res.locals.user = user;
+    // console.log('locals');
+    // console.log(res.locals.user);
+    next();
+  } catch (error) {
+    return next();
+  }
+};
 exports.restrictTo = (...roles) => {
   return async (req, res, next) => {
     try {

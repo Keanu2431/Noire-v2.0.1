@@ -226,4 +226,19 @@ exports.loginAuth = async (req, res, next) => {
   }
   // if okay send token to client
 };
+exports.logout = async (req, res) => {
+  try {
+    res.cookie('jwt', 'loggedOut', {
+      expires: new Date(Date.now() + 3000),
+      httpOnly: true,
+    });
+    res.status(200).json({ status: 'success' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 'fail',
+      message: 'internal service error',
+    });
+  }
+};
 // {"userName":"keanu2431","password":"B@bycat19"}

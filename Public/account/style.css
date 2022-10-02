@@ -1,5 +1,5 @@
-@import url("/style.css");
-input[type="radio"] {
+@import url('/style.css');
+input[type='radio'] {
   border: 5px solid black;
   -ms-transform: scale(1.75); /* IE 9 */
   -webkit-transform: scale(1.75); /* Chrome, Safari, Opera */
@@ -9,7 +9,7 @@ input[type="radio"] {
   background-color: green;
   margin-right: 12px;
 }
-input[type="radio"]:checked::after {
+input[type='radio']:checked::after {
   border: 6px solid black;
   outline: unset !important;
 }
@@ -231,6 +231,7 @@ label {
 }
 #shipping {
   width: 70%;
+  text-align: right;
 }
 .shipping-info {
   display: flex;

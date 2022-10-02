@@ -1,0 +1,47 @@
+extends base
+block append head
+    //- script(src='/account/account.js')
+
+block bodyContent
+    .profile-container
+        .container-tabs
+            h2
+                a.tabs(href='/account/profile') My Account
+            h2
+                a.tabs(href='/account/orders') orders &amp; returns
+            h2
+                a.tabs(href='/account/payment-info') payment info
+            h2
+                a.tabs(href='/account/shipping-info') shipping info
+            h2
+                a.tabs(href='/account/wishlist') wishlist
+            h2
+                a.tabs.active-tab(href='/account/email-preferences') email preferences
+            h2
+                a.tabs(href='/account/reset-password') password
+        .container-user-info
+            h2#username-holder(style='text-align: center')
+                | email preferences
+            .preference-div
+                h2#email-sub-text
+                | how often would you like to recieve news via email:
+            form#email-preferences(action='')
+                .radio-div
+                    input#freq(type='radio' name='e-pref' value='freq')
+                    label.email-label(for='freq') Frequently
+                .radio-div
+                    input#somewhat-freq(type='radio' name='e-pref' value='somewhat-freq')
+                    label.email-label(for='somewhat-freq') Somewhat Frequently
+                .radio-div
+                    input#never(type='radio' name='e-pref' value='never')
+                    label.email-label(for='never') Never
+                h2#email-sub-text(style='margin-top: 12px')
+                | would you like our partners to reach out to you:
+                .radio-div
+                    input#yes(type='radio' name='reach-out' value='yes')
+                    label.email-label(for='yes') yes
+                .radio-div
+                    input#no(type='radio' name='reach-out' value='no')
+                    label.email-label(for='no') no
+                button#update-preferences.noire-btn(type='submit')
+                    | Update

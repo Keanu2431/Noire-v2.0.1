@@ -9,6 +9,7 @@ class HeaderView {
     this.loggedInUI = document.querySelector(`#account-dropdown`);
     this.logOutBtn = document.querySelector(`#log-out-btn`);
     this.loginBtn = document.querySelector(`#sign-in`);
+    this.loggedStatus = document.querySelector('#sign-in').dataset.logged;
   }
   modalCloseBtn = document.querySelector(`#modal-close`);
 

@@ -1,0 +1,78 @@
+extends base
+//- block append head
+//-     //- -script(src='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js')
+
+block bodyContent
+    .profile-container
+        .container-tabs
+            h2
+                a.tabs.active-tab(href='/account/profile') My Account
+            h2
+                a.tabs(href='/account/orders') orders &amp; returns
+            h2
+                a.tabs(href='/account/payment-info') payment info
+            h2
+                a.tabs(href='/account/shipping-info') shipping info
+            h2
+                a.tabs(href='/account/wishlist') wishlist
+            h2
+                a.tabs(href='/account/email-preferences') email preferences
+            h2
+                a.tabs(href='/account/reset-password') password
+        .container-user-info
+            h2#username-holder your information
+            form#user-info(action='')
+                .user-div
+                    .inp-div
+                        label#label-text(for='first-profile')  first name
+                        input#first-profile(type='text' name='first-profile')
+                    .inp-div
+                        label#label-text(for='last-profile')  last name
+                        input#last-profile(type='text' name='last-profile')
+                    .inp-div
+                        | Email Address
+                        label#email-text(for='email-profile')
+                        input#email-profile(type='text' name='email-profile' disabled='')
+                    .inp-div
+                        label#label-text(for='number-profile')  phone
+                        input#number-profile(type='tel' name='number-profile')
+                    .inp-div
+                        label#label-text(for='birthday-profile')  birthday
+                        input#birthday-profile(type='date' name='birthday-profile')
+                    br
+                    h2 size information
+                    br
+                    .inp-div(style='border: none')
+                        label(for='bra-size')  bra size
+                        select#bra-size(name='bra-size')
+                            option(value='XS') XS
+                            option(value='S') S
+                            option(value='M') M
+                            option(value='L') L
+                            option(value='XL') XL
+                    .inp-div(style='border: none')
+                        label(for='bralette-size')  bralette size
+                        select#bralette-size(name='bralette-size')
+                            option(value='XS') XS
+                            option(value='S') S
+                            option(value='M') M
+                            option(value='L') L
+                            option(value='XL') XL
+                    .inp-div(style='border: none')
+                        label(for='panty-size')  panty size
+                        select#panty-size(name='panty-size')
+                            option(value='XS') XS
+                            option(value='S') S
+                            option(value='M') M
+                            option(value='L') L
+                            option(value='XL') XL
+                    .inp-div(style='border: none')
+                        label(for='lingerie-size')  lingerie size
+                        select#lingerie-size(name='lingerie-size')
+                            option(value='XS') XS
+                            option(value='S') S
+                            option(value='M') M
+                            option(value='L') L
+                            option(value='XL') XL
+                button#update-basic.noire-btn(type='submit')
+                    | Update

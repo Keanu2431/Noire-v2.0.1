@@ -34,6 +34,7 @@ RegisterLoginView._parentElement.addEventListener('submit', async function (e) {
   if (resData.status === 'success') {
     mainModel.state.user = resData.user;
     HeaderView.modalCloseBtn.click();
+    HeaderView.loggedStatus === 'true';
     // && resData.error.code == 11000
   } else if (resData.status === 'fail') {
     if (resData.error.keyPattern.emailAddress) {
@@ -67,6 +68,7 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
     RegisterLoginView.modalCloseBtn.click();
     RegisterLoginView.loginForm.reset();
     mainModel.state.loggedIn = true;
+    HeaderView.loggedStatus = 'true';
   } catch (error) {
     RegisterLoginView.loginErr.classList.remove('hidden');
 
@@ -75,26 +77,3 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
 
   // {"emailAddress":"lumppkinkeddfsdfsdfdgjdnu@gmail.com","userName":"kerfsddsdffgfsmitkan","password":"Babyc@t24"}
 });
-// RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
-//   e.preventDefault();
-//   const loginData = [...new FormData(this).entries()];
-//   const user = {
-//     userName: loginData[0][1].toLowerCase(),
-//     password: loginData[1][1],
-//   };
-//   const resData = await fetch(CONFIG.LOGIN_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(user),
-//   }).then((data) => data.json());
-//   if (resData.status == 'fail') {
-//     RegisterLoginView.loginErr.classList.remove('hidden');
-//   } else {
-//     RegisterLoginView.modalCloseBtn.click();
-//     RegisterLoginView.loginForm.reset();
-//     mainModel.state.user = true;
-//   }
-//   // {"emailAddress":"lumppkinkeddfsdfsdfdgjdnu@gmail.com","userName":"kerfsddsdffgfsmitkan","password":"Babyc@t24"}
-// });

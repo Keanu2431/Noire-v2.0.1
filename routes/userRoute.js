@@ -16,5 +16,6 @@ router.route('/password-reset').patch(userController.editPassword);
 router.route('/cookie').post(async function (req, res, next) {
   console.log(req);
 });
+router.route('/logout').get(userController.logout);
 
 module.exports = router;

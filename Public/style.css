@@ -1,25 +1,25 @@
 /* back up */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
 
 /* works */
 @font-face {
   font-family: futura-bold;
-  src: url("/Fonts/Futura-bold.ttf");
+  src: url('/Fonts/Futura-bold.ttf');
 }
 /* doesn't work */
 @font-face {
   font-family: futura-light;
-  src: url("/Fonts/Futura-light.ttf");
+  src: url('/Fonts/Futura-light.ttf');
 }
 /* works */
 @font-face {
   font-family: futura-regular;
-  src: url("/Fonts/Futura-medium .ttf");
+  src: url('/Fonts/Futura-medium .ttf');
 }
 
 :root {
   --regular-font: futura-regular;
-  --bold-font: futura-bold, "Open Sans";
+  --bold-font: futura-bold, 'Open Sans';
   --primary-color: black;
   --primary-color-lighter: rgb(113, 110, 110);
   --secondary-color-darker: #cb9ff4;
@@ -137,7 +137,7 @@ body,
   position: relative;
   top: 5px;
 }
-input[type="checkbox"] {
+input[type='checkbox'] {
   outline: 2px solid var(--primary-color);
 }
 /* special pop up */
@@ -312,7 +312,7 @@ input[type="checkbox"] {
   font-family: var(--regular-font);
   color: var(--primary-color);
   text-decoration: none;
-  animation-name: "right";
+  animation-name: 'right';
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
@@ -398,7 +398,7 @@ input[type="checkbox"] {
   margin: auto;
 }
 .home-container > * > h1 {
-  animation-name: "color-change";
+  animation-name: 'color-change';
   animation-duration: 5s;
   animation-iteration-count: infinite;
   animation-fill-mode: fill;
@@ -454,7 +454,7 @@ input[type="checkbox"] {
 }
 .tag-footer > *:hover {
   color: white;
-  animation-name: "right";
+  animation-name: 'right';
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }

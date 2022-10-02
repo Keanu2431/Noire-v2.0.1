@@ -16,7 +16,10 @@ const shopRouter = require('./routes/shopRoute');
 
 const usersRouter = require('./routes/userRoute');
 
+const viewsRouter = require('./routes/viewsRoute');
+
 const accountRouter = require('./routes/accountRoute');
+
 // MIDDLEWARE
 app.use(morgan('dev'));
 app.use(express.json());
@@ -29,12 +32,9 @@ app.use((req, res, next) => {
   next();
 });
 // ROUTES
-// rendering
-app.get('/', (req, res, next) => {
-  res.status(200).render('home');
-  next();
-});
+
 //
+app.use('/', viewsRouter);
 app.use('/products', productRouter);
 app.use('/shop', shopRouter);
 app.use('/users', usersRouter);

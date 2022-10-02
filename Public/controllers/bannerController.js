@@ -29,13 +29,13 @@ const tagDrop = (e) => {
   });
 };
 const loggedUIDrop = () => {
-  if (mainModel.state.loggedIn === true) {
+  if (HeaderView.loggedStatus === 'true') {
     HeaderView.loggedInUI.classList.remove(`hidden`);
   }
 };
 const loginActivateFunc = function () {
-  if (mainModel.state.loggedIn === true) {
-    window.location.href = `/account`;
+  if (HeaderView.loggedStatus === 'true') {
+    window.location.href = `/account/profile`;
   } else {
     HeaderView.registerModal.classList.add(`hidden`);
     HeaderView.resetPassModal.classList.add(`hidden`);
@@ -56,6 +56,22 @@ const resetPassSwitch = function () {
   HeaderView.registerModal.classList.add(`hidden`);
   HeaderView.resetPassModal.classList.remove(`hidden`);
   HeaderView.resetPassModal.classList.add(`fade-in`);
+};
+const logOut = async function () {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: 'http://127.0.0.1:3000/users/logout',
+    });
+    if (res.data.status == 'success') {
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);
+    }
+    console.log(res.data);
+  } catch (error) {
+    console.log(error);
+  }
 };
 // LOGIN ACTIVATE
 HeaderView.loginBtn.addEventListener('click', loginActivateFunc);
@@ -81,6 +97,7 @@ HeaderView.bannerHiderTags.forEach(function (hiderTag) {
   });
 });
 HeaderView.loginBtn?.addEventListener(`mouseover`, loggedUIDrop);
+HeaderView.logOutBtn?.addEventListener('click', logOut);
 // bannerTags.forEach(function (tag) {
 //     tag.addEventListener(`mouseover`, tagDrop);
 //   });
@@ -88,3 +105,4 @@ HeaderView.loginBtn?.addEventListener(`mouseover`, loggedUIDrop);
 HeaderView.registerSwitchBtn?.addEventListener('click', registerSwitch);
 // reset pass switch
 HeaderView.resetPassSwitchBtn?.addEventListener(`click`, resetPassSwitch);
+console.log(HeaderView.loggedStatus);

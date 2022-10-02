@@ -1,0 +1,38 @@
+extends base
+block append head
+    //- script(src='/account/account.js')
+
+block bodyContent
+    .profile-container
+        .container-tabs
+            h2
+                a.tabs(href='/account/profile') My Account
+            h2
+                a.tabs(href='/account/orders') orders &amp; returns
+            h2
+                a.tabs(href='/account/payment-info') payment info
+            h2
+                a.tabs(href='/account/shipping-info') shipping info
+            h2
+                a.tabs(href='/account/wishlist') wishlist
+            h2
+                a.tabs(href='/account/email-preferences') email preferences
+            h2
+                a.tabs.active-tab(href='/account/reset-password') password
+        .container-user-info(style='width: 40%; margin: 0 auto')
+            h2#reset-pass-holder(style='text-align: left')
+                | reset password
+            form.reset.password-form(action='')
+                .inp-div
+                    label(for='verify-pass') Enter Current password
+                    input#verify-pass(type='text' name='verify-pass')
+                .inp-div
+                    label(for='new-pass') Enter new password
+                    br
+                    input#new-pass(type='text' name='new-pass')
+                .inp-div
+                    label(for='verify-new-pass') verify new password
+                    br
+                    input#verify-new-pass(type='text' name='verify-new-pass')
+                button#update-password.noire-btn(type='button')
+                    | Update Password
