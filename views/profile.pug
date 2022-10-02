@@ -31,45 +31,76 @@ block bodyContent
                             input#first-profile(type='text' name='first-profile')
                     .inp-div
                         label#label-text(for='last-profile')  last name
-                        input#last-profile(type='text' name='last-profile')
+                        if user.lastName
+                            input#first-profile(type='text' value=`${user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)}` name='last-profile')
+                        else
+                            input#last-profile(type='text' name='last-profile')
                     .inp-div
                         | Email Address
                         label#email-text(for='email-profile')
-                        input#email-profile(type='text' name='email-profile' disabled='')
+                        if user.emailAddress
+                            input#email-profile(type='text' value=`${user.emailAddress}` name='email-profile' disabled='')
+                            
+                        else    
+                            input#email-profile(type='text' name='email-profile' disabled='')
                     .inp-div
                         label#label-text(for='number-profile')  phone
-                        input#number-profile(type='tel' name='number-profile')
+                        if user.phoneNumber
+                            input#number-profile(type='tel' name='number-profile' value=`${user.phoneNumber}`)
+                        else
+                            input#number-profile(type='tel' name='number-profile')
                     .inp-div
                         label#label-text(for='birthday-profile')  birthday
                         br
-                        input#birthday-profile(type='date' name='birthday-profile')
+                        if user.birthDay
+                            input#birthday-profile(type='date' name='birthday-profile' value=`${user.birthDay}`)
+                        else
+                            input#birthday-profile(type='date' name='birthday-profile')
                     br
                     h2 size information
                     br
                     .inp-div(style='border: none')
                         label(for='bra-size')  bra size
-                        select#bra-size(name='bra-size')
-                            option(value='XS') XS
-                            option(value='S') S
-                            option(value='M') M
-                            option(value='L') L
-                            option(value='XL') XL
+                        if user.braSize
+                            select#bra-size(name='bra-size' value=`${user.braSize}`)
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else
+                            select#bra-size(name='bra-size')
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
                     .inp-div(style='border: none')
                         label(for='bralette-size')  bralette size
-                        select#bralette-size(name='bralette-size')
-                            option(value='XS') XS
-                            option(value='S') S
-                            option(value='M') M
-                            option(value='L') L
-                            option(value='XL') XL
+                        if user.braletteSize
+                            select#bralette-size(name='bralette-size' value=`${user.braletteSize}`)
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else
+                            select#bralette-size(name='bralette-size')
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
                     .inp-div(style='border: none')
                         label(for='panty-size')  panty size
-                        select#panty-size(name='panty-size')
-                            option(value='XS') XS
-                            option(value='S') S
-                            option(value='M') M
-                            option(value='L') L
-                            option(value='XL') XL
+                        if user.pantySize
+
+                            select#panty-size(name='panty-size')
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
                     .inp-div(style='border: none')
                         label(for='lingerie-size')  lingerie size
                         select#lingerie-size(name='lingerie-size')
