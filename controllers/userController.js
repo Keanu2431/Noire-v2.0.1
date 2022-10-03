@@ -179,6 +179,7 @@ exports.getAllUsers = async (req, res) => {
       message: 'bad request path does not exist',
     });
   }
+  // here
 };
 exports.loginAuth = async (req, res, next) => {
   try {
