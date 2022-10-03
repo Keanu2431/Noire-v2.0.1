@@ -5,9 +5,5 @@ const accountController = require('./../controllers/accountController');
 // const accountController = require('./../controllers/accountController');
 // const User = require('../model/userModel');
 const router = express.Router();
-router.route('/').get(accountController.renderHTML);
-// const router = express.Router();
-// router.route('/').get(accountController.loadUserInfo);
-
-// module.exports = router;
+router.route('/update-profile').post(accountController.updateBasic);
 module.exports = router;

@@ -37,6 +37,6 @@ app.use('/', viewsRouter);
 app.use('/products', productRouter);
 app.use('/shop', shopRouter);
 app.use('/users', usersRouter);
-// app.use('/account', accountRouter);
+app.use('/account', accountRouter);
 
 module.exports = app;

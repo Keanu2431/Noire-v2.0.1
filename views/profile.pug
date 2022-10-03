@@ -1,6 +1,6 @@
 extends base
-//- block append head
-//-     //- -script(src='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js')
+block append head
+    script(src='/controllers/accountController.js' type='module')
 
 block bodyContent
     .profile-container
@@ -94,7 +94,13 @@ block bodyContent
                     .inp-div(style='border: none')
                         label(for='panty-size')  panty size
                         if user.pantySize
-
+                            select#panty-size(name='panty-size' value=`${user.pantySize}`)
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else
                             select#panty-size(name='panty-size')
                                 option(value='XS') XS
                                 option(value='S') S
@@ -103,11 +109,19 @@ block bodyContent
                                 option(value='XL') XL
                     .inp-div(style='border: none')
                         label(for='lingerie-size')  lingerie size
-                        select#lingerie-size(name='lingerie-size')
-                            option(value='XS') XS
-                            option(value='S') S
-                            option(value='M') M
-                            option(value='L') L
-                            option(value='XL') XL
+                        if user.lingerieSize
+                            select#lingerie-size(name='lingerie-size' value=`${user.lingerieSize}`)
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else
+                            select#lingerie-size(name='lingerie-size')
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
                 button#update-basic.noire-btn(type='submit')
                     | Update
