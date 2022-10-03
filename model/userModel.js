@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
-    set: (v) => v.charAt(0).toUpperCase() + v.slice(1),
+    // set: (v) => v.charAt(0).toUpperCase() + v.slice(1),
   },
   lastName: {
     type: String,
