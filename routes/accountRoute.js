@@ -6,4 +6,5 @@ const accountController = require('./../controllers/accountController');
 // const User = require('../model/userModel');
 const router = express.Router();
 router.route('/update-profile').post(accountController.updateBasic);
+router.route('/add-card').post(accountController.addCard);
 module.exports = router;

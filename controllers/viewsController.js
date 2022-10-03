@@ -20,6 +20,9 @@ exports.renderHome = async (req, res, next) => {
     res.status(200).render('home');
     next();
   } catch (error) {
+    console.log(error);
+    res.status(200).render('home');
+
     return next();
   }
 };
