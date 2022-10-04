@@ -124,29 +124,11 @@ const encrypt = (text) => {
 //   Card.findById(User.findById('633743de92a302ac7f74be24').userCards[0])
 // );
 const findToDecrypt = async (userID, cardPosition) => {
-  // const card = cardPosition - 1;
   const cardID = (await User.findById(userID)).userCards[cardPosition - 1];
-  // const cardObj = console.log(cardArr);
-  // console.log(cardID);
   const card = await Card.findById(cardID);
-  // console.log(card);
   const cardObj = { iv: card.iv, encryptedData: card.cardNumber };
-  // console.log(cardObj);
-  //
-  // console.log(decrypt(cardObj));
   return decrypt(cardObj);
 };
-// console.log(findToDecrypt('633743de92a302ac7f74be24', 1));
-//
-findToDecrypt('633743de92a302ac7f74be24', 1);
-
-const test = findToDecrypt('633743de92a302ac7f74be24', 1);
-console.log(test);
-//
-// console.log(
-//   decrypt({
-//     iv: 'de0282d524cb4cf8ab473fd871281cae',
-//     encryptedData:
-//       '585b5368c176aa7cdf37b4554337050f983dc099d95e61c08a2e8ff2e0b51dfb',
-//   })
-// );
+findToDecrypt('633743de92a302ac7f74be24', 2).then((x) => {
+  console.log(x);
+});
