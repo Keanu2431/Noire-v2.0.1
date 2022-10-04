@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const util = require('util');
 const User = require('../model/userModel');
+console.log();
 exports.protect = async function (req, res, next) {
   try {
     // 1) get token and check if exist

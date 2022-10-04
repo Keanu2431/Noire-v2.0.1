@@ -90,6 +90,7 @@ userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 16);
 });
+//3
 cardSchema.pre('save', async function (next) {
   // if password hasn't been modified, exit the function and move to next middleware
   if (!this.isModified('cardNumber')) return next();
@@ -112,6 +113,6 @@ userSchema.methods.changedPasswordAfter = async function (jwtTimestamp) {
   return false;
 };
 const User = mongoose.model('Users', userSchema);
-const Card = mongoose.model('Cards', cardSchema);
+
 module.exports = User;
-module.exports = Card;
+// module.exports = Card;

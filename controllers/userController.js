@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../model/userModel');
+const Card = require('../model/cardModel');
 
 const emailExtension = [
   `@yahoo.com`,
