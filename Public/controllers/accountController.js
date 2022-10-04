@@ -24,9 +24,8 @@ const updateBasic = async (e) => {
       url: CONFIG.UPDATE_BASIC_URL,
       data: newInfo,
     });
-    if (resData.data.status == 'success') alert('profile updates');
+    console.log(resData);
   } catch (error) {
-    alert('something went wrong, check your fields');
     console.log(error);
   }
 };

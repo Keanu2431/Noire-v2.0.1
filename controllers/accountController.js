@@ -7,32 +7,22 @@ const util = require('util');
 exports.updateBasic = async (req, res, next) => {
   try {
     let token = req.cookies.jwt;
-    const reqData = req.body;
-    const data = {
-      firstName: reqData.firstName,
-      lastName: reqData.lastName,
-      phoneNumber: reqData.phoneNumber,
-      birthDay: reqData.birthDay,
-      braSize: reqData.braSize,
-      braletteSize: reqData.braletteSize,
-      pantySize: reqData.pantySize,
-      lingerieSize: reqData.lingerieSize,
-    };
+    const data = req.body;
     const decoded = await util.promisify(jwt.verify)(
       token,
       process.env.SECRET_STRING
     );
-    const newUserInfo = await User.findByIdAndUpdate(
-      decoded.id,
-      {
-        ...data,
-      },
-      { new: true }
+    console.log('id');
+    console.log(decoded.id);
+    const newUserInfo = await User.findOneAndUpdate(
+      { _id: decoded.id },
+      { $set: { data: data } }
     );
     newUserInfo.save();
     // console.log(data);
     res.status(200).json({
       status: 'success',
+      data: newUserInfo,
     });
     next();
   } catch (error) {
