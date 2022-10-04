@@ -6,9 +6,8 @@ const cardSchema = new mongoose.Schema({
   cardNumber: {
     type: String,
     required: [true, 'needs a card number'],
-    maxLength: 16,
-    minLength: 15,
   },
+  iv: { type: String, required: [true, 'Needs the IV key'] },
   lastFour: { type: Number, required: [true, 'needs last fours'] },
   firstOne: { type: Number, required: [true, 'needs first'] },
   expiration: { type: String, required: [true, 'needs exp'] },

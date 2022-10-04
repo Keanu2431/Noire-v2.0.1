@@ -37,9 +37,10 @@ exports.addCard = async (req, res, next) => {
   try {
     let token = req.cookies.jwt;
     const reqData = req.body;
+    const encryptInfo = encrypt(String(reqData.cardNumber));
     const data = {
       cardHolder: reqData.cardHolder,
-      cardNumber: encrypt(reqData.cardNumber),
+      cardNumber: encryptInfo.encryptedData,
       firstOne: String(reqData.cardNumber).slice(0, 1),
       lastFour: String(reqData.cardNumber).slice(-4),
       expiration: reqData.expiration,
@@ -53,6 +54,7 @@ exports.addCard = async (req, res, next) => {
       zipcode: reqData.zipcode,
       country: reqData.country,
       billingPhone: reqData.billingPhone,
+      iv: encryptInfo.iv,
     };
     const decoded = await util.promisify(jwt.verify)(
       token,
@@ -76,12 +78,14 @@ exports.addCard = async (req, res, next) => {
     next();
   }
 };
+const message = 'my namem is keane';
+//
 const algorithm = 'aes-256-cbc';
 // Defining key
-const key = crypto.randomBytes(32);
+const key = process.env.SECRET_STRING_ENCRYPT;
 // Defining iv
 const iv = crypto.randomBytes(16);
-exports.decrypt = (text) => {
+const decrypt = (text) => {
   let iv = Buffer.from(text.iv, 'hex');
   let encryptedText = Buffer.from(text.encryptedData, 'hex');
 
@@ -112,6 +116,37 @@ const encrypt = (text) => {
   // Returning iv and encrypted data
   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 };
-console.log(encrypt('4450095439044343'));
-console.log(iv);
-console.log(Buffer.from(iv, 'hex'));
+// console.log(encrypt(String('4450095439044343')));
+// const encrypted = encrypt(message);
+// console.log(decrypt(encrypted));
+// console.log(key);
+// console.log(
+//   Card.findById(User.findById('633743de92a302ac7f74be24').userCards[0])
+// );
+const findToDecrypt = async (userID, cardPosition) => {
+  // const card = cardPosition - 1;
+  const cardID = (await User.findById(userID)).userCards[cardPosition - 1];
+  // const cardObj = console.log(cardArr);
+  // console.log(cardID);
+  const card = await Card.findById(cardID);
+  // console.log(card);
+  const cardObj = { iv: card.iv, encryptedData: card.cardNumber };
+  // console.log(cardObj);
+  //
+  // console.log(decrypt(cardObj));
+  return decrypt(cardObj);
+};
+// console.log(findToDecrypt('633743de92a302ac7f74be24', 1));
+//
+findToDecrypt('633743de92a302ac7f74be24', 1);
+
+const test = findToDecrypt('633743de92a302ac7f74be24', 1);
+console.log(test);
+//
+// console.log(
+//   decrypt({
+//     iv: 'de0282d524cb4cf8ab473fd871281cae',
+//     encryptedData:
+//       '585b5368c176aa7cdf37b4554337050f983dc099d95e61c08a2e8ff2e0b51dfb',
+//   })
+// );
