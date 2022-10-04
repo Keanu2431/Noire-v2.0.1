@@ -47,12 +47,7 @@ cardSchema.pre('save', async function (next) {
   // if password hasn't been modified, exit the function and move to next middleware
   if (!this.isModified('cardNumber')) return next();
   //   this.cardNumber = await bcrypt.hash(String(this.cardNumber), 16);
-  let iv = crypto.randomBytes(16);
-
-  let cipher = crypto.createCipheriv('aes-256-ccm', process.env.CIPHER_KEY, iv);
-  let encrypted = cipher.update(String(this.cardNumber), 'utf-8', 'hex');
-  encrypted += cipher.final('hex');
-  console.log(encrypted);
+  this.cardNumber = cardSchema.methods.encrypt(this.cardNumber);
   this.cvv = await bcrypt.hash(String(this.cvv), 16);
   // this.
 });
@@ -89,9 +84,9 @@ cardSchema.methods.decrypt = (text) => {
   return decrypted.toString();
 };
 // Displays output
-var output = cardSchema.methods.encrypt('4444000032872354');
-console.log(output);
+// var output = cardSchema.methods.encrypt('4444000032872354');
+// console.log(output);
 
-console.log(cardSchema.methods.decrypt(output));
+// console.log(cardSchema.methods.decrypt(output));
 const Card = mongoose.model('Cards', cardSchema);
 module.exports = Card;

@@ -39,7 +39,7 @@ exports.addCard = async (req, res, next) => {
     const reqData = req.body;
     const data = {
       cardHolder: reqData.cardHolder,
-      cardNumber: reqData.cardNumber,
+      cardNumber: encrypt(reqData.cardNumber),
       firstOne: String(reqData.cardNumber).slice(0, 1),
       lastFour: String(reqData.cardNumber).slice(-4),
       expiration: reqData.expiration,
@@ -76,40 +76,41 @@ exports.addCard = async (req, res, next) => {
     next();
   }
 };
-exports.decrypt = (el) => {
-  let iv = crypto.randomBytes(16);
-  let decipher = crypto.createDecipheriv(
-    'aes-256-ccm',
-    process.env.SECRET_STRING,
-    iv
-  );
-  let decrypt = decipher.update(el, 'utf-8', 'hex');
-  decrypt += decipher.final('utf-8');
+const algorithm = 'aes-256-cbc';
+// Defining key
+const key = crypto.randomBytes(32);
+// Defining iv
+const iv = crypto.randomBytes(16);
+exports.decrypt = (text) => {
+  let iv = Buffer.from(text.iv, 'hex');
+  let encryptedText = Buffer.from(text.encryptedData, 'hex');
+
+  // Creating Decipher
+  let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+
+  // Updating encrypted text
+  let decrypted = decipher.update(encryptedText);
+  decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+  // returns data after decryption
+  return decrypted.toString();
 };
+const encrypt = (text) => {
+  // Defining algorithm
 
-//
+  // An encrypt function
 
-// // Defining algorithm
-// const algorithm = 'aes-256-cbc';
-// // Defining key
-// const key = crypto.randomBytes(32);
-// // Defining iv
-// const iv = crypto.randomBytes(16);
-// // An encrypt function
-// function encrypt(text) {
-//   // Creating Cipheriv with its parameter
-//   let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
+  // Creating Cipheriv with its parameter
+  let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
 
-//   // Updating text
-//   let encrypted = cipher.update(text);
+  // Updating text
+  let encrypted = cipher.update(text);
 
-//   // Using concatenation
-//   encrypted = Buffer.concat([encrypted, cipher.final()]);
+  // Using concatenation
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
 
-//   // Returning iv and encrypted data
-//   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-// }
-
-// // Displays output
-// var output = encrypt('4444000032872354');
-// console.log(output);
+  // Returning iv and encrypted data
+  return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+};
+console.log(encrypt('4450095439044343'));
+console.log(iv);
