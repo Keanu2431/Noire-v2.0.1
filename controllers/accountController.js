@@ -3,6 +3,7 @@ const Card = require('../model/cardModel');
 const Product = require('../model/productModel');
 const jwt = require('jsonwebtoken');
 const util = require('util');
+const crypto = require('crypto');
 
 exports.updateBasic = async (req, res, next) => {
   try {
@@ -75,3 +76,40 @@ exports.addCard = async (req, res, next) => {
     next();
   }
 };
+exports.decrypt = (el) => {
+  let iv = crypto.randomBytes(16);
+  let decipher = crypto.createDecipheriv(
+    'aes-256-ccm',
+    process.env.SECRET_STRING,
+    iv
+  );
+  let decrypt = decipher.update(el, 'utf-8', 'hex');
+  decrypt += decipher.final('utf-8');
+};
+
+//
+
+// // Defining algorithm
+// const algorithm = 'aes-256-cbc';
+// // Defining key
+// const key = crypto.randomBytes(32);
+// // Defining iv
+// const iv = crypto.randomBytes(16);
+// // An encrypt function
+// function encrypt(text) {
+//   // Creating Cipheriv with its parameter
+//   let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
+
+//   // Updating text
+//   let encrypted = cipher.update(text);
+
+//   // Using concatenation
+//   encrypted = Buffer.concat([encrypted, cipher.final()]);
+
+//   // Returning iv and encrypted data
+//   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+// }
+
+// // Displays output
+// var output = encrypt('4444000032872354');
+// console.log(output);
