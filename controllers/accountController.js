@@ -1,5 +1,5 @@
 const User = require('../model/userModel');
-const Card = require('../model/userModel');
+const Card = require('../model/cardModel');
 const Product = require('../model/productModel');
 const jwt = require('jsonwebtoken');
 const util = require('util');
@@ -57,17 +57,18 @@ exports.addCard = async (req, res, next) => {
       token,
       process.env.SECRET_STRING
     );
-    // const newCard = await Card.create(data);
+    const newCard = await Card.create(data);
     console.log('card id');
-    // console.log(newCard._id);
+    console.log(newCard._id);
     const newUserInfo = await User.findByIdAndUpdate(
       decoded.id,
       {
-        userCards: 'byy',
+        $push: { userCards: newCard },
       },
+
       { new: true }
     );
-    res.status(200).json({ status: 'succes', data: newUserInfo });
+    res.status(200).json({ status: 'succes', newUserInfo, newCard });
   } catch (error) {
     console.log(error);
     res.status(204).json({});
