@@ -114,3 +114,4 @@ const encrypt = (text) => {
 };
 console.log(encrypt('4450095439044343'));
 console.log(iv);
+console.log(Buffer.from(iv, 'hex'));
