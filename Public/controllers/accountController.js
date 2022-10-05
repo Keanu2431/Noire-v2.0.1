@@ -81,6 +81,9 @@ if (AccountView.addCard)
 // if (AccountView.cardFormEl)
 //   AccountView.cardFormEl.addEventListener('submit', addCard);
 <<<<<<< HEAD
+<<<<<<< HEAD
 AccountView.populateCardTemp();
+=======
+>>>>>>> parent of ab17824 (error loading account/profile)
 =======
 >>>>>>> parent of ab17824 (error loading account/profile)
