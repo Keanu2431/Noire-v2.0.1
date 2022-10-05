@@ -93,4 +93,4 @@ if (AccountView.addCard)
   AccountView.addCard.addEventListener('click', dropCardForm);
 // if (AccountView.cardFormEl)
 //   AccountView.cardFormEl.addEventListener('submit', addCard);
-// AccountView.populateCardTemp;
+AccountView.populateCardTemp();
