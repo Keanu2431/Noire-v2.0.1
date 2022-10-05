@@ -33,7 +33,7 @@ exports.updateBasic = async (req, res, next) => {
     });
   }
 };
-exports.addShipping = async (req, res, next) => {
+exports.addCard = async (req, res, next) => {
   try {
     let token = req.cookies.jwt;
     const reqData = req.body;
@@ -78,50 +78,8 @@ exports.addShipping = async (req, res, next) => {
     next();
   }
 };
-exports.addCard = async (req, res, next) => {
-  try {
-    let token = req.cookies.jwt;
-    const reqData = req.body;
-    const encryptInfo = encrypt(String(reqData.cardNumber));
-    const data = {
-      cardHolder: reqData.cardHolder,
-      cardNumber: encryptInfo.encryptedData,
-      firstOne: String(reqData.cardNumber).slice(0, 1),
-      lastFour: String(reqData.cardNumber).slice(-4),
-      expiration: reqData.expiration,
-      cvv: reqData.cvv,
-      firstName: reqData.firstName,
-      lastName: reqData.lastName,
-      addressOne: reqData.addressOne,
-      addressTwo: reqData.addressTwo,
-      city: reqData.city,
-      state: reqData.state,
-      zipcode: reqData.zipcode,
-      country: reqData.country,
-      billingPhone: reqData.billingPhone,
-      iv: encryptInfo.iv,
-    };
-    const decoded = await util.promisify(jwt.verify)(
-      token,
-      process.env.SECRET_STRING
-    );
-    const newCard = await Card.create(data);
-    console.log(newCard);
-    console.log('card id');
-    const newUserInfo = await User.findByIdAndUpdate(
-      decoded.id,
-      {
-        $push: { userCards: newCard._id },
-      },
-
-      { new: true }
-    );
-    res.status(200).json({ status: 'succes' });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: error });
-  }
-};
+const message = 'my namem is keane';
+//
 const algorithm = 'aes-256-cbc';
 // Defining key
 const key = process.env.SECRET_STRING_ENCRYPT;
@@ -158,12 +116,19 @@ const encrypt = (text) => {
   // Returning iv and encrypted data
   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 };
+// console.log(encrypt(String('4450095439044343')));
+// const encrypted = encrypt(message);
+// console.log(decrypt(encrypted));
+// console.log(key);
+// console.log(
+//   Card.findById(User.findById('633743de92a302ac7f74be24').userCards[0])
+// );
 const findToDecrypt = async (userID, cardPosition) => {
   const cardID = (await User.findById(userID)).userCards[cardPosition - 1];
   const card = await Card.findById(cardID);
   const cardObj = { iv: card.iv, encryptedData: card.cardNumber };
   return decrypt(cardObj);
 };
-// findToDecrypt('633743de92a302ac7f74be24', 3).then((x) => {
-//   console.log(x);
-// });
+findToDecrypt('633743de92a302ac7f74be24', 2).then((x) => {
+  console.log(x);
+});

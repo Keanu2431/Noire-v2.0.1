@@ -320,21 +320,8 @@ label {
     opacity: 0;
   }
 }
-@keyframes fadeIn {
-  100% {
-    opacity: 0;
-  }
-  0% {
-    opacity: 1;
-  }
-}
 .fade-out {
   animation-name: fadeOut;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-}
-.fade-out {
-  animation-name: fadeIn;
   animation-duration: 2s;
   animation-fill-mode: forwards;
 }
