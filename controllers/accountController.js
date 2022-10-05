@@ -61,12 +61,12 @@ exports.addCard = async (req, res, next) => {
       process.env.SECRET_STRING
     );
     const newCard = await Card.create(data);
-    console.log(newCard);
     console.log('card id');
+    console.log(newCard._id);
     const newUserInfo = await User.findByIdAndUpdate(
       decoded.id,
       {
-        $push: { userCards: newCard._id },
+        $push: { userCards: newCard },
       },
 
       { new: true }

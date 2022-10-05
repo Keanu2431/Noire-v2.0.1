@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const cardSchema = new mongoose.Schema({
   cardHolder: { type: String, required: [true, 'needs a card holder name'] },
   cardNumber: {
-    type: String,
+    type: Number,
     required: [true, 'needs a card number'],
   },
   iv: { type: String, required: [true, 'Needs the IV key'] },
@@ -48,7 +47,6 @@ cardSchema.pre('save', async function (next) {
   //   this.cardNumber = await bcrypt.hash(String(this.cardNumber), 16);
   this.cardNumber = cardSchema.methods.encrypt(this.cardNumber);
   this.cvv = await bcrypt.hash(String(this.cvv), 16);
-  // this.
 });
 
 cardSchema.methods.encrypt = (text) => {
