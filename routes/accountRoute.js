@@ -7,4 +7,5 @@ const accountController = require('./../controllers/accountController');
 const router = express.Router();
 router.route('/update-profile').post(accountController.updateBasic);
 router.route('/add-card').post(accountController.addCard);
+router.route('/add-shipping').post(accountController.addShipping);
 module.exports = router;

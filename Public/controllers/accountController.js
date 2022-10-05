@@ -29,7 +29,7 @@ const updateBasic = async (e) => {
     console.log(error);
   }
 };
-const addCard = (event) => {
+const addCard = async (event) => {
   try {
     event.stopImmediatePropagation();
     event.preventDefault();
@@ -50,18 +50,18 @@ const addCard = (event) => {
       country: formData[11][1],
       billingPhone: formData[12][1],
     };
-    console.log({ ...sendData });
-    axios({
+    console.log(sendData);
+    const resData = await axios({
       method: 'POST',
       url: CONFIG.ADD_PAYMENT_URL,
       data: { ...sendData },
     });
   } catch (error) {
-    console.log(error);
+    document.querySelector('#card-err').classList.remove('hidden');
+    // document.querySelector('#bill-err').classList.remove('hidden');
   }
 };
 const dropCardForm = (e) => {
-  console.log(e.target);
   e.target.classList.add('fade-out');
   setTimeout(() => {
     e.target.classList.add('hidden');
@@ -70,8 +70,6 @@ const dropCardForm = (e) => {
   AccountView.cardFormEl = document.querySelector('#add-payment-form');
   if (AccountView.cardFormEl)
     AccountView.cardFormEl.addEventListener('submit', addCard);
-
-  console.log(AccountView);
 };
 
 if (AccountView.infoBasic)

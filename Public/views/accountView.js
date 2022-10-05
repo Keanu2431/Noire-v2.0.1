@@ -8,6 +8,7 @@ class AccountView {
   id="add-payment-form"
   >
   <h2 class="standard-text">card information</h2>
+  <h2 class="standard-text hidden"  id='card-err' style="text-align:center;color:red;">check card information</h2>
   <div class="user-div">
     <div class="inp-div">
       <label for="card-holder-inp">Card holder</label>
@@ -40,6 +41,8 @@ class AccountView {
       />
     </div>
     <h2 class="standard-text">billing</h2>
+    <h2 class="standard-text hidden" style="color:red;" id='bill-err' >check billing information</h2>
+
     <br />
     <div class="inp-div">
       <label for="billing-first-inp"> first name</label>
@@ -177,5 +180,7 @@ class AccountView {
   </form>`;
   cardFormEl = document.querySelector('#add-payment-form');
   cancelCard = document.querySelector('#cancel-payment');
+  billingErr = document.querySelector('#bill-err');
+  cardErr = document.querySelector('#card-err');
 }
 export default new AccountView();
