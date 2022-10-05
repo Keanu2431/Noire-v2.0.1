@@ -21,9 +21,7 @@ exports.renderHome = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    res
-      .status(400)
-      .json({ status: 'fail', message: 'you need access to this route' });
+    res.status(200).render('home');
 
     return next();
   }

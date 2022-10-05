@@ -175,43 +175,6 @@ class AccountView {
     Cancel
   </button>
   </form>`;
-  cardTemplatePrimary = `<div class="payment-item" id="billing-primary">
-  <div class="payment-row-0">
-    <img src="/Images/Card Placeholder/discover.png" alt="" srcset="" class="payment-img">
-  
-    <div class="card-info">
-      <h2>Hov</h2>
-      <h2>************2312</h2>
-      <h2>11/27</h2>
-      <h2 style="font-size: var(--standard-font)">primary card</h2>
-    </div>
-  </div>
-  <h2 class="edit-delete">
-    <span id="edit-card" data-info="0">edit</span> |
-    <span id="delete-card" data-info="0">delete</span>
-  </h2>
-  </div>`;
-
-  cardTemp = `
-  <div class="payment-item">
-        <div class="payment-row-0">
-          <img src="/Images/Card Placeholder/mastercard.png" alt="" srcset="" class="payment-img">
-  
-          <div class="card-info">
-            <h2>Bing Bonf-Kang</h2>
-            <h2>************5132</h2>
-            <h2>11/31</h2>
-          </div>
-        </div>
-        <h2 class="edit-delete">
-          <span id="edit-card" data-info="2">edit</span> |
-          <span id="delete-card" data-info="2">delete</span>
-        </h2>
-      </div>
-  `;
-  populateCardTemp(el) {
-    alert('hi');
-  }
   cardFormEl = document.querySelector('#add-payment-form');
   cancelCard = document.querySelector('#cancel-payment');
 }

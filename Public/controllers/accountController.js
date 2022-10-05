@@ -34,13 +34,6 @@ const addCard = (event) => {
     event.stopImmediatePropagation();
     event.preventDefault();
     const formData = [...new FormData(event.target).entries()];
-    if (
-      String(formData[1][1]).length < 15 ||
-      String(formData[2][1]).length < 5 ||
-      String(formData[10][1]).length < 5 ||
-      !String(formData[2][1]).includes('/')
-    )
-      throw Error;
     console.log(formData);
     const sendData = {
       cardHolder: formData[0][1],
@@ -63,12 +56,6 @@ const addCard = (event) => {
       url: CONFIG.ADD_PAYMENT_URL,
       data: { ...sendData },
     });
-    document.querySelector('#add-payment-form').classList.add('fade-out');
-    setTimeout(() => {
-      document.querySelector('#add-payment-form').classList.add('hidden');
-      document.querySelector('#add-card').classList.remove('fade-out');
-    }, 2000);
-    AccountView.addCard.classList.remove('hidden');
   } catch (error) {
     console.log(error);
   }
@@ -93,4 +80,7 @@ if (AccountView.addCard)
   AccountView.addCard.addEventListener('click', dropCardForm);
 // if (AccountView.cardFormEl)
 //   AccountView.cardFormEl.addEventListener('submit', addCard);
+<<<<<<< HEAD
 AccountView.populateCardTemp();
+=======
+>>>>>>> parent of ab17824 (error loading account/profile)
