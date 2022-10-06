@@ -4,6 +4,7 @@ const Product = require('../model/productModel');
 const jwt = require('jsonwebtoken');
 const util = require('util');
 const crypto = require('crypto');
+const { use } = require('../routes/accountRoute');
 
 exports.updateBasic = async (req, res, next) => {
   try {
@@ -66,7 +67,7 @@ exports.addCard = async (req, res, next) => {
     const newUserInfo = await User.findByIdAndUpdate(
       decoded.id,
       {
-        $push: { userCards: newCard._id },
+        $push: { userCards: newCard },
       },
 
       { new: true }
@@ -76,6 +77,32 @@ exports.addCard = async (req, res, next) => {
     console.log(error);
     res.status(400).json({ status: 'fail' });
     next();
+  }
+};
+exports.deleteCard = async (req, res, next) => {
+  try {
+    // const user = await User.findById(res.locals.user._id);
+    // const userCards = user.userCards;
+    // console.log(userCards);
+    const cardObj = req.body;
+    console.log(cardObj);
+    const delCard = await Card.findOneAndDelete(cardObj);
+    const updatedInfo = await User.findByIdAndUpdate(res.locals.user._id, {
+      $pull: { userCards: delCard },
+    });
+    console.log(delCard);
+    res.status(200).json({
+      status: 'success',
+      data: {
+        delCard,
+        updatedInfo: updatedInfo.userCards,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'bad request',
+    });
   }
 };
 const message = 'my namem is keane';

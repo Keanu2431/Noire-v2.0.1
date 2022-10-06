@@ -2,6 +2,7 @@ extends base
 block append head
     script(src='/controllers/accountController.js' type='module')
 
+    - var meow= 'hi'
 block bodyContent
      .profile-container
         .container-tabs
@@ -21,4 +22,17 @@ block bodyContent
                 a.tabs(href='/account/reset-password') password
         .payment-methods
             h2#payment-title(style='text-align: center') payment methods
+            if user.userCards[0]
+                each card,index in cards
+                    .payment-item
+                        .payment-row-0
+                            img.payment-img(src=`/Images/Card Placeholder/card-${card.firstOne==4||card.firstOne==5||card.firstOne==6?card.firstOne:0}.png` alt='' srcset='')
+                            .card-info
+                                h2= card.cardHolder
+                                h2= '************'+`${card.lastFour}`
+                                h2=`${card.expiration}`
+                        h2.edit-delete
+                            span#edit-card(data-info=`${index}`) edit
+                            |  |
+                            span#delete-card(data-info=`${index}`) delete
             h2#add-card Add card

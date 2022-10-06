@@ -30,8 +30,11 @@ const updateBasic = async (e) => {
 };
 const addCard = async (event) => {
   try {
-    event.stopImmediatePropagation();
+    document
+      .querySelectorAll('.payment-item')[0]
+      .insertAdjacentHTML('beforebegin', '<div class="loader"></div>');
     event.preventDefault();
+    event.stopImmediatePropagation();
     const formData = [...new FormData(event.target).entries()];
     const sendData = {
       cardHolder: formData[0][1],
@@ -62,20 +65,7 @@ const addCard = async (event) => {
       url: CONFIG.ADD_PAYMENT_URL,
       data: { ...sendData },
     });
-    document.querySelector('#add-payment-form').classList.add('fade-out');
-    setTimeout(
-      () => document.querySelector('#add-payment-form').classList.add('hidden'),
-      2000
-    );
-    setTimeout(() => {
-      AccountView.addCard.insertAdjacentHTML(
-        'beforebegin',
-        AccountView.populateTemp(sendData)
-      );
-    }, 2005);
-    AccountView.addCard.classList.remove('hidden');
-    AccountView.addCard.classList.remove('fade-out');
-    AccountView.addCard.classList.add('fade-in');
+    // window.location.reload();
   } catch (error) {
     console.error(error);
     document.querySelector('#card-err').classList.remove('hidden');
@@ -91,8 +81,28 @@ const dropCardForm = (e) => {
   if (AccountView.cardFormEl)
     AccountView.cardFormEl.addEventListener('submit', addCard);
 };
-const populateCardTemp = (el) => {};
+const deleteCard = async (e) => {
+  // alert('clicked');
+  const lastFour = Number(
+    e.target
+      .closest('div')
+      .children[0].children[1].children[1].textContent.slice(-4)
+  );
+  const exp =
+    e.target.closest('div').children[0].children[1].children[2].textContent;
+  const sendData = { lastFour, expiration };
+  const resData = await axios({
+    method: 'DELETE',
+    url: CONFIG.DELETE_PAYMENT_URL,
+    data: { ...sendData },
+  });
+  console.log(resData);
+};
 if (AccountView.infoBasic)
   AccountView.infoBasic.addEventListener('submit', updateBasic);
 if (AccountView.addCard)
   AccountView.addCard.addEventListener('click', dropCardForm);
+if (AccountView.paymentItem[0])
+  AccountView.deleteCard.forEach((el) =>
+    el.addEventListener('click', deleteCard)
+  );

@@ -1,5 +1,6 @@
 const util = require('util');
 const User = require('../model/userModel');
+const Card = require('../model/cardModel');
 const jwt = require('jsonwebtoken');
 exports.renderHome = async (req, res, next) => {
   try {
@@ -43,7 +44,9 @@ exports.renderResetPass = async (req, res, next) => {
   next();
 };
 exports.renderPayment = async (req, res, next) => {
-  res.status(200).render('pay-info');
+  const card_ID_Array = res.locals.user.userCards;
+
+  res.status(200).render('pay-info', { cards: card_ID_Array });
   next();
 };
 exports.renderShipping = async (req, res, next) => {
