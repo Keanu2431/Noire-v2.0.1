@@ -97,6 +97,7 @@ const deleteCard = async (e) => {
     data: { ...sendData },
   });
   console.log(resData);
+  window.location.reload();
 };
 if (AccountView.infoBasic)
   AccountView.infoBasic.addEventListener('submit', updateBasic);
