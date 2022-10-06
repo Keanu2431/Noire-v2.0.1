@@ -40,7 +40,7 @@ exports.addCard = async (req, res, next) => {
     const encryptInfo = encrypt(String(reqData.cardNumber));
     const data = {
       cardHolder: reqData.cardHolder,
-      cardNumber: encryptInfo.encryptedData,
+      cardNumber: String(encryptInfo.encryptedData),
       firstOne: String(reqData.cardNumber).slice(0, 1),
       lastFour: String(reqData.cardNumber).slice(-4),
       expiration: reqData.expiration,
@@ -66,15 +66,15 @@ exports.addCard = async (req, res, next) => {
     const newUserInfo = await User.findByIdAndUpdate(
       decoded.id,
       {
-        $push: { userCards: newCard },
+        $push: { userCards: newCard._id },
       },
 
       { new: true }
     );
-    res.status(200).json({ status: 'succes', newUserInfo, newCard });
+    res.status(200).json({ status: 'succes' });
   } catch (error) {
     console.log(error);
-    res.status(204).json({});
+    res.status(400).json({ status: 'fail' });
     next();
   }
 };

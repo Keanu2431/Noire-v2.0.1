@@ -52,6 +52,7 @@ exports.isLoggedIn = async function (req, res, next) {
     if (req.cookies.jwt) {
       token = req.cookies.jwt;
       console.log(token);
+      console.log('token isLogged');
     }
     if (!token) {
       return next();
@@ -65,17 +66,17 @@ exports.isLoggedIn = async function (req, res, next) {
     //   3)check if user still exist
     const user = await User.findById(decoded.id);
     if (!user) {
+      console.log('user no exxist');
       return next();
     }
     // check if user changed pass after token was issued
 
     // grant access
     res.locals.user = user;
-    console.log(user);
-    console.log('locals');
-    console.log(res.locals.user);
+    console.log('you should be good');
     next();
   } catch (error) {
+    console.log('user is not logged in.');
     return next();
   }
 };

@@ -1,7 +1,6 @@
 import AccountView from '../views/accountView.js';
 import * as CONFIG from '../config.js';
 
-console.log(AccountView);
 const updateBasic = async (e) => {
   try {
     e.preventDefault();
@@ -29,16 +28,15 @@ const updateBasic = async (e) => {
     console.log(error);
   }
 };
-const addCard = (event) => {
+const addCard = async (event) => {
   try {
     event.stopImmediatePropagation();
     event.preventDefault();
     const formData = [...new FormData(event.target).entries()];
-    console.log(formData);
     const sendData = {
       cardHolder: formData[0][1],
       cardNumber: Number(formData[1][1]),
-      expiration: formData[2][1],
+      expiration: String(formData[2][1]),
       cvv: formData[3][1].toString(),
       firstName: formData[4][1],
       lastName: formData[5][1],
@@ -50,18 +48,40 @@ const addCard = (event) => {
       country: formData[11][1],
       billingPhone: formData[12][1],
     };
-    console.log({ ...sendData });
-    axios({
+    if (
+      sendData.cardHolder.length <= 1 ||
+      !sendData.cardHolder.includes(' ') ||
+      String(sendData.cardNumber).length < 15 ||
+      String(sendData.cvv).length < 3 ||
+      !sendData.expiration.includes('/') ||
+      String(sendData.zipcode).length < 5
+    )
+      throw '400 bad request';
+    const resData = await axios({
       method: 'POST',
       url: CONFIG.ADD_PAYMENT_URL,
       data: { ...sendData },
     });
+    document.querySelector('#add-payment-form').classList.add('fade-out');
+    setTimeout(
+      () => document.querySelector('#add-payment-form').classList.add('hidden'),
+      2000
+    );
+    setTimeout(() => {
+      AccountView.addCard.insertAdjacentHTML(
+        'beforebegin',
+        AccountView.populateTemp(sendData)
+      );
+    }, 2005);
+    AccountView.addCard.classList.remove('hidden');
+    AccountView.addCard.classList.remove('fade-out');
+    AccountView.addCard.classList.add('fade-in');
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    document.querySelector('#card-err').classList.remove('hidden');
   }
 };
 const dropCardForm = (e) => {
-  console.log(e.target);
   e.target.classList.add('fade-out');
   setTimeout(() => {
     e.target.classList.add('hidden');
@@ -70,20 +90,9 @@ const dropCardForm = (e) => {
   AccountView.cardFormEl = document.querySelector('#add-payment-form');
   if (AccountView.cardFormEl)
     AccountView.cardFormEl.addEventListener('submit', addCard);
-
-  console.log(AccountView);
 };
-
+const populateCardTemp = (el) => {};
 if (AccountView.infoBasic)
   AccountView.infoBasic.addEventListener('submit', updateBasic);
 if (AccountView.addCard)
   AccountView.addCard.addEventListener('click', dropCardForm);
-// if (AccountView.cardFormEl)
-//   AccountView.cardFormEl.addEventListener('submit', addCard);
-<<<<<<< HEAD
-<<<<<<< HEAD
-AccountView.populateCardTemp();
-=======
->>>>>>> parent of ab17824 (error loading account/profile)
-=======
->>>>>>> parent of ab17824 (error loading account/profile)

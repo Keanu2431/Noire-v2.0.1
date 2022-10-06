@@ -105,4 +105,3 @@ HeaderView.logOutBtn?.addEventListener('click', logOut);
 HeaderView.registerSwitchBtn?.addEventListener('click', registerSwitch);
 // reset pass switch
 HeaderView.resetPassSwitchBtn?.addEventListener(`click`, resetPassSwitch);
-console.log(HeaderView.loggedStatus);

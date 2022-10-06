@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const cardSchema = new mongoose.Schema({
   cardHolder: { type: String, required: [true, 'needs a card holder name'] },
   cardNumber: {
-    type: Number,
+    type: String,
     required: [true, 'needs a card number'],
   },
   iv: { type: String, required: [true, 'Needs the IV key'] },

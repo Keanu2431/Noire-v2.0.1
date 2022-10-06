@@ -62,6 +62,7 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
       method: 'POST',
       url: CONFIG.LOGIN_URL,
       data: user,
+      withCredentials: true,
     });
     console.log(resData);
 
@@ -77,3 +78,4 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
 
   // {"emailAddress":"lumppkinkeddfsdfsdfdgjdnu@gmail.com","userName":"kerfsddsdffgfsmitkan","password":"Babyc@t24"}
 });
+// axios.defaults.withCredentials = true;

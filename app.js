@@ -24,12 +24,12 @@ const accountRouter = require('./routes/accountRoute');
 app.use(morgan('dev'));
 app.use(express.json());
 // parses the data from cookie
-app.use(cookieParser());
 
 app.use((req, res, next) => {
-  console.log('parser');
+  console.log('cookie:');
   next();
 });
+app.use(cookieParser());
 // ROUTES
 
 //

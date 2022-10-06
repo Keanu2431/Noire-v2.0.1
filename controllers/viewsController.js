@@ -15,13 +15,13 @@ exports.renderHome = async (req, res, next) => {
         res.locals.user = user;
       }
     }
-    console.log('locals');
-    console.log(res.locals);
+    // console.log('locals');
+    // console.log(res.locals);
     res.status(200).render('home');
     next();
   } catch (error) {
     console.log(error);
-    res.status(200).render('home');
+    res.status(400).render('home');
 
     return next();
   }
