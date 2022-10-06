@@ -13,6 +13,9 @@ RegisterLoginView.modalCloseBtn.addEventListener('click', function () {
 
 RegisterLoginView._parentElement.addEventListener('submit', async function (e) {
   e.preventDefault();
+  document
+    .querySelector('#banner-container')
+    .insertAdjacentHTML('beforebegin', '<div class="loader"></div>');
   //   alert('sub');
   const registerData = [
     ...new FormData(RegisterLoginView._parentElement).entries(),
@@ -35,8 +38,10 @@ RegisterLoginView._parentElement.addEventListener('submit', async function (e) {
     mainModel.state.user = resData.user;
     HeaderView.modalCloseBtn.click();
     HeaderView.loggedStatus === 'true';
+    document.querySelector('.loader').classList.add('hidden');
     // && resData.error.code == 11000
   } else if (resData.status === 'fail') {
+    document.querySelector('.loader').classList.add('hidden');
     if (resData.error.keyPattern.emailAddress) {
       RegisterLoginView.registerEmailErr.classList.remove('hidden');
     } else if (resData.error.keyPattern.userName) {
@@ -52,6 +57,9 @@ RegisterLoginView._parentElement.addEventListener('submit', async function (e) {
 // login
 RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
   e.preventDefault();
+  document
+    .querySelector('#banner-container')
+    .insertAdjacentHTML('beforebegin', '<div class="loader"></div>');
   const loginData = [...new FormData(this).entries()];
   const user = {
     userName: loginData[0][1].toLowerCase(),
@@ -70,8 +78,10 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
     RegisterLoginView.loginForm.reset();
     mainModel.state.loggedIn = true;
     HeaderView.loggedStatus = 'true';
+    document.querySelector('.loader').classList.add('hidden');
   } catch (error) {
     RegisterLoginView.loginErr.classList.remove('hidden');
+    document.querySelector('.loader').classList.add('hidden');
 
     console.log(error.response.data);
   }

@@ -10,16 +10,16 @@ exports.updateBasic = async (req, res, next) => {
   try {
     let token = req.cookies.jwt;
     const data = req.body;
+    console.log(data);
     const decoded = await util.promisify(jwt.verify)(
       token,
       process.env.SECRET_STRING
     );
     console.log('id');
     console.log(decoded.id);
-    const newUserInfo = await User.findOneAndUpdate(
-      { _id: decoded.id },
-      { $set: { data: data } }
-    );
+    const newUserInfo = await User.findOneAndUpdate({ _id: decoded.id }, data, {
+      new: true,
+    });
     newUserInfo.save();
     // console.log(data);
     res.status(200).json({

@@ -31,7 +31,7 @@ const updateBasic = async (e) => {
 const addCard = async (event) => {
   try {
     document
-      .querySelectorAll('.payment-item')[0]
+      .querySelector('#payment-title')
       .insertAdjacentHTML('beforebegin', '<div class="loader"></div>');
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -69,6 +69,7 @@ const addCard = async (event) => {
   } catch (error) {
     console.error(error);
     document.querySelector('#card-err').classList.remove('hidden');
+    event.preventDefault();
   }
 };
 const dropCardForm = (e) => {

@@ -61,13 +61,41 @@ block bodyContent
                     br
                     .inp-div(style='border: none')
                         label(for='bra-size')  bra size
-                        if user.braSize
+                        if user.braSize=='XS'
+                            select#bra-size(name='bra-size' value=`${user.braSize}`)
+                                option(value='XS' selected) XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.braSize=='S'
+                            select#bra-size(name='bra-size' value=`${user.braSize}`)
+                                option(value='XS') XS
+                                option(value='S' selected) S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.braSize=='M'
+                            select#bra-size(name='bra-size' value=`${user.braSize}`)
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M' selected) M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.braSize=='L'
+                            select#bra-size(name='bra-size' value=`${user.braSize}`)
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L' selected) L
+                                option(value='XL') XL
+                        else if user.braSize=='XL'
                             select#bra-size(name='bra-size' value=`${user.braSize}`)
                                 option(value='XS') XS
                                 option(value='S') S
                                 option(value='M') M
                                 option(value='L') L
-                                option(value='XL') XL
+                                option(value='XL' selected) XL
                         else
                             select#bra-size(name='bra-size')
                                 option(value='XS') XS

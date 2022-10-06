@@ -29,6 +29,7 @@ class AccountView {
     </div>
     <div class="inp-div">
       <label for="card-exp-inp"> expiration</label>
+      <br/>
       <input type="text" name="card-exp-inp" id="card-exp-inp"  placeholder="MM/YY" maxlength="5"/>
     </div>
     <div class="inp-div">
@@ -44,6 +45,7 @@ class AccountView {
     <br />
     <div class="inp-div">
       <label for="billing-first-inp"> first name</label>
+      <br/>
       <input
         type="text"
         name="billing-first-inp"
@@ -52,6 +54,7 @@ class AccountView {
     </div>
     <div class="inp-div">
       <label for="billing-last-inp"> last name</label>
+      <br/>
       <input
         type="text"
         name="billing-last-inp"
@@ -60,6 +63,7 @@ class AccountView {
     </div>
     <div class="inp-div">
       <label for="billing-address-inp">address</label>
+      <br/>
       <input
         type="text"
         name="billing-address-inp"
