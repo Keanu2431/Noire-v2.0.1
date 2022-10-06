@@ -149,13 +149,41 @@ block bodyContent
                                 option(value='XL') XL
                     .inp-div(style='border: none')
                         label(for='panty-size')  panty size
-                        if user.pantySize
+                        if user.pantySize=='XS'
+                            select#panty-size(name='panty-size' value=`${user.pantySize}`)
+                                option(value='XS' selected) XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.pantySize=='S'
+                            select#panty-size(name='panty-size' value=`${user.pantySize}`)
+                                option(value='XS' ) XS
+                                option(value='S' selected) S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.pantySize=='M'
+                            select#panty-size(name='panty-size' value=`${user.pantySize}`)
+                                option(value='XS' ) XS
+                                option(value='S') S
+                                option(value='M' selected) M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.pantySize=='L'
+                            select#panty-size(name='panty-size' value=`${user.pantySize}`)
+                                option(value='XS' ) XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L' selected) L
+                                option(value='XL') XL
+                        else if user.pantySize=='XL'
                             select#panty-size(name='panty-size' value=`${user.pantySize}`)
                                 option(value='XS') XS
                                 option(value='S') S
                                 option(value='M') M
                                 option(value='L') L
-                                option(value='XL') XL
+                                option(value='XL' selected) XL
                         else
                             select#panty-size(name='panty-size')
                                 option(value='XS') XS
@@ -165,13 +193,41 @@ block bodyContent
                                 option(value='XL') XL
                     .inp-div(style='border: none')
                         label(for='lingerie-size')  lingerie size
-                        if user.lingerieSize
+                        if user.lingerieSize=='XS'
                             select#lingerie-size(name='lingerie-size' value=`${user.lingerieSize}`)
-                                option(value='XS') XS
+                                option(value='XS' selected) XS
                                 option(value='S') S
                                 option(value='M') M
                                 option(value='L') L
                                 option(value='XL') XL
+                        else if user.lingerieSize=='S'
+                            select#lingerie-size(name='lingerie-size' value=`${user.lingerieSize}`)
+                                option(value='XS' ) XS
+                                option(value='S' selected) S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.lingerieSize=='M'
+                            select#lingerie-size(name='lingerie-size' value=`${user.lingerieSize}`)
+                                option(value='XS') XS
+                                option(value='S') S
+                                option(value='M' selected) M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.lingerieSize=='L'
+                            select#lingerie-size(name='lingerie-size' value=`${user.lingerieSize}`)
+                                option(value='XS' ) XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L' selected) L
+                                option(value='XL') XL
+                        else if user.lingerieSize=='XL'
+                            select#lingerie-size(name='lingerie-size' value=`${user.lingerieSize}`)
+                                option(value='XS' ) XS
+                                option(value='S') S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL' selected) XL
                         else
                             select#lingerie-size(name='lingerie-size')
                                 option(value='XS') XS

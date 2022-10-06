@@ -8,4 +8,6 @@ const router = express.Router();
 router.route('/update-profile').post(accountController.updateBasic);
 router.route('/add-card').post(accountController.addCard);
 router.route('/delete-card').delete(accountController.deleteCard);
+router.route('/edit-card').post(accountController.editCard);
+router.route('/get-card/:index').get(accountController.getCard);
 module.exports = router;

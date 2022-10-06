@@ -38,10 +38,10 @@ RegisterLoginView._parentElement.addEventListener('submit', async function (e) {
     mainModel.state.user = resData.user;
     HeaderView.modalCloseBtn.click();
     HeaderView.loggedStatus === 'true';
-    document.querySelector('.loader').classList.add('hidden');
+    document.querySelector('.loader').remove();
     // && resData.error.code == 11000
   } else if (resData.status === 'fail') {
-    document.querySelector('.loader').classList.add('hidden');
+    document.querySelector('.loader').remove();
     if (resData.error.keyPattern.emailAddress) {
       RegisterLoginView.registerEmailErr.classList.remove('hidden');
     } else if (resData.error.keyPattern.userName) {
@@ -78,10 +78,10 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
     RegisterLoginView.loginForm.reset();
     mainModel.state.loggedIn = true;
     HeaderView.loggedStatus = 'true';
-    document.querySelector('.loader').classList.add('hidden');
+    document.querySelector('.loader').remove();
   } catch (error) {
     RegisterLoginView.loginErr.classList.remove('hidden');
-    document.querySelector('.loader').classList.add('hidden');
+    document.querySelector('.loader').remove();
 
     console.log(error.response.data);
   }

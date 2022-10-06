@@ -328,3 +328,7 @@ label {
 .hidden {
   display: none;
 }
+#success-basic {
+  color: var(--secondary-color);
+  font-size: 18px;
+}

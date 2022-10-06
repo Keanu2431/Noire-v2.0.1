@@ -105,6 +105,49 @@ exports.deleteCard = async (req, res, next) => {
     });
   }
 };
+exports.editCard = async (req, res, next) => {};
+exports.getCard = async (req, res, next) => {
+  try {
+    const index = req.params.index;
+    console.log(index);
+    const user = await User.findById(res.locals.user._id);
+    const cardInfo = user.userCards[index];
+    const {
+      cardHolder,
+      lastFour,
+      expiration,
+      firstName,
+      lastName,
+      addressOne,
+      addressTwo,
+      city,
+      state,
+      zipcode,
+      billingPhone,
+    } = cardInfo;
+    res.status(200).json({
+      status: 'success',
+      data: {
+        cardHolder,
+        lastFour,
+        expiration,
+        firstName,
+        lastName,
+        addressOne,
+        addressTwo,
+        city,
+        state,
+        zipcode,
+        billingPhone,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: 'fail',
+    });
+  }
+};
 const message = 'my namem is keane';
 //
 const algorithm = 'aes-256-cbc';

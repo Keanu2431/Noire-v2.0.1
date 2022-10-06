@@ -24,6 +24,14 @@ const updateBasic = async (e) => {
       data: newInfo,
     });
     console.log(resData);
+    if (document.querySelector('#success-basic')) return;
+    else
+      document
+        .querySelector('#username-holder')
+        .insertAdjacentHTML(
+          'afterend',
+          '<h2 id="success-basic">User Information Successfully Updated</h2>'
+        );
   } catch (error) {
     console.log(error);
   }
@@ -100,11 +108,28 @@ const deleteCard = async (e) => {
   console.log(resData);
   window.location.reload();
 };
+const editCard = async (e) => {
+  const edit_del = e.target.parentElement;
+  // edit_del.classList.add('hidden');
+  const index = e.target.dataset.info;
+  let cardData = await axios({
+    method: 'GET',
+    url: `http://127.0.0.1:3000/account/get-card/${index}`,
+  });
+  cardData = cardData.data.data;
+  console.log(cardData);
+  e.target.parentElement.insertAdjacentHTML(
+    'beforebegin',
+    AccountView.populateEditTemp(cardData)
+  );
+};
 if (AccountView.infoBasic)
   AccountView.infoBasic.addEventListener('submit', updateBasic);
 if (AccountView.addCard)
   AccountView.addCard.addEventListener('click', dropCardForm);
-if (AccountView.paymentItem[0])
+if (AccountView.paymentItem[0]) {
   AccountView.deleteCard.forEach((el) =>
     el.addEventListener('click', deleteCard)
   );
+  AccountView.editCard.forEach((el) => el.addEventListener('click', editCard));
+}
