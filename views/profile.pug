@@ -105,13 +105,41 @@ block bodyContent
                                 option(value='XL') XL
                     .inp-div(style='border: none')
                         label(for='bralette-size')  bralette size
-                        if user.braletteSize
+                        if user.braletteSize=='XS'
                             select#bralette-size(name='bralette-size' value=`${user.braletteSize}`)
-                                option(value='XS') XS
+                                option(value='XS' selected) XS
                                 option(value='S') S
                                 option(value='M') M
                                 option(value='L') L
                                 option(value='XL') XL
+                        else if user.braletteSize=='S'
+                            select#bralette-size(name='bralette-size' value=`${user.braletteSize}`)
+                                option(value='XS') XS
+                                option(value='S' selected) S
+                                option(value='M') M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.braletteSize=='M'
+                            select#bralette-size(name='bralette-size' value=`${user.braletteSize}`)
+                                option(value='XS') XS
+                                option(value='S' ) S
+                                option(value='M' selected) M
+                                option(value='L') L
+                                option(value='XL') XL
+                        else if user.braletteSize=='L'
+                            select#bralette-size(name='bralette-size' value=`${user.braletteSize}`)
+                                option(value='XS') XS
+                                option(value='S' ) S
+                                option(value='M') M
+                                option(value='L' selected) L
+                                option(value='XL') XL
+                        else if user.braletteSize=='XL'
+                            select#bralette-size(name='bralette-size' value=`${user.braletteSize}`)
+                                option(value='XS') XS
+                                option(value='S' ) S
+                                option(value='M') M
+                                option(value='L' ) L
+                                option(value='XL' selected) XL
                         else
                             select#bralette-size(name='bralette-size')
                                 option(value='XS') XS
