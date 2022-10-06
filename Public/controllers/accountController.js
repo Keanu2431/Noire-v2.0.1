@@ -65,7 +65,7 @@ const addCard = async (event) => {
       url: CONFIG.ADD_PAYMENT_URL,
       data: { ...sendData },
     });
-    // window.location.reload();
+    window.location.reload();
   } catch (error) {
     console.error(error);
     document.querySelector('#card-err').classList.remove('hidden');
@@ -88,7 +88,7 @@ const deleteCard = async (e) => {
       .closest('div')
       .children[0].children[1].children[1].textContent.slice(-4)
   );
-  const exp =
+  const expiration =
     e.target.closest('div').children[0].children[1].children[2].textContent;
   const sendData = { lastFour, expiration };
   const resData = await axios({
