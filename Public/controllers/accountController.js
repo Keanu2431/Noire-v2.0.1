@@ -87,8 +87,39 @@ const dropCardForm = (e) => {
   }, 3000);
   e.target.insertAdjacentHTML('beforebegin', AccountView.addCardForm);
   AccountView.cardFormEl = document.querySelector('#add-payment-form');
-  if (AccountView.cardFormEl)
+  if (AccountView.cardFormEl) {
     AccountView.cardFormEl.addEventListener('submit', addCard);
+    document
+      .querySelector('#cancel-payment')
+      .addEventListener('click', function (e) {
+        e.target.parentElement.classList.add('fade-out');
+        setTimeout(function () {
+          e.target.parentElement.remove();
+          AccountView.addCard.classList.remove('hidden');
+          AccountView.addCard.classList.remove('fade-out');
+        }, 2005);
+      });
+  }
+};
+const addShipping = async (event) => {
+  alert('sub');
+  event.preventDefault();
+};
+const dropShipForm = (e) => {
+  e.target.insertAdjacentHTML('beforebegin', AccountView.addShipForm);
+  document.querySelector('#shipping-form').classList.add('fade-in');
+  if (document.querySelector('#shipping-form')) {
+    document
+      .querySelector('#shipping-form')
+      .addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const formData = [...new FormData(event.target).entries()];
+        console.log(formData);
+        const sendData = { firstName: formData };
+
+        console.log(sendData);
+      });
+  }
 };
 const deleteCard = async (e) => {
   // alert('clicked');
@@ -170,3 +201,5 @@ if (AccountView.paymentItem[0]) {
   );
   AccountView.editCard.forEach((el) => el.addEventListener('click', editCard));
 }
+if (AccountView.addShip)
+  AccountView.addShip.addEventListener('click', dropShipForm);
