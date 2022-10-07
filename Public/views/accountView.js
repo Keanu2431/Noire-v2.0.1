@@ -3,6 +3,8 @@ class AccountView {
   infoBasic = document.querySelector('#user-info');
   addCard = document.querySelector('#add-card');
   addShip = document.querySelector('#add-address');
+  shipItem = document.querySelectorAll('#shipping-info');
+  deleteShip = document.querySelectorAll('#delete-shipping');
   addCardForm = `<form
   action=""
   class="set-card-information fade-in"
@@ -506,6 +508,8 @@ class AccountView {
   paymentItem = document.querySelectorAll('.payment-item');
   deleteCard = document.querySelectorAll('#delete-card');
   editCard = document.querySelectorAll('#edit-card');
+  loader = '<div class="loader"></div>';
+  resetPassForm = document.querySelector('.password-form');
   populateTemp = (el, index = 0) => {
     return `
 <div class="payment-item">

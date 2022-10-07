@@ -4,7 +4,7 @@ const Product = require('../model/productModel');
 const jwt = require('jsonwebtoken');
 const util = require('util');
 const crypto = require('crypto');
-const { use } = require('../routes/accountRoute');
+const bcrypt = require('bcryptjs');
 
 exports.updateBasic = async (req, res, next) => {
   try {
@@ -31,6 +31,29 @@ exports.updateBasic = async (req, res, next) => {
     console.log(error);
     res.status(401).json({
       status: 'fail',
+    });
+  }
+};
+exports.updatePassword = async (req, res, next) => {
+  try {
+    const reqData = req.body;
+    const currentPassword = reqData.currentPassword;
+    const newPasswordOne = reqData.newPasswordOne;
+    const newPasswordTwo = reqData.newPasswordTwo;
+    const user = await User.findById(res.locals.user._id).select('+password');
+    if ((await user.correctPassword(currentPassword, user.password)) !== true)
+      throw 'Wrong Password';
+    console.log();
+    console.log(user.password);
+    console.log(currentPassword, newPasswordTwo, newPasswordOne);
+    res.status(200).json({
+      status: 'success',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: 'fail',
+      message: error,
     });
   }
 };
@@ -211,6 +234,25 @@ exports.addShipping = async (req, res, next) => {
       status: 'fail',
       message: 'bad error',
     });
+  }
+};
+exports.deleteShipping = async (req, res, next) => {
+  try {
+    const reqData = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      addressOne: req.body.addressOne,
+    };
+    // delete reqData.index;
+    console.log(reqData);
+    const { index } = req.body;
+    console.log(index);
+    const user = await User.findByIdAndUpdate(res.locals.user._id, {
+      $pull: { userShipping: reqData },
+    });
+    res.status(200).json({ status: 'success' });
+  } catch (error) {
+    res.status(400).json({ status: 'fail', message: 'bad request' });
   }
 };
 const message = 'my namem is keane';

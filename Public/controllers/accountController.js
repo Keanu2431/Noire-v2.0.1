@@ -119,9 +119,9 @@ const dropShipForm = (e) => {
         const formData = [...new FormData(event.target).entries()];
         console.log(...formData);
         const sendData = {
-          firstName: formData[0][1],
-          lastName: formData[1][1],
-          addressOne: formData[2][1],
+          firstName: formData[0][1].toLowerCase(),
+          lastName: formData[1][1].toLowerCase(),
+          addressOne: formData[2][1].toLowerCase(),
           addressTwo: formData[3][1],
           city: formData[4][1],
           state: formData[5][1],
@@ -153,6 +153,65 @@ const dropShipForm = (e) => {
         });
         window.location.reload();
       });
+  }
+};
+const updatePassword = async (e) => {
+  try {
+    e.preventDefault();
+    document
+      .querySelector('body')
+      .insertAdjacentHTML('afterbegin', AccountView.loader);
+    const formData = [...new FormData(AccountView.resetPassForm).entries()];
+    const sendData = {
+      currentPassword: formData[0][1],
+      newPasswordOne: formData[1][1],
+      newPasswordTwo: formData[2][1],
+    };
+    const resData = await axios({
+      method: 'POST',
+      url: CONFIG.UPDATE_PASSWORD_URL,
+      data: sendData,
+    });
+  } catch (error) {
+    console.log(error.response.data.message);
+    document.querySelector('.loader').remove();
+  }
+};
+const deleteShip = async (e) => {
+  try {
+    document
+      .querySelector('body')
+      .insertAdjacentHTML('afterbegin', AccountView.loader);
+    const index = e.target.dataset.index;
+    const addressOne =
+      e.target.parentElement.parentElement.children[0].textContent.toLowerCase();
+    const firstName =
+      e.target.parentElement.parentElement.parentElement.children[0].textContent
+        .split(' ')[0]
+        .toLowerCase();
+    const lastName =
+      e.target.parentElement.parentElement.parentElement.children[0].textContent
+        .split(' ')[1]
+        .toLowerCase();
+    const sendData = { index, addressOne, firstName, lastName };
+    console.log(sendData);
+    const resData = await axios({
+      method: 'DELETE',
+      data: sendData,
+      url: CONFIG.DELETE_SHIPPING_URL,
+    });
+    console.log(resData);
+    window.location.reload();
+  } catch (error) {
+    // document
+    //   .querySelector('#shipping')
+    if (!document.querySelector('#error-ship'))
+      e.target.parentElement.insertAdjacentHTML(
+        'afterend',
+        '<h3 style="color:red;" id="error-ship"> Something went wrong </h3>'
+      );
+    document.querySelector('.loader').remove();
+    console.log(error);
   }
 };
 const deleteCard = async (e) => {
@@ -237,3 +296,10 @@ if (AccountView.paymentItem[0]) {
 }
 if (AccountView.addShip)
   AccountView.addShip.addEventListener('click', dropShipForm);
+if (AccountView.shipItem[0])
+  AccountView.deleteShip.forEach((el) =>
+    el.addEventListener('click', deleteShip)
+  );
+if (AccountView.resetPassForm) {
+  AccountView.resetPassForm.addEventListener('submit', updatePassword);
+}

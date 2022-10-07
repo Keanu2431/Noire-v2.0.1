@@ -1,6 +1,6 @@
 extends base
 block append head
-    //- script(src='/account/account.js')
+    script(src='/controllers/accountController.js' type='module')
 
 block bodyContent
     .profile-container
@@ -25,14 +25,14 @@ block bodyContent
             form.reset.password-form(action='')
                 .inp-div
                     label(for='verify-pass') Enter Current password
-                    input#verify-pass(type='text' name='verify-pass')
+                    input#verify-pass(type='password' name='verify-pass')
                 .inp-div
                     label(for='new-pass') Enter new password
                     br
-                    input#new-pass(type='text' name='new-pass')
+                    input#new-pass(type='password' name='new-pass')
                 .inp-div
                     label(for='verify-new-pass') verify new password
                     br
-                    input#verify-new-pass(type='text' name='verify-new-pass')
-                button#update-password.noire-btn(type='button')
+                    input#verify-new-pass(type='password' name='verify-new-pass')
+                button#update-password.noire-btn(type='submit')
                     | Update Password
