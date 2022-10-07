@@ -382,11 +382,12 @@ class AccountView {
         </div>
       </div>
       <h2 class="edit-delete">
-        <span id="edit-card" data-info="${index}">edit</span> |
+       
         <span id="delete-card" data-info="${index}">delete</span>
       </h2>
     </div>
 `;
+    string = ` <span id="edit-card" data-info="${index}">edit</span> |`;
   };
   populateEditTemp = (card) => {
     return `<form

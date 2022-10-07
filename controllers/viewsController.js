@@ -50,7 +50,8 @@ exports.renderPayment = async (req, res, next) => {
   next();
 };
 exports.renderShipping = async (req, res, next) => {
-  res.status(200).render('ship-info');
+  const shippingArr = res.locals.user.userShipping;
+  res.status(200).render('ship-info', { shipping: shippingArr });
   next();
 };
 exports.render_E_Pref = async (req, res, next) => {

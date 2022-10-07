@@ -21,4 +21,14 @@ block bodyContent
                 a.tabs(href='/account/reset-password') password
         .container-user-info(style='width: 70%')
             h2#shipping shippping information
+            if user.use[0]
+            #shipping-primary.shipping-info
+                h2 Keanu Lumpkin
+                #info-small
+                    h3#street 230 East 77th Street
+                    h3#zip Brooklyn,NY 11236
+                    h2.edit-delete(style='margin-left: 0px')
+                        span#edit-shipping edit
+                        | |
+                        span#delete-shipping delete
             h2#add-address(style='height: fit-content') Add address
