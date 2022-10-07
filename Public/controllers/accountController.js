@@ -113,11 +113,45 @@ const dropShipForm = (e) => {
       .querySelector('#shipping-form')
       .addEventListener('submit', async function (event) {
         event.preventDefault();
+        document
+          .querySelector('body')
+          .insertAdjacentHTML('afterbegin', '<div class="loader"></div>');
         const formData = [...new FormData(event.target).entries()];
-        console.log(formData);
-        const sendData = { firstName: formData };
-
+        console.log(...formData);
+        const sendData = {
+          firstName: formData[0][1],
+          lastName: formData[1][1],
+          addressOne: formData[2][1],
+          addressTwo: formData[3][1],
+          city: formData[4][1],
+          state: formData[5][1],
+          zipcode: formData[6][1],
+          country: formData[7][1],
+          phoneNumber: formData[8][1],
+        };
+        if (
+          sendData.firstName.length < 2 ||
+          sendData.lastName.length < 2 ||
+          sendData.addressOne.length < 5 ||
+          sendData.city.length < 3 ||
+          sendData.zipcode.length < 5
+        ) {
+          document.querySelector('.loader').remove();
+          document
+            .querySelector('#shipping-form')
+            .insertAdjacentHTML(
+              'beforebegin',
+              `<h2 style='color:red;'>Check Shipping Information</h2>`
+            );
+          return;
+        }
         console.log(sendData);
+        const resData = await axios({
+          method: 'POST',
+          url: CONFIG.ADD_SHIPPING_URL,
+          data: sendData,
+        });
+        window.location.reload();
       });
   }
 };

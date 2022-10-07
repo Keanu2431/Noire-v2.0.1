@@ -22,14 +22,13 @@ block bodyContent
                 a.tabs(href='/account/reset-password') password
         .container-user-info(style='width: 70%')
             h2#shipping shippping information
-            if user.use[0]
-            #shipping-primary.shipping-info
-                h2 Keanu Lumpkin
-                #info-small
-                    h3#street 230 East 77th Street
-                    h3#zip Brooklyn,NY 11236
-                    h2.edit-delete(style='margin-left: 0px')
-                        span#edit-shipping edit
-                        | |
-                        span#delete-shipping delete
+            if user.userShipping[0]
+                each ship,index in shipping
+                    #shipping-primary.shipping-info
+                        h2= `${ship.firstName} ${ship.lastName}`
+                        #info-small
+                            h3#street= ship.addressOne
+                            h3#zip= `${ship.city},${ship.state} ${ship.zipcode}`
+                            h2.edit-delete(style='margin-left: 0px')
+                                span#delete-shipping(data-index=index) delete
             h2#add-address(style='height: fit-content') Add address

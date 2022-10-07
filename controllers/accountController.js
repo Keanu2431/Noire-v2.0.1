@@ -193,6 +193,26 @@ exports.getCard = async (req, res, next) => {
     });
   }
 };
+exports.addShipping = async (req, res, next) => {
+  try {
+    const reqData = req.body;
+    console.log(reqData);
+    const user = await User.findByIdAndUpdate(
+      res.locals.user._id,
+      { $push: { userShipping: reqData } },
+      { new: true }
+    );
+    res.status(200).json({
+      status: 'success',
+      data: user.userShipping,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'bad error',
+    });
+  }
+};
 const message = 'my namem is keane';
 //
 const algorithm = 'aes-256-cbc';
