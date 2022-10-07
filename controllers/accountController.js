@@ -105,7 +105,40 @@ exports.deleteCard = async (req, res, next) => {
     });
   }
 };
-exports.editCard = async (req, res, next) => {};
+exports.editCard = async (req, res, next) => {
+  try {
+    const { query, index, sendDataForm } = req.body;
+    console.log(query);
+    console.log(index);
+    console.log(sendDataForm);
+    const user = await User.findOneAndUpdate(
+      res.locals.user._id,
+      {
+        $set: { 'userCards.$.cardHolder': sendDataForm.cardHolder },
+      },
+      { new: true }
+    );
+    const card = await Card.findOneAndUpdate(
+      query,
+      { ...sendDataForm },
+      {
+        new: true,
+      }
+    );
+    const cardInArr = user.userCards[index];
+    res.status(200).json({
+      user: user.userName,
+      cardInArr,
+      card,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: 'fail',
+      message: 'Bad request',
+    });
+  }
+};
 exports.getCard = async (req, res, next) => {
   try {
     const index = req.params.index;

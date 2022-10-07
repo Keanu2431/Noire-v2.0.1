@@ -118,10 +118,47 @@ const editCard = async (e) => {
   });
   cardData = cardData.data.data;
   console.log(cardData);
+  const queryObj = {
+    lastFour: cardData.lastFour,
+    expiration: cardData.expiration,
+  };
+  // console.log(queryObj);
   e.target.parentElement.insertAdjacentHTML(
     'beforebegin',
     AccountView.populateEditTemp(cardData)
   );
+  document
+    .querySelector('#edit-payment-form')
+    .addEventListener('submit', async (e) => {
+      e.preventDefault();
+      console.log(queryObj);
+      const formSubData = [...new FormData(e.target).entries()];
+      console.log(formSubData);
+      const sendDataForm = {
+        cardHolder: formSubData[0][1],
+        expiration: formSubData[1][1],
+        firstName: formSubData[2][1],
+        lastName: formSubData[3][1],
+        addressOne: formSubData[4][1],
+        addressTwo: formSubData[5][1],
+        city: formSubData[6][1],
+        state: formSubData[7][1],
+        zipcode: formSubData[8][1],
+        billingPhone: formSubData[10][1],
+      };
+      // console.log(sendDataForm);
+      console.log({ query: queryObj, index, sendDataForm });
+      const resData = axios({
+        method: 'POST',
+        url: CONFIG.EDIT_PAYMENT_URL,
+        data: { query: queryObj, index, sendDataForm },
+      });
+    });
+};
+const editCardSubmit = async (e) => {
+  e.preventDefault();
+  console.log(queryObj);
+  console.log(...new FormData(e.target).entries());
 };
 if (AccountView.infoBasic)
   AccountView.infoBasic.addEventListener('submit', updateBasic);

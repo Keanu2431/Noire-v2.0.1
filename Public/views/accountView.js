@@ -409,6 +409,7 @@ class AccountView {
       <div class="inp-div">
         <label for="card-number-inp">Card Number</label>
         <input
+          disabled
           maxlength="16"
           type="string"
           name="card-number-inp"
@@ -424,6 +425,7 @@ class AccountView {
       <div class="inp-div">
         <label for="card-cvv-inp"> security code</label>
         <input
+          disabled
           maxlength="4"
           type="text"
           name="card-cvv-inp"
