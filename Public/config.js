@@ -9,3 +9,4 @@ export const DELETE_SHIPPING_URL =
   'http://127.0.0.1:3000/account/delete-shipping';
 export const UPDATE_PASSWORD_URL =
   'http://127.0.0.1:3000/account/password-update';
+export const UPDATE_PREF = 'http://127.0.0.1:3000/account/pref-update';

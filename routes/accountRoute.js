@@ -13,4 +13,5 @@ router.route('/get-card/:index').get(accountController.getCard);
 router.route('/add-shipping').post(accountController.addShipping);
 router.route('/delete-shipping').delete(accountController.deleteShipping);
 router.route('/password-update').post(accountController.updatePassword);
+router.route('/pref-update').post(accountController.updatePref);
 module.exports = router;

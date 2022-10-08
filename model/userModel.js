@@ -83,6 +83,10 @@ const userSchema = new mongoose.Schema({
   //   users shipping Array
   userShipping: { type: Array, required: [false], default: [] },
   passwordChangedAt: Number,
+  emailPref: {
+    type: Object,
+    default: { frequency: 'never', permission: 'no' },
+  },
 });
 // middleware that runs between the time we recieve the data and time we save to database
 userSchema.pre('save', async function (next) {

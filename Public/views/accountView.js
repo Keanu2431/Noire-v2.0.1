@@ -5,6 +5,7 @@ class AccountView {
   addShip = document.querySelector('#add-address');
   shipItem = document.querySelectorAll('#shipping-info');
   deleteShip = document.querySelectorAll('#delete-shipping');
+  emailPrefForm = document.querySelector('#email-preferences');
   addCardForm = `<form
   action=""
   class="set-card-information fade-in"
@@ -324,6 +325,7 @@ class AccountView {
   <button type="submit" class="noire-btn" id="save-shipping">
     Save
   </button>
+  <button type="button" id="cancel-ship" class="noire-btn">Cancel</button>
 </form>`;
   editCardForm = `<form
   action=""

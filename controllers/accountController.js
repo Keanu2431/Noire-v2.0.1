@@ -305,6 +305,22 @@ exports.deleteShipping = async (req, res, next) => {
     res.status(400).json({ status: 'fail', message: 'bad request' });
   }
 };
+exports.updatePref = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const user = await User.findByIdAndUpdate(
+      res.locals.user._id,
+      { emailPref: req.body },
+      {
+        new: true,
+      }
+    );
+    res.status(200).json({ status: 'success' });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ status: 'fail' });
+  }
+};
 const message = 'my namem is keane';
 //
 const algorithm = 'aes-256-cbc';

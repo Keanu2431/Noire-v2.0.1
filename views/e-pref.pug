@@ -1,6 +1,6 @@
 extends base
 block append head
-    //- script(src='/account/account.js')
+    script(src='/controllers/accountController.js' type='module')
 
 block bodyContent
     .profile-container
@@ -26,22 +26,68 @@ block bodyContent
                 h2#email-sub-text
                 | how often would you like to recieve news via email:
             form#email-preferences(action='')
-                .radio-div
-                    input#freq(type='radio' name='e-pref' value='freq')
-                    label.email-label(for='freq') Frequently
-                .radio-div
-                    input#somewhat-freq(type='radio' name='e-pref' value='somewhat-freq')
-                    label.email-label(for='somewhat-freq') Somewhat Frequently
-                .radio-div
-                    input#never(type='radio' name='e-pref' value='never')
-                    label.email-label(for='never') Never
+                if user.emailPref.frequency=='freq'
+                    .radio-div
+                        input#freq(type='radio' name='e-pref' value='freq' checked)
+                        label.email-label(for='freq') Frequently
+                    .radio-div
+                        input#somewhat-freq(type='radio' name='e-pref' value='somewhat-freq')
+                        label.email-label(for='somewhat-freq') Somewhat Frequently
+                    .radio-div
+                        input#never(type='radio' name='e-pref' value='never')
+                        label.email-label(for='never') Never
+                else if user.emailPref.frequency=='somewhat-freq'
+                    .radio-div
+                        input#freq(type='radio' name='e-pref' value='freq' )
+                        label.email-label(for='freq') Frequently
+                    .radio-div
+                        input#somewhat-freq(type='radio' name='e-pref' value='somewhat-freq' checked)
+                        label.email-label(for='somewhat-freq') Somewhat Frequently
+                    .radio-div
+                        input#never(type='radio' name='e-pref' value='never')
+                        label.email-label(for='never') Never
+                else if user.emailPref.frequency=='never'
+                    .radio-div
+                        input#freq(type='radio' name='e-pref' value='freq' )
+                        label.email-label(for='freq') Frequently
+                    .radio-div
+                        input#somewhat-freq(type='radio' name='e-pref' value='somewhat-freq')
+                        label.email-label(for='somewhat-freq') Somewhat Frequently
+                    .radio-div
+                        input#never(type='radio' name='e-pref' value='never' checked)
+                        label.email-label(for='never') Never
+                else 
+                    .radio-div
+                        input#freq(type='radio' name='e-pref' value='freq' )
+                        label.email-label(for='freq') Frequently
+                    .radio-div
+                        input#somewhat-freq(type='radio' name='e-pref' value='somewhat-freq')
+                        label.email-label(for='somewhat-freq') Somewhat Frequently
+                    .radio-div
+                        input#never(type='radio' name='e-pref' value='never' )
+                        label.email-label(for='never') Never
                 h2#email-sub-text(style='margin-top: 12px')
                 | would you like our partners to reach out to you:
-                .radio-div
-                    input#yes(type='radio' name='reach-out' value='yes')
-                    label.email-label(for='yes') yes
-                .radio-div
-                    input#no(type='radio' name='reach-out' value='no')
-                    label.email-label(for='no') no
+                if user.emailPref.permission=='no'
+                    .radio-div
+                        input#yes(type='radio' name='reach-out' value='yes')
+                        label.email-label(for='yes') yes
+                    .radio-div
+                        input#no(type='radio' name='reach-out' value='no' checked)
+                        label.email-label(for='no') no
+                else if user.emailPref.permission=='yes'
+                    .radio-div
+                        input#yes(type='radio' name='reach-out' value='yes' checked)
+                        label.email-label(for='yes') yes
+                    .radio-div
+                        input#no(type='radio' name='reach-out' value='no')
+                        label.email-label(for='no') no
+                else  
+                    .radio-div
+                        input#yes(type='radio' name='reach-out' value='yes')
+                        label.email-label(for='yes') yes
+                    .radio-div
+                        input#no(type='radio' name='reach-out' value='no')
+                        label.email-label(for='no') no
                 button#update-preferences.noire-btn(type='submit')
                     | Update

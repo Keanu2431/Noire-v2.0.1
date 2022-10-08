@@ -39,7 +39,7 @@ const updateBasic = async (e) => {
 const addCard = async (event) => {
   try {
     document
-      .querySelector('#payment-title')
+      .querySelector('body')
       .insertAdjacentHTML('beforebegin', '<div class="loader"></div>');
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -68,6 +68,7 @@ const addCard = async (event) => {
       String(sendData.zipcode).length < 5
     )
       throw '400 bad request';
+    document.querySelector('.loader').remove();
     const resData = await axios({
       method: 'POST',
       url: CONFIG.ADD_PAYMENT_URL,
@@ -77,6 +78,7 @@ const addCard = async (event) => {
   } catch (error) {
     console.error(error);
     document.querySelector('#card-err').classList.remove('hidden');
+    document.querySelector('.loader').remove();
     event.preventDefault();
   }
 };
@@ -109,6 +111,16 @@ const dropShipForm = (e) => {
   e.target.insertAdjacentHTML('beforebegin', AccountView.addShipForm);
   document.querySelector('#shipping-form').classList.add('fade-in');
   if (document.querySelector('#shipping-form')) {
+    document
+      .querySelector('#cancel-ship')
+      .addEventListener('click', function (e) {
+        e.target.parentElement.classList.add('fade-out');
+        setTimeout(function () {
+          e.target.parentElement.remove();
+          AccountView.addCard.classList.remove('hidden');
+          AccountView.addCard.classList.remove('fade-out');
+        }, 2005);
+      });
     document
       .querySelector('#shipping-form')
       .addEventListener('submit', async function (event) {
@@ -174,8 +186,15 @@ const updatePassword = async (e) => {
     });
     window.location.reload();
   } catch (error) {
-    console.log(error.response.data.message);
+    const message = error.response.data.message;
     document.querySelector('.loader').remove();
+    document.querySelector('#pass-err')?.remove();
+    document
+      .querySelector('#reset-pass-holder')
+      .insertAdjacentHTML(
+        'afterend',
+        `<h2 style='color:red' id='pass-err'>${message}</h2>`
+      );
   }
 };
 const deleteShip = async (e) => {
@@ -285,8 +304,36 @@ const editCardSubmit = async (e) => {
   console.log(queryObj);
   console.log(...new FormData(e.target).entries());
 };
+const updateEmailPref = async (e) => {
+  try {
+    document
+      .querySelector('body')
+      .insertAdjacentHTML('afterbegin', AccountView.loader);
+    e.preventDefault();
+    console.log(e.target);
+    const formData = [...new FormData(e.target).entries()];
+    const sendData = { frequency: formData[0][1], permission: formData[1][1] };
+    console.log(formData);
+    console.log(sendData);
+    document.querySelector('.loader').remove();
+    const resData = await axios({
+      method: 'POST',
+      url: CONFIG.UPDATE_PREF,
+      data: sendData,
+    });
+    // window.location.reload();
+  } catch (error) {
+    console.log(error);
+    document.querySelector('.loader').remove();
+  }
+};
+// email pref
+if (AccountView.emailPrefForm)
+  AccountView.emailPrefForm.addEventListener('submit', updateEmailPref);
+// basic/profile
 if (AccountView.infoBasic)
   AccountView.infoBasic.addEventListener('submit', updateBasic);
+// payment card
 if (AccountView.addCard)
   AccountView.addCard.addEventListener('click', dropCardForm);
 if (AccountView.paymentItem[0]) {
@@ -295,12 +342,14 @@ if (AccountView.paymentItem[0]) {
   );
   AccountView.editCard.forEach((el) => el.addEventListener('click', editCard));
 }
+// shipping
 if (AccountView.addShip)
   AccountView.addShip.addEventListener('click', dropShipForm);
 if (AccountView.shipItem[0])
   AccountView.deleteShip.forEach((el) =>
     el.addEventListener('click', deleteShip)
   );
+// password
 if (AccountView.resetPassForm) {
   AccountView.resetPassForm.addEventListener('submit', updatePassword);
 }
