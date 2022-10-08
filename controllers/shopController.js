@@ -2,11 +2,8 @@ const Product = require('../model/productModel');
 
 // rendering
 exports.renderPage = async (req, res, next) => {
-  console.log();
-  const category = req.params.category;
-  console.log(req.params);
-  console.log(category);
-  res.status(200).render('shopTemp');
+  const { category, subCat } = req.params;
+  res.status(200).render('shop-template');
   next();
 };
 
