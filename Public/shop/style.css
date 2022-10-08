@@ -1,0 +1,23 @@
+/* from shop style.css */
+@import url('/style.css');
+@import url('/account/style.css');
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fade-out {
+  animation-name: fadeOut;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+.hidden {
+  display: none;
+}
+#success-basic {
+  color: var(--secondary-color);
+  font-size: 18px;
+}

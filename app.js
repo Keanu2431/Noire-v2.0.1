@@ -6,8 +6,12 @@ const express = require('express');
 const morgan = require('morgan');
 const fs = require('fs');
 const app = express();
+app.set('views', [
+  path.join(__dirname, 'views'),
+  path.join(__dirname, 'views/account'),
+  path.join(__dirname, 'views/shop'),
+]);
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
 // SERVING STATIC
 app.use(express.static(path.join(__dirname, 'Public')));
 const productRouter = require('./routes/productRoutes');
