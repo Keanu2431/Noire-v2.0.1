@@ -172,6 +172,7 @@ const updatePassword = async (e) => {
       url: CONFIG.UPDATE_PASSWORD_URL,
       data: sendData,
     });
+    window.location.reload();
   } catch (error) {
     console.log(error.response.data.message);
     document.querySelector('.loader').remove();

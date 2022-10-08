@@ -5,7 +5,36 @@ const jwt = require('jsonwebtoken');
 const util = require('util');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
-
+const validSpecialCharactersPassword = [`@`, `$`, `#`, `_`, `!`, `%`, `&`];
+const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+const capitals = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+];
 exports.updateBasic = async (req, res, next) => {
   try {
     let token = req.cookies.jwt;
@@ -41,13 +70,34 @@ exports.updatePassword = async (req, res, next) => {
     const newPasswordOne = reqData.newPasswordOne;
     const newPasswordTwo = reqData.newPasswordTwo;
     const user = await User.findById(res.locals.user._id).select('+password');
+    console.log(currentPassword, newPasswordOne, newPasswordTwo);
+
     if ((await user.correctPassword(currentPassword, user.password)) !== true)
       throw 'Wrong Password';
-    console.log();
+    if (newPasswordOne !== newPasswordTwo) throw "Passwords Don't Match";
+    if (
+      newPasswordOne.includes(` `) ||
+      newPasswordOne.length < 8 ||
+      newPasswordOne.length > 32 ||
+      // spreads the password then checks if it contains one of the elements from the validSpecialCharactersPassword Array using the !(NOT) operator
+      ![...newPasswordOne].some((i) =>
+        validSpecialCharactersPassword.includes(i)
+      ) ||
+      ![...newPasswordOne].some((i) => capitals.includes(i)) ||
+      [...newPasswordOne].some((i) => digits.includes(i))
+    )
+      throw 'Invalid New Password';
+    const hashedNewPassword = await bcrypt.hash(newPasswordOne, 16);
+    console.log(`hashed:${hashedNewPassword}`);
+    const updatedUser = await User.findByIdAndUpdate(
+      res.locals.user._id,
+      { password: hashedNewPassword },
+      { new: true }
+    );
     console.log(user.password);
-    console.log(currentPassword, newPasswordTwo, newPasswordOne);
     res.status(200).json({
       status: 'success',
+      newPassword: newPasswordOne,
     });
   } catch (error) {
     console.log(error);
