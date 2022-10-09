@@ -87,6 +87,7 @@ const userSchema = new mongoose.Schema({
     type: Object,
     default: { frequency: 'never', permission: 'no' },
   },
+  collectCookies: String,
 });
 // middleware that runs between the time we recieve the data and time we save to database
 userSchema.pre('save', async function (next) {

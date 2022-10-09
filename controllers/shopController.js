@@ -3,6 +3,7 @@ const Product = require('../model/productModel');
 // rendering
 exports.renderPage = async (req, res, next) => {
   const { category, subCat } = req.params;
+  console.log(req.params);
   res.status(200).render('shop-template');
   next();
 };

@@ -185,7 +185,7 @@ exports.getAllUsers = async (req, res) => {
 exports.loginAuth = async (req, res, next) => {
   try {
     console.log(req.body);
-    const { userName, password } = req.body;
+    const { userName, password, stayLogged } = req.body;
     console.log(userName, password);
     // check if username and password were submitted
     if (!userName || !password) {
@@ -208,6 +208,9 @@ exports.loginAuth = async (req, res, next) => {
     }
     // const compareBcrypt = await bcrypt.hash(password, 16);
     console.log('logged in');
+    if (stayLogged == 'on') {
+      console.log('forever logged');
+    }
     //
     const token = signToken(user._id);
     res.cookie('jwt', token, {

@@ -61,10 +61,15 @@ RegisterLoginView.loginForm.addEventListener('submit', async function (e) {
     .querySelector('#banner-container')
     .insertAdjacentHTML('beforebegin', '<div class="loader"></div>');
   const loginData = [...new FormData(this).entries()];
+  console.log(loginData);
   const user = {
     userName: loginData[0][1].toLowerCase(),
     password: loginData[1][1],
+    // stayLogged: loginData[2][1],
   };
+  // console.log(loginData[2][1]);
+  // if (loginData[2][1]) user.stayLogged = 'on';
+
   try {
     const resData = await axios({
       method: 'POST',
