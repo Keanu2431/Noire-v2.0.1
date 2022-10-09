@@ -24,6 +24,24 @@
 .special-banner {
   width: 100%;
 }
+.top-row-shop {
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+  margin: 0 auto;
+}
+.top-left {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+}
+.crumb-container {
+  width: fit-content;
+}
+.btn-secondary {
+  background-color: var(--secondary-color) !important;
+}
+/* top row product */
 .shopping-container {
   width: 100%;
   display: flex;

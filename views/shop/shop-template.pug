@@ -6,10 +6,10 @@ block bodyContent
     if !params.subCat
         a(href=`/shop/${params.category}-special`, target="_self", rel="noopener noreferrer") 
             img.special-banner(src=`/Images/specials-banners/${params.category}-special-banner.jpg`, alt="", srcset="")
-    .shopping-container
-        .left-filter
+    .top-row-shop
+        .top-left
             if params.subCat
-                nav(aria-label='breadcrumb')
+                nav.crumb-container(aria-label='breadcrumb')
                     ol.breadcrumb
                         li.breadcrumb-item
                             a(href='/') Noire 
@@ -17,11 +17,45 @@ block bodyContent
                             a(href=`/shop/${params.category}`)=params.category 
                         li.breadcrumb-item.active(aria-current='page')= params.subCat
             else
-                nav(aria-label='breadcrumb')
+                nav.crumb-container(aria-label='breadcrumb')
                     ol.breadcrumb
                         li.breadcrumb-item
                             a(href='/') Noire 
-                        li.breadcrumb-item.active=params.category 
+                        li.breadcrumb-item.active=params.category
+            if params.subCat
+                h2.current-title= params.subCat
+            else
+                h2.current-title= params.category
+        .dropdown
+            button.btn.btn-secondary.dropdown-toggle( data-bs-toggle='dropdown' aria-expanded='false')
+                | Dropdown link
+            ul.dropdown-menu
+                li
+                    a.dropdown-item(href='#') Bestsellers
+                li
+                    a.dropdown-item(href='#') highest rated
+                li
+                    a.dropdown-item(href='#') newest
+                li
+                    a.dropdown-item(href='#') Low To High
+                li
+                    a.dropdown-item(href='#') High to low
+    .shopping-container
+        .left-filter
+            //- if params.subCat
+            //-     nav(aria-label='breadcrumb')
+            //-         ol.breadcrumb
+            //-             li.breadcrumb-item
+            //-                 a(href='/') Noire 
+            //-             li.breadcrumb-item
+            //-                 a(href=`/shop/${params.category}`)=params.category 
+            //-             li.breadcrumb-item.active(aria-current='page')= params.subCat
+            //- else
+            //-     nav(aria-label='breadcrumb')
+            //-         ol.breadcrumb
+            //-             li.breadcrumb-item
+            //-                 a(href='/') Noire 
+            //-             li.breadcrumb-item.active=params.category 
             if params.category=='bra'
                 h2.current-category= params.category
                 a.sub-category(href="/shop/bra/bralette", target="_self") bralette
