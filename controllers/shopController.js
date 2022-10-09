@@ -3,8 +3,27 @@ const Product = require('../model/productModel');
 // rendering
 exports.renderPage = async (req, res, next) => {
   const { category, subCat } = req.params;
-  console.log(req.params);
-  res.status(200).render('shop-template');
+  const params = { category, subCat };
+  const filter = { color: req.query.color, size: req.query.size };
+  let lastPart;
+  if (!req.originalUrl.includes('?')) {
+    lastPart = `${req.originalUrl}?`;
+  } else {
+    lastPart = req.originalUrl;
+  }
+  // if(req.originalUrl.slice)
+  console.log(`lastpart:${lastPart}`);
+  const hostUrl = `${req.protocol}://${req.get('host')}${lastPart}`;
+  // const hostUrl = baseUrl;
+  const sort = req.query.sortBy;
+  console.log(req.originalUrl);
+  console.log(`host:${hostUrl}`);
+  // console.log(hostUrl);
+  // console.log(params);
+  // console.log(filter);
+  // console.log(sort);
+  // console.log(req.params);
+  res.status(200).render('shop-template', { params, filter, sort, hostUrl });
   next();
 };
 

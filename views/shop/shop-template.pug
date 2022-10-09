@@ -3,7 +3,92 @@ block append head
     script(src='/controllers/shopController.js' type='module')
 
 block bodyContent
-    a(href="/shop/bra-extravagant", target="_self", rel="noopener noreferrer") 
-        img.special-banner(src="/Images/specials-banners/bra-special-banner.jpg", alt="", srcset="")
+    if !params.subCat
+        a(href=`/shop/${params.category}-special`, target="_self", rel="noopener noreferrer") 
+            img.special-banner(src=`/Images/specials-banners/${params.category}-special-banner.jpg`, alt="", srcset="")
     .shopping-container
+        .left-filter
+            if params.subCat
+                nav(aria-label='breadcrumb')
+                    ol.breadcrumb
+                        li.breadcrumb-item
+                            a(href='/') Noire 
+                        li.breadcrumb-item
+                            a(href=`/shop/${params.category}`)=params.category 
+                        li.breadcrumb-item.active(aria-current='page')= params.subCat
+            else
+                nav(aria-label='breadcrumb')
+                    ol.breadcrumb
+                        li.breadcrumb-item
+                            a(href='/') Noire 
+                        li.breadcrumb-item.active=params.category 
+            if params.category=='bra'
+                h2.current-category= params.category
+                a.sub-category(href="/shop/bra/bralette", target="_self") bralette
+                a.sub-category(href="/shop/bra/push-up", target="_self") push up
+                a.sub-category(href="/shop/bra/lace", target="_self") lace
+                a.sub-category(href="/shop/bra/strapless", target="_self") strapless
+                #accordionPanelsStayOpenExample.accordion
+                    .accordion-item
+                        h2#panelsStayOpen-headingOne.accordion-header
+                            button.accordion-button.collapsed(type='button' data-bs-toggle='collapse' data-bs-target='#panelsStayOpen-collapseOne' aria-expanded='true' aria-controls='panelsStayOpen-collapseOne')
+                                | Color
+                        #panelsStayOpen-collapseOne.accordion-collapse.collapse(aria-labelledby='panelsStayOpen-headingOne')
+                            .accordion-body
+                                .color-container
+                                    a.color.drop-item(href=`${hostUrl}color=blue&`  data-color='blue') blue
+                                    .circle(style='background-color:blue;')
+                                .color-container
+                                    a.color.drop-item(href=`${hostUrl}color=black&`  data-color='black') black
+                                    .circle(style='background-color:black;')
+                                .color-container
+                                    a.color.drop-item(href=`${hostUrl}color=purple&`  data-color='purple') purple
+                                    .circle(style='background-color:purple;')
+                                .color-container
+                                    a.color.drop-item(href=`${hostUrl}color=red&`  data-color='red') red
+                                    .circle(style='background-color:red;')
+                                .color-container
+                                    a.color.drop-item(href=`${hostUrl}color=nude&`  data-color='nude') nude
+                                    .circle(style='background-color:#E3BC9A;')
+                                .color-container
+                                    a.color.drop-item(href=`${hostUrl}color=green&`  data-color='green') green
+                                    .circle(style='background-color:green;')
+                                    
+                    .accordion-item
+                        h2#panelsStayOpen-headingTwo.accordion-header
+                            button.accordion-button.collapsed(type='button' data-bs-toggle='collapse' data-bs-target='#panelsStayOpen-collapseTwo' aria-expanded='true' aria-controls='panelsStayOpen-collapseTwo')
+                                | Size
+                        #panelsStayOpen-collapseTwo.accordion-collapse.collapse(aria-labelledby='panelsStayOpen-headingTwo')
+                            .accordion-body
+                                a.size.drop-item(href=`${hostUrl}size=xs&`  data-size='xs') Xtra-Small
+                                a.size.drop-item(href=`${hostUrl}size=s&`  data-size='s') Small
+                                a.size.drop-item(href=`${hostUrl}size=m&`  data-size='m') Medium
+                                a.size.drop-item(href=`${hostUrl}size=l&`  data-size='l') Large
+                                a.size.drop-item(href=`${hostUrl}size=xl&`  data-size='xl') Xtra-Large
+            else if category=='panties'
+                h2.current-category= category
+                a.sub-category(href="/shop/panties/thong", target="_self") thong
+                a.sub-category(href="/shop/panties/high-waist", target="_self") high waist
+                a.sub-category(href="/shop/panties/shorts", target="_self") shorts
+            else if category=='lingerie'
+                h2.current-category= category
+                a.sub-category(href="/shop/lingerie/bodysuit", target="_self") bodysuits
+                a.sub-category(href="/shop/lingerie/curvy", target="_self") curvy
+                a.sub-category(href="/shop/lingerie/slips", target="_self") slips
+                a.sub-category(href="/shop/lingerie/corsets", target="_self") corsets
+            //- h2.filter-item price
+            //- .priceSlider
+            //-     .min-max
+            //-         .min
+            //-         span#min-value
+            //-         .max
+            //-         span#max-value
+            //-     .min-max-range
+            //-         input#min.range(type='range' min='5' max='250' value='5')
+            //-         input#max.range(type='range'  max='250' value='250')
+            //-     div(style='clear: both;')
+
+
+
+        .products-container
         

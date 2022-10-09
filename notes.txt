@@ -1,2 +1,6 @@
 OBSFUSCATOR
 JSCRAMMBLER
+
+Use a url friendly string to parse values out of them as an array then query for them in the database
+eg:'Black%2CBlue%2CBrown'.split('%2C')=>['Black', 'Blue', 'Brown']
+then we take that array and query from there
