@@ -25,6 +25,8 @@
   width: 100%;
 }
 .top-row-shop {
+  padding-top: 1%;
+  padding-bottom: 1%;
   display: flex;
   justify-content: space-between;
   width: 98%;
@@ -56,10 +58,22 @@
   padding-left: 12px;
 }
 .products-container {
-  width: 100%;
+  padding-bottom: 5%;
   display: grid;
-  padding-bottom: 10%;
-  background-color: green;
+  width: 80%;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto;
+  gap: 24px 24px;
+  margin: 0 auto;
+  /* background-color: green; */
+}
+.product-item-image {
+  width: 100%;
+  min-height: 400px;
+}
+.product-item-smaller {
+}
+.product-template {
 }
 .breadcrumb-item,
 .breadcrumb-item > a {
