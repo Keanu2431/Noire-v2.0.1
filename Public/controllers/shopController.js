@@ -14,3 +14,8 @@
 // maxSlider.oninput = function () {
 //   outputMax.innerHTML = this.value;
 // };
+const toastElList = document.querySelectorAll('.toast');
+console.log(toastElList);
+const toastList = [...toastElList].map(
+  (toastEl) => new bootstrap.Toast(toastEl, { autohide: false })
+);
