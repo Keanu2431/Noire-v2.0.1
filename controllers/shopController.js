@@ -11,19 +11,21 @@ exports.renderPage = async (req, res, next) => {
   } else {
     lastPart = req.originalUrl;
   }
+  const productData = await Product.find({ category: category });
+  console.log(productData);
   // if(req.originalUrl.slice)
-  console.log(`lastpart:${lastPart}`);
+  // console.log(`lastpart:${lastPart}`);
   const hostUrl = `${req.protocol}://${req.get('host')}${lastPart}`;
   // const hostUrl = baseUrl;
   const sort = req.query.sortBy;
-  console.log(req.originalUrl);
-  console.log(`host:${hostUrl}`);
   // console.log(hostUrl);
   // console.log(params);
   // console.log(filter);
   // console.log(sort);
   // console.log(req.params);
-  res.status(200).render('shop-template', { params, filter, sort, hostUrl });
+  res
+    .status(200)
+    .render('shop-template', { params, filter, sort, hostUrl, productData });
   next();
 };
 
