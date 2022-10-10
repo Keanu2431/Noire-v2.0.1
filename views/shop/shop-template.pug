@@ -74,9 +74,9 @@ block bodyContent
                 a.sub-category(href="/shop/lingerie/curvy", target="_self") curvy
             else if params.category=='sleep'
                 h2.current-category= params.category
-                a.sub-category(href="/shop/lingerie/pajamas", target="_self") pajamass
-                a.sub-category(href="/shop/lingerie/robes", target="_self") robes
-                a.sub-category(href="/shop/lingerie/slides", target="_self") slides
+                a.sub-category(href="/shop/sleep/pajamas", target="_self") pajamas
+                a.sub-category(href="/shop/sleep/robes", target="_self") robes
+                a.sub-category(href="/shop/sleep/slides", target="_self") slides
             #accordionPanelsStayOpenExample.accordion
                 .accordion-item
                     h2#panelsStayOpen-headingOne.accordion-header
@@ -97,11 +97,20 @@ block bodyContent
                                 a.color.drop-item(href=`${hostUrl}color=red&`  data-color='red') red
                                 .circle(style='background-color:red;')
                             .color-container
-                                a.color.drop-item(href=`${hostUrl}color=nude&`  data-color='nude') nude
+                                a.color.drop-item(href=`${hostUrl}color=tan&`  data-color='tan') nude
                                 .circle(style='background-color:#E3BC9A;')
                             .color-container
                                 a.color.drop-item(href=`${hostUrl}color=green&`  data-color='green') green
                                 .circle(style='background-color:green;')  
+                            .color-container
+                                a.color.drop-item(href=`${hostUrl}color=yellow&`  data-color='yellow') yellow
+                                .circle(style='background-color:yellow;')  
+                            .color-container
+                                a.color.drop-item(href=`${hostUrl}color=gold&`  data-color='gold') gold
+                                .circle(style='background-color:gold;')  
+                            .color-container
+                                a.color.drop-item(href=`${hostUrl}color=brown&`  data-color='brown') brown
+                                .circle(style='background-color:brown;')  
                 .accordion-item
                     h2#panelsStayOpen-headingTwo.accordion-header
                         button.accordion-button.collapsed(type='button' data-bs-toggle='collapse' data-bs-target='#panelsStayOpen-collapseTwo' aria-expanded='true' aria-controls='panelsStayOpen-collapseTwo')

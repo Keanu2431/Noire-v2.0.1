@@ -636,20 +636,15 @@ input[type='checkbox'] {
 /* shop */
 .products-container {
   padding-bottom: 5%;
-  display: grid;
-  width: 80%;
-  grid-template-columns: auto auto auto auto;
-  grid-template-rows: auto auto;
-  gap: 24px 24px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
   margin: 0 auto;
   /* background-color: green; */
 }
 .product-item-image {
-  width: 100%;
-  min-height: 400px;
-  max-height: 450px;
-  min-width: 300px;
-  max-width: 400px;
+  height: 300px;
+  width: 250px;
 }
 .product-item-smaller {
   position: relative;

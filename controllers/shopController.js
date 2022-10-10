@@ -11,8 +11,63 @@ exports.renderPage = async (req, res, next) => {
   } else {
     lastPart = req.originalUrl;
   }
-  const productData = await Product.find({ category: category });
-  console.log(productData);
+  let productData;
+  if (!subCat) {
+    productData = await Product.find({ category: category });
+  } else if (category && subCat) {
+    productData = await Product.find({
+      category: category,
+      subCategory: subCat,
+    });
+  }
+  if (filter.color) {
+    let matchArray = [];
+
+    //
+    productData?.forEach((el) => {
+      matchArray.push(el.colors.filter((el) => el.color == filter.color));
+    });
+
+    // removing empty array
+    matchArray = matchArray.filter((el) => el != '').flat(3);
+
+    // emptying the productData var
+
+    productData = [];
+
+    // searching for each of the elements
+    for (let index = 0; index < matchArray.length; index++) {
+      const element = matchArray[index];
+      const item = await Product.find({ colors: element });
+      // pushing matching elements to productData array
+      productData.push(item);
+      productData = productData.flat();
+    }
+  }
+  if (filter.size) {
+    productData = productData;
+    // const size = filter.size.toLowerCase();
+
+    // // console.log(size);
+    // let matchArray = [];
+
+    // productData?.forEach((el) => {
+    //   matchArray.push(el.sizesAvailable);
+    // });
+
+    // // pushing the proper element that need to be matched
+    // matchArray = matchArray.filter((el) => el[size] > 0);
+    // // clearing productData
+    // productData = [];
+    // // pushing in the matching productData
+    // for (let index = 0; index < matchArray.length; index++) {
+    //   const element = matchArray[index];
+    //   const item = await Product.find({ sizesAvailable: element });
+    //   productData.push(item);
+    //   console.log(item);
+    // }
+  }
+  // console.log(productData);
   // if(req.originalUrl.slice)
   // console.log(`lastpart:${lastPart}`);
   const hostUrl = `${req.protocol}://${req.get('host')}${lastPart}`;
