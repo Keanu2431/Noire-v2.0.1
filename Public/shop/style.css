@@ -70,10 +70,23 @@
 .product-item-image {
   width: 100%;
   min-height: 400px;
+  max-height: 600px;
+  min-width: 300px;
+  max-width: 400px;
 }
 .product-item-smaller {
+  position: relative;
+  text-align: center;
 }
 .product-template {
+}
+/* wishlist button */
+.wishlist-button {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 16px;
+  left: 16px;
 }
 .breadcrumb-item,
 .breadcrumb-item > a {
@@ -138,6 +151,11 @@
 }
 .size {
   padding-top: 12px;
+}
+.top-right {
+  position: absolute;
+  top: 8px;
+  left: 16px;
 }
 /* .priceSlider {
   width: 200px;
