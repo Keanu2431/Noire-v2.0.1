@@ -55,7 +55,7 @@ const productSchema = new mongoose.Schema({
     required: [true, 'Add upp all sizes per color and tally it here'],
     type: Object,
   },
-  price: { required: [true, 'Needs A price'], type: Number },
+  price: { required: [true, 'Needs A price'], type: String },
   colors: {
     required: [
       true,

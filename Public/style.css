@@ -632,3 +632,41 @@ input[type='checkbox'] {
     transform: rotate(360deg);
   }
 }
+
+/* shop */
+.products-container {
+  padding-bottom: 5%;
+  display: grid;
+  width: 80%;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto;
+  gap: 24px 24px;
+  margin: 0 auto;
+  /* background-color: green; */
+}
+.product-item-image {
+  width: 100%;
+  min-height: 400px;
+  max-height: 450px;
+  min-width: 300px;
+  max-width: 400px;
+}
+.product-item-smaller {
+  position: relative;
+  text-align: left;
+}
+.product-title-smaller {
+  font-size: 1.2rem;
+  padding-top: 12px;
+}
+.product-price-smaller {
+  font-size: 1.2rem;
+}
+.wishlist-button {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+/*  */
