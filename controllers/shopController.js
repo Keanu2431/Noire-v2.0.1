@@ -47,12 +47,12 @@ exports.renderPage = async (req, res, next) => {
     // }
     // productData = productData.flat();
     productData = await Product.find({
-      'sizesAvailable.xl': { $gt: 0 },
+      [`sizesAvailable.${size}`]: { $gt: 0 },
       category: category,
+      subCategory: subCat,
     });
-    res.status(200).json({ results: productData.length, productData });
   }
-
+  // query for multiple colors and sizes
   if (filter.color) {
     let matchArray = [];
 
@@ -90,9 +90,9 @@ exports.renderPage = async (req, res, next) => {
   // console.log(sort);
   // console.log(req.params);
   //
-  // res
-  //   .status(200)
-  //   .render('shop-template', { params, filter, sort, hostUrl, productData });
+  res
+    .status(200)
+    .render('shop-template', { params, filter, sort, hostUrl, productData });
   next();
 };
 
