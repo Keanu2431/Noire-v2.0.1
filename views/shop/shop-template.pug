@@ -31,15 +31,17 @@ block bodyContent
                 | Sort By
             ul.dropdown-menu
                 li
-                    a.dropdown-item(href='#') Bestsellers
+                    a.dropdown-item(href=`${hostUrl}sortBy=bestsellers&`) Bestsellers
                 li
-                    a.dropdown-item(href='#') highest rated
+                    a.dropdown-item(href=`${hostUrl}sortBy=rating&`) highest rated
                 li
-                    a.dropdown-item(href='#') newest
+                    a.dropdown-item(href=`${hostUrl}sortBy=newest&`) newest
                 li
-                    a.dropdown-item(href='#') Low To High
+                    a.dropdown-item(href=`${hostUrl}sortBy=oldest&`) oldest
                 li
-                    a.dropdown-item(href='#') High to low
+                    a.dropdown-item(href=`${hostUrl}sortBy=lowtohigh&`) Low To High
+                li
+                    a.dropdown-item(href=`${hostUrl}sortBy=hightolow&`) High to low
     .shopping-container
         .left-filter
             //- if params.subCat
@@ -128,15 +130,15 @@ block bodyContent
             if filter.color||filter.size
                 .filter-container
                     if filter.color
-                        a.filter-link(href=`${hostUrl.replace(`color=${filter.color}&`,'')}`, target="_self") 
+                        a.filter-link(href=`${hostUrl.replace(`color=${filter.color}&`,'').slice(-1)=='?'?hostUrl.replace(`color=${filter.color}&`,'').replace('?',''):hostUrl.replace(`color=${filter.color}&`,'')}`, target="_self") 
                             button.filter-option-btn(type='button')  
                                 h4(style='display:flex;')=filter.color
                                     .circle(style=`background-color:${filter.color}; width:12px;height:12px;top:6px;`)
                                 h4.remove-btn &#10005
                     if filter.size
-                        a.filter-link(href=`${hostUrl.replace(`size=${filter.size}&`,'')}`, target="_self") 
+                        a.filter-link(href=`${hostUrl.replace(`size=${filter.size}&`,'').slice(-1)=='?'?hostUrl.replace(`size=${filter.size}&`,'').replace('?',''):hostUrl.replace(`size=${filter.size}&`,'')}`, target="_self") 
                             button.filter-option-btn(type=button) 
-                                h4(style='text-alig')=filter.size.toUpperCase()
+                                h4(style='')=filter.size.toUpperCase()
                                 h4.remove-btn &#10005
                 //- filters
             //- h2.filter-item price

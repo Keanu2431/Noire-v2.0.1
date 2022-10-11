@@ -3,9 +3,27 @@ const Product = require('../model/productModel');
 
 // rendering
 exports.renderPage = async (req, res, next) => {
+  const sortByReplace = function (url, newSort) {
+    let urlOne;
+    let urlTwo;
+    let sortByNew;
+    if (url.includes('sortBy=')) {
+      urlOne = url.split('=')[0];
+      urlTwo = `${urlOne}=${newSort}`;
+    } else {
+      return `sortBy=${newSort}`;
+    }
+    console.log(` sortBy splitted ${urlOne}`);
+    console.log(`sort by new:${urlTwo}&`);
+  };
+  sortByReplace(
+    'http://127.0.0.1:3000/shop/bra/bralette?sortBy=bestsellers&',
+    'newest'
+  );
   const { category, subCat } = req.params;
   const params = { category, subCat };
   const filter = { color: req.query.color, size: req.query.size };
+  const sortBy = req.query.sortBy;
   let lastPart;
   if (!req.originalUrl.includes('?')) {
     lastPart = `${req.originalUrl}?`;
@@ -22,34 +40,18 @@ exports.renderPage = async (req, res, next) => {
     });
   }
   // {"sizesAvailable.xl":{$gt:0},category:'BRA',}
-  if (filter.size) {
+  if (filter.size && subCat) {
     const size = filter.size.toLowerCase();
-    // // console.log(size);
-    // let matchArray = [];
-
-    // productData?.forEach((el) => {
-    //   matchArray.push(el.sizesAvailable);
-    // });
-
-    // // pushing the proper element that need to be matched
-    // matchArray = matchArray.filter((el) => el[size] > 0);
-    // console.log(matchArray);
-
-    // // clearing productData
-    // productData = [];
-    // // pushing in the matching productData
-    // for (let index = 0; index < matchArray.length; index++) {
-    //   const element = matchArray[index];
-    //   const item = await Product.findOne({
-    //     sizesAvailable: element,
-    //   });
-    //   productData.push(item);
-    // }
-    // productData = productData.flat();
     productData = await Product.find({
       [`sizesAvailable.${size}`]: { $gt: 0 },
       category: category,
       subCategory: subCat,
+    });
+  } else if (filter.size && !subCat) {
+    const size = filter.size.toLowerCase();
+    productData = await Product.find({
+      [`sizesAvailable.${size}`]: { $gt: 0 },
+      category: category,
     });
   }
   // query for multiple colors and sizes
@@ -77,7 +79,39 @@ exports.renderPage = async (req, res, next) => {
       productData = productData.flat();
     }
   }
-
+  if (sortBy) {
+    if (sortBy == 'lowtohigh') {
+      productData.sort(function (a, b) {
+        return Number(a.price) - Number(b.price);
+      });
+    } else if (sortBy == 'hightolow') {
+      productData.sort(function (a, b) {
+        return Number(b.price) - Number(a.price);
+      });
+    } else if (sortBy == 'bestsellers') {
+      productData.sort(function (a, b) {
+        return b.timesSold - a.timesSold;
+      });
+    } else if (sortBy == 'rating') {
+      productData.sort(function (a, b) {
+        return b.rating - a.rating;
+      });
+    } else if (sortBy == 'newest') {
+      productData.sort(function (a, b) {
+        // Turn strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+    } else if (sortBy == 'oldest') {
+      console.log(sortBy);
+      productData.sort(function (a, b) {
+        // Turn strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+    }
+  }
+  console.log(req.query);
   // console.log(productData);
   // if(req.originalUrl.slice)
   // console.log(`lastpart:${lastPart}`);
@@ -90,9 +124,25 @@ exports.renderPage = async (req, res, next) => {
   // console.log(sort);
   // console.log(req.params);
   //
-  res
-    .status(200)
-    .render('shop-template', { params, filter, sort, hostUrl, productData });
+  res.status(200).render('shop-template', {
+    params,
+    filter,
+    sort,
+    hostUrl,
+    productData,
+    sortByFunc: function (url, newSort) {
+      let urlOne;
+      let urlTwo;
+      let sortByNew;
+      if (url.includes('sortBy=')) {
+        urlOne = url.split('=')[0];
+        urlTwo = `${urlOne}=${newSort}`;
+      }
+      console.log(` sortBy splitted ${urlOne}`);
+      console.log(`sort by new:${urlTwo}&`);
+      return `${urlTwo}&`;
+    },
+  });
   next();
 };
 
