@@ -16,10 +16,7 @@ exports.renderPage = async (req, res, next) => {
     console.log(` sortBy splitted ${urlOne}`);
     console.log(`sort by new:${urlTwo}&`);
   };
-  sortByReplace(
-    'http://127.0.0.1:3000/shop/bra/bralette?sortBy=bestsellers&',
-    'newest'
-  );
+
   const { category, subCat } = req.params;
   const params = { category, subCat };
   const filter = { color: req.query.color, size: req.query.size };
@@ -133,14 +130,13 @@ exports.renderPage = async (req, res, next) => {
     sortByFunc: function (url, newSort) {
       let urlOne;
       let urlTwo;
-      let sortByNew;
       if (url.includes('sortBy=')) {
         urlOne = url.split('=')[0];
         urlTwo = `${urlOne}=${newSort}`;
+        return `${urlTwo}&`;
+      } else {
+        return `${url}sortBy=${newSort}&`;
       }
-      console.log(` sortBy splitted ${urlOne}`);
-      console.log(`sort by new:${urlTwo}&`);
-      return `${urlTwo}&`;
     },
   });
   next();

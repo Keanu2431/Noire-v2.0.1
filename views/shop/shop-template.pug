@@ -31,17 +31,17 @@ block bodyContent
                 | Sort By
             ul.dropdown-menu
                 li
-                    a.dropdown-item(href=`${hostUrl}sortBy=bestsellers&`) Bestsellers
+                    a.dropdown-item(href=sortByFunc(hostUrl,'bestsellers')) Bestsellers
                 li
-                    a.dropdown-item(href=`${hostUrl}sortBy=rating&`) highest rated
+                    a.dropdown-item(href=sortByFunc(hostUrl,'rating')) highest rated
                 li
-                    a.dropdown-item(href=`${hostUrl}sortBy=newest&`) newest
+                    a.dropdown-item(href=sortByFunc(hostUrl,'newest')) newest
                 li
-                    a.dropdown-item(href=`${hostUrl}sortBy=oldest&`) oldest
+                    a.dropdown-item(href=sortByFunc(hostUrl,'oldest')) oldest
                 li
-                    a.dropdown-item(href=`${hostUrl}sortBy=lowtohigh&`) Low To High
+                    a.dropdown-item(href=sortByFunc(hostUrl,'lowtohigh')) Low To High
                 li
-                    a.dropdown-item(href=`${hostUrl}sortBy=hightolow&`) High to low
+                    a.dropdown-item(href=sortByFunc(hostUrl,'hightolow')) High to low
     .shopping-container
         .left-filter
             //- if params.subCat
