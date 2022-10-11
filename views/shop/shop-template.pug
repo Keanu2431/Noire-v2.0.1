@@ -55,7 +55,7 @@ block bodyContent
             //-         ol.breadcrumb
             //-             li.breadcrumb-item
             //-                 a(href='/') Noire 
-            //-             li.breadcrumb-item.active=params.category 
+            //-             li.breadcrumb-item.active=params.category
             if params.category=='bra'
                 h2.current-category= params.category
                 a.sub-category(href="/shop/bra/bralette", target="_self") bralette
@@ -87,6 +87,9 @@ block bodyContent
                             .color-container
                                 a.color.drop-item(href=`${hostUrl}color=blue&`  data-color='blue') blue
                                 .circle(style='background-color:blue;')
+                            .color-container
+                                a.color.drop-item(href=`${hostUrl}color=teal&`  data-color='teal') teal
+                                .circle(style='background-color:teal;')
                             .color-container
                                 a.color.drop-item(href=`${hostUrl}color=black&`  data-color='black') black
                                 .circle(style='background-color:black;')
@@ -122,7 +125,20 @@ block bodyContent
                             a.size.drop-item(href=`${hostUrl}size=m&`  data-size='m') Medium
                             a.size.drop-item(href=`${hostUrl}size=l&`  data-size='l') Large
                             a.size.drop-item(href=`${hostUrl}size=xl&`  data-size='xl') Xtra-Large
-           
+            if filter.color||filter.size
+                .filter-container
+                    if filter.color
+                        a.filter-link(href=`${hostUrl.replace(`color=${filter.color}&`,'')}`, target="_self") 
+                            button.filter-option-btn(type='button')  
+                                h4(style='display:flex;')=filter.color
+                                    .circle(style=`background-color:${filter.color}; width:12px;height:12px;top:6px;`)
+                                h4.remove-btn &#10005
+                    if filter.size
+                        a.filter-link(href=`${hostUrl.replace(`size=${filter.size}&`,'')}`, target="_self") 
+                            button.filter-option-btn(type=button) 
+                                h4(style='text-alig')=filter.size.toUpperCase()
+                                h4.remove-btn &#10005
+                //- filters
             //- h2.filter-item price
             //- .priceSlider
             //-     .min-max

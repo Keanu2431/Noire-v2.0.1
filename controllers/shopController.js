@@ -84,7 +84,7 @@ exports.renderPage = async (req, res, next) => {
   const hostUrl = `${req.protocol}://${req.get('host')}${lastPart}`;
   // const hostUrl = baseUrl;
   const sort = req.query.sortBy;
-  // console.log(hostUrl);
+  console.log(hostUrl);
   // console.log(params);
   // console.log(filter);
   // console.log(sort);
