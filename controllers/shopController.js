@@ -1,3 +1,4 @@
+const { collection } = require('../model/productModel');
 const Product = require('../model/productModel');
 
 // rendering
@@ -20,6 +21,38 @@ exports.renderPage = async (req, res, next) => {
       subCategory: subCat,
     });
   }
+  // {"sizesAvailable.xl":{$gt:0},category:'BRA',}
+  if (filter.size) {
+    const size = filter.size.toLowerCase();
+    // // console.log(size);
+    // let matchArray = [];
+
+    // productData?.forEach((el) => {
+    //   matchArray.push(el.sizesAvailable);
+    // });
+
+    // // pushing the proper element that need to be matched
+    // matchArray = matchArray.filter((el) => el[size] > 0);
+    // console.log(matchArray);
+
+    // // clearing productData
+    // productData = [];
+    // // pushing in the matching productData
+    // for (let index = 0; index < matchArray.length; index++) {
+    //   const element = matchArray[index];
+    //   const item = await Product.findOne({
+    //     sizesAvailable: element,
+    //   });
+    //   productData.push(item);
+    // }
+    // productData = productData.flat();
+    productData = await Product.find({
+      'sizesAvailable.xl': { $gt: 0 },
+      category: category,
+    });
+    res.status(200).json({ results: productData.length, productData });
+  }
+
   if (filter.color) {
     let matchArray = [];
 
@@ -44,31 +77,7 @@ exports.renderPage = async (req, res, next) => {
       productData = productData.flat();
     }
   }
-  if (filter.size) {
-    productData = productData;
-    console.log(filter.size);
-    res.status(200).json({ data: productData });
-    // const size = filter.size.toLowerCase();
 
-    // // console.log(size);
-    // let matchArray = [];
-
-    // productData?.forEach((el) => {
-    //   matchArray.push(el.sizesAvailable);
-    // });
-
-    // // pushing the proper element that need to be matched
-    // matchArray = matchArray.filter((el) => el[size] > 0);
-    // // clearing productData
-    // productData = [];
-    // // pushing in the matching productData
-    // for (let index = 0; index < matchArray.length; index++) {
-    //   const element = matchArray[index];
-    //   const item = await Product.find({ sizesAvailable: element });
-    //   productData.push(item);
-    //   console.log(item);
-    // }
-  }
   // console.log(productData);
   // if(req.originalUrl.slice)
   // console.log(`lastpart:${lastPart}`);
@@ -80,9 +89,10 @@ exports.renderPage = async (req, res, next) => {
   // console.log(filter);
   // console.log(sort);
   // console.log(req.params);
-  res
-    .status(200)
-    .render('shop-template', { params, filter, sort, hostUrl, productData });
+  //
+  // res
+  //   .status(200)
+  //   .render('shop-template', { params, filter, sort, hostUrl, productData });
   next();
 };
 
