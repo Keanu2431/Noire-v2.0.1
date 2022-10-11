@@ -46,6 +46,8 @@ exports.renderPage = async (req, res, next) => {
   }
   if (filter.size) {
     productData = productData;
+    console.log(filter.size);
+    res.status(200).json({ data: productData });
     // const size = filter.size.toLowerCase();
 
     // // console.log(size);
