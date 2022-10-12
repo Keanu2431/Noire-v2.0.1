@@ -1,19 +1,3 @@
-// const minSlider = document.getElementById('min');
-// const maxSlider = document.getElementById('max');
-
-// const outputMin = document.getElementById('min-value');
-// const outputMax = document.getElementById('max-value');
-
-// outputMin.innerHTML = minSlider.value;
-// outputMax.innerHTML = maxSlider.value;
-
-// minSlider.oninput = function () {
-//   outputMin.innerHTML = this.value;
-// };
-
-// maxSlider.oninput = function () {
-//   outputMax.innerHTML = this.value;
-// };
 const toastElList = document.querySelectorAll('.toast');
 console.log(toastElList);
 const toastList = [...toastElList].map(
@@ -38,3 +22,29 @@ jQuery(document).ready(($) => {
 });
 const form = document.querySelector('#myform');
 // [... new FormData(form).entries()]
+// switching image on hover
+const imagesArr = document.querySelectorAll('.product-item-image');
+const overviewImage = document.querySelector(
+  '.item-container-left-inner-right'
+);
+const leftImages = document.querySelectorAll('.left-grid-item');
+const switchImage = async function (e) {
+  const target = e.target;
+  let originalImg = target.src;
+  let newImg = target.dataset.secondImg;
+  if (newImg.includes('undefined')) return;
+  target.src = newImg;
+  target.addEventListener('mouseout', function (e) {
+    e.target.src = originalImg;
+  });
+};
+const switchImageOverview = async function (e) {
+  let newSource = e.target.src;
+  leftImages.forEach((el) => el.classList.remove('selected-left-item'));
+  e.target.classList.add('selected-left-item');
+  overviewImage.src = newSource;
+};
+leftImages.forEach((el) =>
+  el.addEventListener('mouseover', switchImageOverview)
+);
+imagesArr.forEach((el) => el.addEventListener('mouseover', switchImage));

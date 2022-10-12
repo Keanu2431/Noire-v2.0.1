@@ -127,7 +127,9 @@ html
       // home cotnent
       block bodyContent
       // cookies container
-      if user.collectCookies== undefined
+      if !user
+        include _cookiesBanner
+      else if user.collectCookies== undefined
         include _cookiesBanner
       // footer
       include _footer

@@ -108,3 +108,13 @@ HeaderView.logOutBtn?.addEventListener('click', logOut);
 HeaderView.registerSwitchBtn?.addEventListener('click', registerSwitch);
 // reset pass switch
 HeaderView.resetPassSwitchBtn?.addEventListener(`click`, resetPassSwitch);
+const yesNoCookie = document.querySelector('.button-holder').children;
+console.log(yesNoCookie);
+// yesNoCookie.forEach((el) => {
+yesNoCookie[0].addEventListener('click', function (e) {
+  e.target.parentElement.parentElement.remove();
+});
+yesNoCookie[1].addEventListener('click', function (e) {
+  e.target.parentElement.parentElement.remove();
+});
+// });
