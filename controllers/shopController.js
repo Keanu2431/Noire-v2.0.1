@@ -163,7 +163,7 @@ exports.renderItemOverview = async (req, res, next) => {
     const thirdColor = productData[0].colors[2];
     console.log(productNumber);
     let colorReq = await Product.find({
-      category: category,
+      // category: category,
       'colors.color': color,
     });
     let colorData = [];
