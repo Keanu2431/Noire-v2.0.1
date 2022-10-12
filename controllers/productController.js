@@ -176,3 +176,32 @@ exports.postNewProduct = async (req, res) => {
     });
   }
 };
+// ({Product.aggregate([{ $match: { $name: 'Masquerade' } }]);})
+// (async function () {
+//   const res = await Product.aggregate([
+//     { $match: { name: 'Masquerade' } },
+//     { $set: { salePrice: '$price' * 0.8 } },
+//   ]);
+//   console.log(res);
+// })();
+const setSale = async function (query, salePerc, saleName) {
+  const res = await Product.find(query);
+
+  for (let i = 0; i < res.length; i++) {
+    const element = res[i];
+    console.log(
+      await Product.findOneAndUpdate(
+        { name: element.name },
+        {
+          $set: {
+            salePrice: element.price * (1 - Number(salePerc) / 100),
+            sale: `${salePerc}%`,
+            saleName: saleName,
+          },
+        },
+        { new: true }
+      )
+    );
+  }
+};
+setSale({ subCategory: 'ROBES' }, 15, 'Fall Bash');

@@ -1,0 +1,118 @@
+extends base
+block append head
+    script(src='/controllers/shopController.js' type='module')
+    script(src='https://code.jquery.com/jquery-3.6.1.js' integrity='sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=' crossorigin='anonymous')
+    title= `Noire | ${product.name}`
+block bodyContent
+    .item-container
+        .item-container-left
+            .item-container-left-inner-left
+                for image,index in product.colors[0].images
+                    
+                    if index==0
+                        
+                        img.left-grid-item.selected-left-item(src=`/product-images/${product.category.toLowerCase()}/${product.subCategory.toLowerCase()}/${image}`, alt="", srcset="")
+                        
+                    else  
+                        img.left-grid-item(src=`/product-images/${product.category.toLowerCase()}/${product.subCategory.toLowerCase()}/${image}`, alt="", srcset="") 
+            img.item-container-left-inner-right(src=`/product-images/${product.category.toLowerCase()}/${product.subCategory.toLowerCase()}/${product.colors[0].images[0]}`, alt="", srcset="")
+        .item-container-right
+            .item-details
+                .details-top
+                    h2.detail-title= product.name
+                        span.id= productNumber
+                    button.details-wishlist.wishlist-add(type='button')
+                        svg(stroke='#d6b5f4' fill='#d6b5f4' stroke-width='0' viewbox='0 0 512 512' color='#d6b5f4' height='2em' width='2em' xmlns='http://www.w3.org/2000/svg' style='color: rgb(24, 24, 30);')
+                            path(d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z')
+                a.reviews-link(href="#reviews", target="_self", rel="noopener noreferrer",style='text-decoration:none !important;')
+                    if product.rating>0 && product.rating<=1
+                        span.fa.fa-star.checked
+                        span.fa.fa-star
+                        span.fa.fa-star
+                        span.fa.fa-star
+                        span.fa.fa-star
+                    else if product.rating>1 && product.rating<=2
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star
+                        span.fa.fa-star
+                        span.fa.fa-star
+                    else if product.rating>2 && product.rating<=3
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star
+                        span.fa.fa-star
+                    else if product.rating>3 && product.rating<=4
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star
+                    else if product.rating>4 && product.rating<=5
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                        span.fa.fa-star.checked
+                    span.rating-product(style='text-decoration:none !important;')=`(${product.rating})`     
+                    span.reviews-product(style='text-decoration:underline;')=`${product.reviews.length} Reviews` 
+                if !product.salePrice
+                    h4.details-price=`$${product.price}`
+                else
+                    .sale-price-container
+                        h4(style='text-decoration:line-through').detail-price=`$${product.price}`
+                        h4.sale-price= `${product.saleName} $${product.salePrice}`
+                            span.special-text  SALE END SOON
+                h4.special-text 
+                    | free shipping on 
+                    span(style='color:var(--secondary-color-darker)') 25$ 
+                    | Orders
+                h4.detail-description=product.description
+                h4.color-option= color
+                
+                .product-color-container(style="grid-template-columns: 42px 42px 42px 42px 42px 42px 42px;")
+                    for colorOpt,index in product.colors 
+                        a.color-link(href=hostUrl.replace(color,colorOpt.color) title=colorOpt.color style='text-transform:capitalize;')
+                            .circle.item-color(style=`background-color:${colorOpt.color};width:32px;height:32px`)
+                br
+                h4.color-option Sizes
+                .details-size-options
+                    if product.sizesAvailable.xs<1
+                       button.size-out-of-stock.strikethrough(type="button") XS
+                    else 
+                        a(href=`${hostUrl.includes('size')?hostUrl.replace(`size=${currentSize}`,'size=xs'):hostUrl+'&size=xs'}`,  rel="noopener noreferrer" target="_self")
+                            button(type="button") XS
+                            //-  
+                    if product.sizesAvailable.s<1
+                        button.size-out-of-stock.strikethrough(type="button") S
+                    else 
+                        a(href=`${hostUrl.includes('size')?hostUrl.replace(`size=${currentSize}`,'size=s'):hostUrl+'&size=s'}`,  rel="noopener noreferrer" target="_self")
+                            button(type="button") S
+                            //- 
+                    if product.sizesAvailable.m<1    
+                        button.size-out-of-stock.strikethrough(type="button") M
+                    else     
+                        a(href=`${hostUrl.includes('size')?hostUrl.replace(`size=${currentSize}`,'size=m'):hostUrl+'&size=m'}`,  rel="noopener noreferrer" target="_self")
+                            button(type="button") M
+
+                            //- 
+                    if product.sizesAvailable.l<1
+                        button.size-out-of-stock.strikethrough(type="button") L
+                    else 
+                        a(href=`${hostUrl.includes('size')?hostUrl.replace(`size=${currentSize}`,'size=l'):hostUrl+'&size=l'}`,  rel="noopener noreferrer" target="_self")
+                            button(type="button") L
+                        //- 
+                    if product.sizesAvailable.xl<1
+                        button.size-out-of-stock.strikethrough(type="button") XL
+                    else
+                        a(href=`${hostUrl.includes('size')?hostUrl.replace(`size=${currentSize}`,'size=xl'):hostUrl+'&size=xl'}`,  rel="noopener noreferrer" target="_self")
+                            button(type="button") XL
+                       
+                form#myform.quantity
+                    input.qtyminus.minus(type='button' value='-' field='quantity')
+                    input.qty(type='text' name='quantity' value='0')
+                    input.qtyplus.plus(type='button' value='+' field='quantity')
+                button.add-cart(type="button") Add To Cart
+                    span.material-icons  shopping_bag 
+//- document.querySelector('.cookies-container').remove()
