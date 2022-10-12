@@ -158,10 +158,10 @@ exports.renderItemOverview = async (req, res, next) => {
       subCategory: subCat,
     });
     productData = productData.filter((el) => el.ProductID === productNumber);
-    console.log(productData[0].colors[0]);
+    // console.log(productData[0].colors[0]);
     const secondColor = productData[0].colors[1];
     const thirdColor = productData[0].colors[2];
-    console.log(productNumber);
+    // console.log(productNumber);
     let colorReq = await Product.find({
       // category: category,
       'colors.color': color,
@@ -172,6 +172,13 @@ exports.renderItemOverview = async (req, res, next) => {
         colorReq[Math.floor(Math.random() * colorReq.length)];
       colorData.push(randomElement);
     }
+    let colorImages;
+    (function () {
+      const product = productData[0];
+      let colorReq = product.colors.filter((el) => el.color == color);
+      colorImages = colorReq[0].images;
+    })();
+    console.log(colorImages);
     // console.log(colorData);
     res.status(200).render('item-overview', {
       product: productData[0],
@@ -182,6 +189,7 @@ exports.renderItemOverview = async (req, res, next) => {
       hostUrl,
       currentSize: req.query.size,
       colorData,
+      colorImages,
     });
     next();
   } catch (error) {

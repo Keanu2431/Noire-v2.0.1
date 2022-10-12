@@ -7,7 +7,7 @@ block bodyContent
     .item-container
         .item-container-left
             .item-container-left-inner-left
-                for image,index in product.colors[0].images
+                for image,index in colorImages
                     
                     if index==0
                         
@@ -15,7 +15,7 @@ block bodyContent
                         
                     else  
                         img.left-grid-item(src=`/product-images/${product.category.toLowerCase()}/${product.subCategory.toLowerCase()}/${image}`, alt="", srcset="") 
-            img.item-container-left-inner-right(src=`/product-images/${product.category.toLowerCase()}/${product.subCategory.toLowerCase()}/${product.colors[0].images[0]}`, alt="", srcset="")
+            img.item-container-left-inner-right(src=`/product-images/${product.category.toLowerCase()}/${product.subCategory.toLowerCase()}/${colorImages[0]}`, alt="", srcset="")
         .item-container-right
             .item-details
                 .details-top
