@@ -204,4 +204,4 @@ const setSale = async function (query, salePerc, saleName) {
     );
   }
 };
-setSale({ subCategory: 'ROBES' }, 15, 'Fall Bash');
+// setSale({ subCategory: 'ROBES' }, 15, 'Fall Bash');

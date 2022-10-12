@@ -282,11 +282,11 @@
 .special-text {
   font-size: 1rem;
 }
-.details-size-options {
+/* .details-size-options {
   display: grid;
   grid-template-columns: 32px 32px 32px 32px 32px 32px 32px;
   grid-template-rows: auto;
-}
+} */
 /* radio buttons */
 .details-size-options {
   display: grid;
@@ -300,9 +300,13 @@
 .add-cart {
   background-color: var(--secondary-color);
   font-size: 1.5rem;
-  margin-top: 12px;
+  margin-top: 18px;
   border-radius: 12px;
   width: 100%;
+  border: 2px black solid;
+}
+.add-cart:hover {
+  background-color: var(--secondary-color-darker);
 }
 .details-size-options > a > button {
   color: var(--primary-color);
@@ -311,6 +315,7 @@
   height: 52px;
   background-color: #ddb9ffcb;
   border-radius: 50%;
+  border: 2px solid black;
 }
 .size-out-of-stock {
   color: var(--primary-color);
@@ -318,7 +323,14 @@
   width: 52px;
   height: 52px;
   background-color: #ddb9ffcb;
+  border: 2px solid black;
   border-radius: 50%;
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+.size-out-of-stock:hover {
+  cursor: not-allowed;
+  pointer-events: all !important;
 }
 .strikethrough {
   position: relative;
@@ -345,7 +357,7 @@
   margin-top: 24px;
   text-align: center;
   padding: 5px;
-  border: 1px solid var(--primary-color-lighter);
+  border: 2px solid var(--primary-color);
   /* margin: 2%; */
   display: flex;
   width: fit-content;
