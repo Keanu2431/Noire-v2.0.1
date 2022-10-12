@@ -162,6 +162,17 @@ exports.renderItemOverview = async (req, res, next) => {
     const secondColor = productData[0].colors[1];
     const thirdColor = productData[0].colors[2];
     console.log(productNumber);
+    let colorReq = await Product.find({
+      category: category,
+      'colors.color': color,
+    });
+    let colorData = [];
+    for (let index = 0; index < 4; index++) {
+      const randomElement =
+        colorReq[Math.floor(Math.random() * colorReq.length)];
+      colorData.push(randomElement);
+    }
+    console.log(colorData);
     res.status(200).render('item-overview', {
       product: productData[0],
       color,
@@ -170,6 +181,7 @@ exports.renderItemOverview = async (req, res, next) => {
       productNumber,
       hostUrl,
       currentSize: req.query.size,
+      colorData,
     });
     next();
   } catch (error) {
