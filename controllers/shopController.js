@@ -172,7 +172,7 @@ exports.renderItemOverview = async (req, res, next) => {
         colorReq[Math.floor(Math.random() * colorReq.length)];
       colorData.push(randomElement);
     }
-    console.log(colorData);
+    // console.log(colorData);
     res.status(200).render('item-overview', {
       product: productData[0],
       color,
