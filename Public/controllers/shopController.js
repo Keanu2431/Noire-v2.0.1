@@ -1,3 +1,4 @@
+const addToCartBtn = document.querySelector('.add-cart');
 const toastElList = document.querySelectorAll('.toast');
 console.log(toastElList);
 const toastList = [...toastElList].map(
@@ -48,3 +49,4 @@ leftImages.forEach((el) =>
   el.addEventListener('mouseover', switchImageOverview)
 );
 imagesArr.forEach((el) => el.addEventListener('mouseover', switchImage));
+console.log(addToCartBtn);
