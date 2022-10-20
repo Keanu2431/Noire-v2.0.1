@@ -112,7 +112,7 @@ HeaderView.registerSwitchBtn?.addEventListener('click', registerSwitch);
 // reset pass switch
 HeaderView.resetPassSwitchBtn?.addEventListener(`click`, resetPassSwitch);
 const yesNoCookie = document.querySelector('.button-holder')?.children;
-console.log(yesNoCookie);
+// console.log(yesNoCookie);
 // yesNoCookie.forEach((el) => {
 if (yesNoCookie)
   yesNoCookie[0]?.addEventListener('click', function (e) {
@@ -124,5 +124,5 @@ if (yesNoCookie)
   });
 // });
 // setting href for bag/cart
-mainModel.state.loggedIn = true;
-document.querySelector('#bag');
+
+// <h2 class="tag" id="bag"><span class="material-icons"> shopping_bag </span><span class="bag-badge">1</span></h2>

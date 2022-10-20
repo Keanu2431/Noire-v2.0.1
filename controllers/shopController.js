@@ -250,6 +250,7 @@ exports.addToCart = async (req, res, next) => {
       ProductID: reqData.ProductID,
       color: reqData.color,
       qty: reqData.qty,
+      size: reqData.size,
       cartCode: makeid(12),
     };
     let all = await Product.find({});

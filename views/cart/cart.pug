@@ -1,0 +1,29 @@
+extends base
+block  append head
+    link(rel="stylesheet", href="style.css")
+    script(src='/controllers/shopController.js' type='module')
+    script(src='/controllers/cartController.js' type='module')
+    script(src='https://code.jquery.com/jquery-3.6.1.js' integrity='sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=' crossorigin='anonymous')
+    title=`Noire | Cart`
+block bodyContent
+    .cart-container
+        .cart-left
+            .cart-left__inner
+                for item,index in cartItems
+                    .cart-product
+                        img(src=`/product-images/${item.category.toLowerCase()}/${item.subCategory.toLowerCase()}/${item.images[0]}`, alt="", srcset="")
+                        .small-info
+                            .small-info-text
+                                h2= item.name
+                                h4 color: 
+                                    span= item.color  
+                                h4 size: 
+                                    span= item.size
+                                form#myform__cart.quantity
+                                    input.qtyminus__cart.minus(type='button' value='-' field='quantity')
+                                    input.qty__cart(type='text' name='quantity' value=item.qty )
+                                    input.qtyplus__cart.plus(type='button' value='+' field='quantity')
+                        h2= `$${item.total}` 
+                        h4.cart-remove remove 
+
+        .cart-right

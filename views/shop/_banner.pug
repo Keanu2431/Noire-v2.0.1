@@ -34,10 +34,11 @@
             a#wishlist(href='/account/wishlist') wishlist
             h2#log-out-btn Log Out
         // UI ^DROPDOWN^
-        h2#bag.tag
-          span.material-icons  shopping_bag 
-          if user
-            span.bag-badge= user.userCart.length
+        a(href="/cart" id='bag-link' target="" rel="noopener noreferrer") 
+          h2#bag.tag
+            span.material-icons  shopping_bag 
+            if user
+              span.bag-badge= user.userCart.length
     .row-1
       a#banner-hider-tag.tag(href='/closet') the closet
       a#banner-tag.tag(href='/shop/new' data-tag='new-arrivals') new arrivals

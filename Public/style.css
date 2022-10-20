@@ -262,6 +262,9 @@ input[type='checkbox'] {
   justify-content: space-between;
   width: 14%;
 }
+.banner-icons a {
+  text-decoration: none;
+}
 #search-button {
   border: none;
 }
