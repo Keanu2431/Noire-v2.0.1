@@ -171,3 +171,6 @@ input.qtyminus__cart {
 .continue-shop__btn {
   background-color: #cb9ff457;
 }
+button {
+  border: solid black 2px;
+}
