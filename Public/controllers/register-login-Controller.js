@@ -37,7 +37,8 @@ RegisterLoginView._parentElement.addEventListener('submit', async function (e) {
   if (resData.status === 'success') {
     mainModel.state.user = resData.user;
     HeaderView.modalCloseBtn.click();
-    HeaderView.loggedStatus === 'true';
+    mainModel.state.loggedIn = true;
+    HeaderView.loggedStatus = 'true';
     document.querySelector('.loader').remove();
     // && resData.error.code == 11000
   } else if (resData.status === 'fail') {

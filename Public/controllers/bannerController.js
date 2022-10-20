@@ -118,3 +118,6 @@ yesNoCookie[1].addEventListener('click', function (e) {
   e.target.parentElement.parentElement.remove();
 });
 // });
+// setting href for bag/cart
+mainModel.state.loggedIn = true;
+document.querySelector('#bag');
