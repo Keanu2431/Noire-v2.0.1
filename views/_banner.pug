@@ -35,7 +35,10 @@
             h2#log-out-btn Log Out
         // UI ^DROPDOWN^
         h2#bag.tag
-          span.material-icons  shopping_bag 
+          span.material-icons  shopping_bag
+          if user
+            span.bag-badge= user.userCart.length
+
     .row-1
       a#banner-hider-tag.tag(href='/closet') the closet
       a#banner-tag.tag(href='/shop/new' data-tag='new-arrivals') new arrivals

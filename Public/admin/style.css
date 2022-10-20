@@ -1,0 +1,41 @@
+/* from shop style.css */
+@import url('/style.css');
+@import url('/account/style.css');
+@import url('/shop/style.css');
+.dash-container {
+  display: flex;
+  width: 85%;
+  margin: 0 auto;
+  height: 70vh;
+}
+.left-dash {
+  width: 25%;
+  background-color: gray;
+  height: 70vh;
+  display: block;
+}
+.dash-btn-holder {
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: green;
+  display: flex;
+  height: 45%;
+}
+
+.dash-btn {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 800;
+  padding-top: 12px;
+}
+.left-dash-link {
+  margin: 0 auto;
+  /* border: 3px solid black; */
+  width: 100%;
+}
+.main-dash {
+  width: 70%;
+  background-color: red;
+}

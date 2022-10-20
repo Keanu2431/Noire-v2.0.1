@@ -35,23 +35,10 @@
             h2#log-out-btn Log Out
         // UI ^DROPDOWN^
         h2#bag.tag
-          span.material-icons  shopping_bag 
+          span.material-icons  shopping_bag
           if user
             span.bag-badge= user.userCart.length
-    .row-1
-      a#banner-hider-tag.tag(href='/closet') the closet
-      a#banner-tag.tag(href='/shop/new' data-tag='new-arrivals') new arrivals
-      a#banner-hider-tag.tag(href='/best-sellers') best sellers
-      a#banner-tag.tag(href='/shop/bra' data-tag='bras') bras
-      a#banner-tag.tag(href='/shop/panties' data-tag='panties') panties
-      a#banner-tag.tag(href='/shop/lingerie' data-tag='lingerie') Lingerie
-      a#banner-tag.tag(href='/shop/sleep' data-tag='sleep-wear') sleep wear
-      a#banner-tag.tag(href='/shop/accessories' data-tag='accessories') accessories
-      a#banner-hider-tag.tag(href='/for-him') for him
-      a#banner-tag.tag(href='/shop/mens' data-tag='mens') mens
-      a#banner-hider-tag.tag(href='/sale' style='color: red' data-tag='sale') sale
-      // news is noire now
-      a#banner-tag.tag(href='/noire-now/noire' data-tag='noire-now') noire now
+    
   .banner-dropdown-container.hidden
     // new arrivals
     #items-holder.hidden(data-tag='new-arrivals')

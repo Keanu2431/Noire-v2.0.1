@@ -1,6 +1,9 @@
 import HeaderView from '../views/headerView.js';
 import * as mainModel from '../model/mainModel.js';
-
+// adding badge across all banners
+const cartBtn = document.querySelector('#bag');
+// cartBtn.insertAdjacentHTML('beforeend', `<span class='bag-badge'>1<span/>`);
+//
 // FUNC
 const tagDrop = (e) => {
   // console.log(e.target);
@@ -108,15 +111,17 @@ HeaderView.logOutBtn?.addEventListener('click', logOut);
 HeaderView.registerSwitchBtn?.addEventListener('click', registerSwitch);
 // reset pass switch
 HeaderView.resetPassSwitchBtn?.addEventListener(`click`, resetPassSwitch);
-const yesNoCookie = document.querySelector('.button-holder').children;
+const yesNoCookie = document.querySelector('.button-holder')?.children;
 console.log(yesNoCookie);
 // yesNoCookie.forEach((el) => {
-yesNoCookie[0].addEventListener('click', function (e) {
-  e.target.parentElement.parentElement.remove();
-});
-yesNoCookie[1].addEventListener('click', function (e) {
-  e.target.parentElement.parentElement.remove();
-});
+if (yesNoCookie)
+  yesNoCookie[0]?.addEventListener('click', function (e) {
+    e.target.parentElement.parentElement.remove();
+  });
+if (yesNoCookie)
+  yesNoCookie[1]?.addEventListener('click', function (e) {
+    e.target.parentElement.parentElement.remove();
+  });
 // });
 // setting href for bag/cart
 mainModel.state.loggedIn = true;
