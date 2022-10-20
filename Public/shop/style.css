@@ -320,6 +320,11 @@
 .add-cart:hover {
   background-color: var(--secondary-color-darker);
 }
+.cart-success {
+  animation-name: fadeOut;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
 .details-size-options > a > button {
   color: var(--primary-color);
   text-decoration: none;
@@ -412,6 +417,7 @@ input.qtyminus {
   width: 60%;
   text-align: end;
 }
+
 /* .priceSlider {
   width: 200px;
   background-color: #fff;

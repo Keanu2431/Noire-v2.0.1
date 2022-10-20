@@ -1,5 +1,6 @@
 const { collection } = require('../model/productModel');
 const Product = require('../model/productModel');
+const User = require('../model/userModel');
 
 // rendering
 exports.renderPage = async (req, res, next) => {
@@ -228,6 +229,49 @@ exports.getOneProduct = async (req, res) => {
     });
   }
   console.timeEnd();
+};
+exports.addToCart = async (req, res, next) => {
+  try {
+    function makeid(length) {
+      var result = '';
+      var characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      return result;
+    }
+
+    const reqData = req.body;
+    const cartItem = {
+      ProductID: reqData.ProductID,
+      color: reqData.color,
+      qty: reqData.qty,
+      cartCode: makeid(12),
+    };
+    let all = await Product.find({});
+    let price = Number(
+      all.find((el) => el.ProductID == cartItem.ProductID).price
+    );
+    cartItem.price = price;
+    console.log(cartItem);
+
+    const resData = await User.findOneAndUpdate(
+      { _id: res.locals.user._id },
+      { $push: { userCart: cartItem } },
+      { new: true }
+    );
+    // console.log(res.locals.user._id);
+    // console.log(resData);
+
+    res.status(200).json({ status: 'success' });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ status: 'fail' });
+  }
 };
 // { ProductID: "LCE-16633236" }
 // Product.aggregate([

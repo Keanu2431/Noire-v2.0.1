@@ -1,4 +1,53 @@
+import * as CONFIG from '../config.js';
+const cartBadge = document.querySelector('.bag-badge');
+
 const addToCartBtn = document.querySelector('.add-cart');
+const addToCart = async function (e) {
+  try {
+    let entries = [
+      ...new FormData(document.querySelector('#myform')).entries(),
+    ].flat()[1];
+    // entries = entries[1];
+    const url = new URL(window.location.href);
+
+    const sendData = {
+      ProductID: url.pathname.split('/')[4],
+      color: url.searchParams.get('color'),
+      size: url.searchParams.get('size'),
+      qty: Number(entries),
+    };
+    if (sendData.qty < 1) throw 'Require atleast one item';
+    if (
+      sendData.size == 'xs' ||
+      sendData.size == 's' ||
+      sendData.size == 'm' ||
+      sendData.size == 'l' ||
+      sendData.size == 'xl'
+    ) {
+      const resData = await axios({
+        method: 'POST',
+        url: CONFIG.ADD_CART,
+        data: sendData,
+      });
+      if (
+        resData.data.status == 'success' &&
+        !document.querySelector('.cart-success')
+      ) {
+        addToCartBtn.insertAdjacentHTML(
+          'afterend',
+          "<h2 class='cart-success'>Successfully Added</h2> "
+        );
+      }
+    } else throw 'Require a size';
+    cartBadge.textContent = Number(cartBadge.textContent) + 1;
+  } catch (error) {
+    addToCartBtn.insertAdjacentHTML(
+      'afterend',
+      `<h2 class='cart-success'>${error}</h2> `
+    );
+    console.log(error);
+  }
+};
 const toastElList = document.querySelectorAll('.toast');
 console.log(toastElList);
 const toastList = [...toastElList].map(
@@ -49,4 +98,4 @@ leftImages.forEach((el) =>
   el.addEventListener('mouseover', switchImageOverview)
 );
 imagesArr.forEach((el) => el.addEventListener('mouseover', switchImage));
-console.log(addToCartBtn);
+addToCartBtn?.addEventListener('click', addToCart);

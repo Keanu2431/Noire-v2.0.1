@@ -10,6 +10,7 @@ app.set('views', [
   path.join(__dirname, 'views'),
   path.join(__dirname, 'views/account'),
   path.join(__dirname, 'views/shop'),
+  path.join(__dirname, 'views/admin'),
 ]);
 app.set('view engine', 'pug');
 // SERVING STATIC
@@ -23,6 +24,8 @@ const usersRouter = require('./routes/userRoute');
 const viewsRouter = require('./routes/viewsRoute');
 
 const accountRouter = require('./routes/accountRoute');
+
+const adminRouter = require('./routes/adminRoute');
 
 // MIDDLEWARE
 app.use(morgan('dev'));
@@ -42,5 +45,6 @@ app.use('/products', productRouter);
 app.use('/shop', shopRouter);
 app.use('/users', usersRouter);
 app.use('/account', accountRouter);
+app.use('/admin', adminRouter);
 
 module.exports = app;
