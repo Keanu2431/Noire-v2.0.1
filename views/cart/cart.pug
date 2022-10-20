@@ -25,5 +25,25 @@ block bodyContent
                                     input.qtyplus__cart.plus(type='button' value='+' field='quantity')
                         h2= `$${item.total}` 
                         h4.cart-remove remove 
-
         .cart-right
+            .cart-right__inner
+                h2.summary-title Order Summary 
+                .promo-code
+                    input#promo(type="text", name="promo-code" placeholder='Promocode')
+                    button.promo-btn(type="submit") Submit 
+                h2.promo-name promo--name
+                .sub-total
+                    h2 Subtotal  
+                    h2= `150`
+                .discount
+                    h4 Discount  
+                    h4= `-23`
+                .tax
+                    h4 Tax  
+                    h4= `15`
+                .total
+                    h2 Total  
+                    h2= `167`
+                .checkout
+                    button.check-out__btn Proceed to checkout
+                    button.continue-shop__btn Continue Shopping
