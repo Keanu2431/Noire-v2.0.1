@@ -30,6 +30,7 @@ const adminRouter = require('./routes/adminRoute');
 
 const cartRouter = require('./routes/cartRoute');
 
+const orderRouter = require('./routes/ordersRoute');
 // MIDDLEWARE
 app.use(morgan('dev'));
 app.use(express.json());
@@ -50,5 +51,6 @@ app.use('/users', usersRouter);
 app.use('/account', accountRouter);
 app.use('/admin', adminRouter);
 app.use('/cart', cartRouter);
+app.use('/checkout', orderRouter);
 
 module.exports = app;

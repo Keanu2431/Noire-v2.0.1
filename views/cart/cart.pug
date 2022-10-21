@@ -10,7 +10,7 @@ block bodyContent
         .cart-left
             .cart-left__inner
                 for item,index in cartItems
-                    .cart-product
+                    .cart-product(data-pid=item.ProductID)
                         img(src=`/product-images/${item.category.toLowerCase()}/${item.subCategory.toLowerCase()}/${item.images[0]}`, alt="", srcset="")
                         .small-info
                             .small-info-text
@@ -31,19 +31,20 @@ block bodyContent
                 .promo-code
                     input#promo(type="text", name="promo-code" placeholder='Promo code')
                     button.promo-btn(type="submit") Submit 
-                h2.promo-name promo--name
+                h2.promo-name.hidden promo--name
                 .sub-total
                     h2 Subtotal  
-                    h2= `150`
-                .discount
+                    h2= `$${subTotal}`
+                #discount-div.discount.hidden
                     h4 Discount  
                     h4= `-23`
                 .tax
-                    h4 Tax  
-                    h4= `15`
+                    h4 Tax 
+                        span= `(${taxRate}%)` 
+                    h4= `$${taxAdd}`
                 .total
                     h2 Total  
-                    h2= `167`
+                    h2= `$${totalAll}`
                 .checkout
                     button.check-out__btn Proceed to checkout
                     button.continue-shop__btn Continue Shopping

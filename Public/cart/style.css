@@ -161,6 +161,9 @@ input.qtyminus__cart {
 .tax h4 {
   font-size: 1vw;
 }
+.tax span {
+  font-size: 0.8vw;
+}
 .checkout button {
   width: 100%;
   margin-top: 8px;
