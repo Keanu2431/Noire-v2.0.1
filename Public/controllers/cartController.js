@@ -1,4 +1,5 @@
 const cartRemove = document.querySelectorAll('.cart-remove');
+const checkoutBtn = document.querySelector('.check-out__btn');
 import * as CONFIG from '../config.js';
 // functions
 const removeCart = async (e) => {
@@ -17,7 +18,13 @@ const removeCart = async (e) => {
     console.error(error);
   }
 };
+const goCheckout = async () => {
+  const resData = await axios({ method: 'GET', url: CONFIG.CHECKOUT });
+  console.log(resData.data);
+  window.location.href = resData.data.session_url;
+};
 cartRemove.forEach((el) => el.addEventListener('click', removeCart));
+checkoutBtn.addEventListener('click', goCheckout);
 //
 //
 //

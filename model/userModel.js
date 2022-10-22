@@ -36,6 +36,7 @@ const cardSchema = new mongoose.Schema({
   billingPhone: { type: String },
 });
 const userSchema = new mongoose.Schema({
+  stripeID: { type: String, required: [true, 'Needs a stripe user ID'] },
   createdAt: {
     type: Number,
     default: new Date().getTime(),

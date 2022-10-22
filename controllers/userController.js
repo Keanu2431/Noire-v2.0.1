@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../model/userModel');
 const Card = require('../model/cardModel');
-
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const emailExtension = [
   `@yahoo.com`,
   `@gmail.com`,
@@ -45,7 +45,35 @@ const signToken = (id) => {
     expiresIn: process.env.JWT_EXP,
   });
 };
-const responseCookie = function () {};
+const registerStripe = async (emailAddy) => {
+  const customer = await stripe.customers.create({
+    // name: currUser.firstName + ' ' + currUser.lastName,
+    // phone: '1' + currUser.phoneNumber,
+    email: emailAddy,
+    // address: {
+    //   city: primary_ship.city,
+    //   country: 'US',
+    //   line1: primary_ship.addressOne,
+    //   line2: primary_ship.addressTwo,
+    //   postal_code: primary_ship.zipcode,
+    //   state: primary_ship.state,
+    // },
+    // shipping: {
+    //   phone: '1' + currUser.phoneNumber,
+    //   name: currUser.firstName + ' ' + currUser.lastName,
+    //   address: {
+    //     city: primary_ship.city,
+    //     country: 'US',
+    //     line1: primary_ship.addressOne,
+    //     line2: primary_ship.addressTwo,
+    //     postal_code: primary_ship.zipcode,
+    //     state: primary_ship.state,
+    //   },
+    // },
+  });
+  // create payment method
+  return customer.id;
+};
 exports.createUser = async (req, res) => {
   try {
     const bodyReq = req.body;
@@ -118,8 +146,10 @@ exports.createUser = async (req, res) => {
       emailAddress: bodyReq.emailAddress,
       userName: bodyReq.userName,
       password: bodyReq.password,
+      stripeID: await registerStripe(bodyReq.emailAddress),
     };
     const newUser = await User.create(properData);
+    // newUser.stripeID = await registerStripe(newUser);
     const token = signToken(newUser._id);
     res.cookie('jwt', token, {
       expiresIn: new Date(Date.now() + process.env.JWT_COOKIE_EXP),

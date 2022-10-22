@@ -4,6 +4,7 @@ const Product = require('../model/productModel');
 const jwt = require('jsonwebtoken');
 const util = require('util');
 const crypto = require('crypto');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const bcrypt = require('bcryptjs');
 const validSpecialCharactersPassword = [`@`, `$`, `#`, `_`, `!`, `%`, `&`];
 const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -50,6 +51,10 @@ exports.updateBasic = async (req, res, next) => {
       new: true,
     });
     newUserInfo.save();
+    stripe.customers.update(newUserInfo.stripeID, {
+      name: newUserInfo.firstName + ' ' + newUserInfo.lastName,
+      phone: '1' + newUserInfo.phoneNumber,
+    });
     // console.log(data);
     res.status(200).json({
       status: 'success',
@@ -275,6 +280,28 @@ exports.addShipping = async (req, res, next) => {
       { $push: { userShipping: reqData } },
       { new: true }
     );
+    stripe.customers.update(user.stripeID, {
+      address: {
+        city: reqData.city,
+        country: 'US',
+        line1: reqData.addressOne,
+        line2: reqData.addressTwo,
+        postal_code: reqData.zipcode,
+        state: reqData.state,
+      },
+      shipping: {
+        phone: '1' + user.phoneNumber,
+        name: user.firstName + ' ' + user.lastName,
+        address: {
+          city: reqData.city,
+          country: 'US',
+          line1: reqData.addressOne,
+          line2: reqData.addressTwo,
+          postal_code: reqData.zipcode,
+          state: reqData.state,
+        },
+      },
+    });
     res.status(200).json({
       status: 'success',
       data: user.userShipping,

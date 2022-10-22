@@ -12,5 +12,4 @@ export const UPDATE_PASSWORD_URL =
 export const UPDATE_PREF = 'http://127.0.0.1:3000/account/pref-update';
 export const ADD_CART = 'http://127.0.0.1:3000/shop/add-to-cart';
 export const REMOVE_CART = 'http://127.0.0.1:3000/cart/remove-item';
-export const STRIPE_KEY =
-  'pk_test_51LvArIDDM79MM6Ap7bHzb4hI5S8WD2xr4iJllI3n90KzgRIsprSFzd4ovlN2kEII1NhQyVaufbBMNt3DnzyRFA0k00R2z1BaJE';
+export const CHECKOUT = 'http://127.0.0.1:3000/checkout/new-session';
