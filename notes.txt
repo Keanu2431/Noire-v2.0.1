@@ -4,3 +4,17 @@ JSCRAMMBLER
 Use a url friendly string to parse values out of them as an array then query for them in the database
 eg:'Black%2CBlue%2CBrown'.split('%2C')=>['Black', 'Blue', 'Brown']
 then we take that array and query from there
+
+
+AGENDA 10/23
+0 ORDER SUCCESS PAGE THAT REDIRECTS TO HOME
+1 POPULATE ORDERS FOR USERS
+1.2 SEND CONFIRM ORDER EMAILS
+2 SEND REGISTER EMAILS
+3 SEND FORGOT PASS EMAILS
+4 WISHLIIST FEATURE
+5 search bar feature
+6 reviews
+7 order tracking
+
+CREATE ADMIN DASHBOARD WITH REACT
