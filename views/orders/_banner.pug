@@ -1,0 +1,248 @@
+#banner-container
+  #rows
+    .row-0
+      .search-container
+        form.d-flex(role='search')
+          input#search-text.form-control.me-2(type='search' placeholder='Search...' aria-label='Search')
+          button#search-button.btn.btn-outline-success(type='submit')
+            span.material-icons  search 
+      #center-logo
+        a(href='/')
+          img.banner-logo(src='/images/Logos/logo.png' alt='')
+      .banner-icons
+        h2#wishlist.tag
+          a(href='/account/wishlist')
+            span.material-icons  favorite 
+        //
+          <h2 class="tag hidden" id="logged-in">
+          <span class="material-icons">person</span>
+          </h2>
+        if user
+          h2#sign-in.tag(data-logged='true')
+            span.material-icons person
+        else
+          h2#sign-in.tag(data-logged='false')
+            span.material-icons person
+        // UI DROPDOWN
+        #account-dropdown.UI-drop-container.hidden
+          .UI-dropdown
+            a#profile(href='/account/profile') profile
+            a#orders-returns(href='/account/orders') orders &amp; returns
+            a#payment-info(href='/account/payment-info')
+              | payment info
+            a#shipping-info(href='/account/shipping-info') shipping info
+            a#wishlist(href='/account/wishlist') wishlist
+            h2#log-out-btn Log Out
+        // UI ^DROPDOWN^
+        a(href="/cart" id='bag-link' target="" rel="noopener noreferrer") 
+          h2#bag.tag
+            span.material-icons  shopping_bag
+            if user
+              span.bag-badge= user.userCart.length
+
+    .row-1
+      a#banner-hider-tag.tag(href='/closet') the closet
+      a#banner-tag.tag(href='/shop/new' data-tag='new-arrivals') new arrivals
+      a#banner-hider-tag.tag(href='/best-sellers') best sellers
+      a#banner-tag.tag(href='/shop/bra' data-tag='bras') bras
+      a#banner-tag.tag(href='/shop/panties' data-tag='panties') panties
+      a#banner-tag.tag(href='/shop/lingerie' data-tag='lingerie') Lingerie
+      a#banner-tag.tag(href='/shop/sleep' data-tag='sleep-wear') sleep wear
+      a#banner-tag.tag(href='/shop/accessories' data-tag='accessories') accessories
+      a#banner-hider-tag.tag(href='/for-him') for him
+      a#banner-tag.tag(href='/shop/mens' data-tag='mens') mens
+      a#banner-hider-tag.tag(href='/sale' style='color: red' data-tag='sale') sale
+      // news is noire now
+      a#banner-tag.tag(href='/noire-now/noire' data-tag='noire-now') noire now
+  .banner-dropdown-container.hidden
+    // new arrivals
+    #items-holder.hidden(data-tag='new-arrivals')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/shop/new')
+            h1.tag.column-title new arrivals
+          .inner-tags
+            a(href='/shop/new/special' style='color: var(--secondary-color)') 50% of sitewide
+            a(href='/shop/new/special') see all
+            a(href='/shop/new/bra') bras
+            a(href='/shop/new/panties') panties
+            a(href='/shop/new/lingerie') lingerie
+            a(href='/shop/new/sleep-wear') sleep wear
+            a(href='/shop/new/accessories' style='text-decoration: none') Accessories
+            a(href='/shop/new/mens') mens
+        #column-1.column-item
+          a(href='/shop/new/sets')
+            h1.tag.column-title Sets
+          .inner-tags
+            a(href='/shop/new/sets/bra-and-panties') bras &amp; panties
+            a(href='/shop/new/sets/bralette-and-panties') bralette &amp; panties
+            a(href='/shop/new/sets/sleep') sleep sets
+          // accessories
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler1.jpeg' alt='' srcset='')
+            a.tag(href='/best-sellers') See what everyone&apos;s buying
+            h3 top of the line quality
+          .image-card
+            img(src='/images/Models/Filler/filler2.webp' alt='' srcset='')
+            a.tag(href='/for-him') buy something for the occasion
+    // bras
+    #items-holder.hidden(data-tag='bras')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/shop/bra')
+            h1.tag.column-title bras
+          .inner-tags
+            a(href='/shop/bra/special' style='color: var(--secondary-color)') BOGO 20% OFF
+            a(href='/shop/bra') see all
+            a(href='/shop/bra/bralette') bralette
+            a(href='/shop/bra/push-up') push up
+            a(href='/shop/bra/lace') lace
+            a(href='/shop/bra/strapless') strapless
+        #column-1.column-item
+          h1.tag.column-title sets
+          .inner-tags
+            a(href='/shop/sets/bra-and-panties') bras &amp; panties
+            a(href='/shop/sets/bralette-and-panties') bralette &amp; panties
+            a(href='/shop/sets/active-wear') active wear
+        .one-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-bras-2.jpeg' alt='' srcset='')
+            a.tag(href='/closet') need help picking?
+            h3 we&apos;ve got you
+    // panties
+    #items-holder.hidden(data-tag='panties')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/shop/panties')
+            h1.tag.column-title panties
+          .inner-tags
+            a(href='/shop/panties') see all
+            a(href='/shop/panties/thong') thong
+            a(href='/shop/panties/shorts') shorts
+            a(href='/shop/panties/high-waist') high waist
+        #column-1.column-item
+          h1.tag.column-title sets
+          .inner-tags
+            a(href='/shop/sets/bra-and-panties') bras &amp; panties
+            a(href='/shop/sets/bralette-and-panties') bralette &amp; panties
+            a(href='/shop/sets/active-wear') active wear
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-panties-1.webp' alt='' srcset='')
+            a.tag(href='/shop/panties/thong') thongs &amp; g-strings
+            h3 feeling yourself? we are
+          .image-card
+            img(src='/images/Models/Filler/filler-panties-2.jpeg' alt='' srcset='')
+            a.tag(href='/best-sellers') something for all
+    // lingerie
+    #items-holder.hidden(data-tag='lingerie')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/shop/lingerie')
+            h1.tag.column-title lingerie
+          .inner-tags
+            a(href='/shop/lingerie') see all
+            a(href='/shop/lingerie/bodysuit') bodysuits
+            a(href='/shop/lingerie/curvy') curvy
+            a(href='/shop/lingerie/slip') slips
+            a(href='/shop/lingerie/corsets') corsets
+        #column-1.column-item
+          h1.tag.column-title accessories
+          .inner-tags
+            a(href='/shop/lingerie/accessories') see all
+            a(href='/shop/lingerie/accessories/strings') strings
+            a(href='/shop/lingerie/accessories/head-wear') head wear
+        .one-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-lingerie-1.webp' alt='' srcset='')
+            h3 be the center of attention
+    // sleep wear
+    #items-holder.hidden(data-tag='sleep-wear')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/shop/sleep')
+            h1.tag.column-title sleep wear
+          .inner-tags
+            a(href='/shop/sleep') see all
+            a(href='/shop/sleep/pajamas') Pajamas
+            a(href='/shop/sleep/robes') robes
+            a(href='/shop/sleep/slides') slides
+        #column-1.column-item
+          h1.tag.column-title accessories
+          .inner-tags
+            a(href='/shop/sleep/eye-wear') eye wear
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-sleepwear-1.jpeg' alt='' srcset='')
+            a.tag(href='/sale') save some money.
+          .image-card
+            img(src='/images/Models/Filler/filler-sleepwear-2.jpeg' alt='' srcset='')
+            a.tag(href='/shop/accessories') top off your fit
+            h3 not everyone can stand out
+    // accessories
+    #items-holder.hidden(data-tag='accessories')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/shop/accessories')
+            h1.tag.column-title accessories
+          .inner-tags
+            a(href='/shop/accessories') see all
+            a(href='/shop/accessories/bracelets') bracelets
+            a(href='/shop/accessories/anklets') anklets
+            a(href='/shop/accessories/necklace') necklace
+            a(href='/shop/accessories/rings') rings
+            //
+              <a href="#">stockings</a>
+              <a href="#">headwear</a>
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-accessories-1.webp' alt='' srcset='')
+            h3 Love your style? we try our best
+          .image-card
+            img(src='/images/Models/Filler/filler-accessories-2.webp' alt='' srcset='')
+            a.tag(href='/shop/mens') don&apos;t be selfish
+            h3 spread the love
+    // mens
+    #items-holder.hidden(data-tag='mens')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          a(href='/shop/mens')
+            h1.tag.column-title mens
+          .inner-tags
+            a(href='/shop/mens') see all
+            a(href='/shop/mens/underwear') underwear
+            a(href='/shop/mens/robe') robe
+            a(href='/shop/mens/socks') socks
+        .two-image-box
+          .image-card
+            img(src='/images/Models/Filler/filler-mens-1.jpeg' alt='' srcset='')
+            a.tag(href='/noire-now/noire') see what&apos;s going on
+          .image-card
+            img(src='/images/Models/Filler/filler-mens-2.jpeg' alt='' srcset='')
+            a.tag(href='/for-him') catered to your wants
+            h3 you&apos;ll both enjoy it
+    // noire now
+    #items-holder.hidden(data-tag='noire-now')
+      .dropdown-item-flex(data-tag='new-arrivals')
+        #column-0.column-item
+          h1.tag.column-title be in the know
+          .inner-tags
+            a(href='/noire-now/vsecret-collab') noire X VSecret
+            a(href='/noire-now/prada-collab') noire x prada
+            // fall drop make it link to the first banner on home page
+            a(href='/noire-now/fall-22-drop') Fall drop
+            a(href='/noire-now/upcoming') what&apos;s next?
+        #column-1.column-item
+          h1.tag.column-title Guide
+          .inner-tags
+            a(href='/guide/sizing') General sizing
+            a(href='/guide/bra-guide') bra guide
+            a(href='/guide/underwear-guide')
+              // guide for both men and women underwear
+              | underwear guide
+        .one-image-box
+          .image-card
+            img(src='/Images/Models/Filler/filler-noire-now-1.jpeg' alt='' srcset='')
+            a.tag(href='/noire-now/upcoming') always evolving
+    // FIX THE DROPDOWN ITEM FLEX DATA TAG

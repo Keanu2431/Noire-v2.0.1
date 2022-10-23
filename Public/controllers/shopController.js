@@ -49,11 +49,11 @@ const addToCart = async function (e) {
   }
 };
 const toastElList = document.querySelectorAll('.toast');
-console.log(toastElList);
+
 const toastList = [...toastElList].map(
   (toastEl) => new bootstrap.Toast(toastEl, { autohide: false })
 );
-console.log(window.location.search);
+
 // qty button
 jQuery(document).ready(($) => {
   $('.quantity').on('click', '.plus', function (e) {

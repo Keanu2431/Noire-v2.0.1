@@ -157,7 +157,9 @@ exports.getCheckoutSession = async (req, res, next) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'us_bank_account'],
       mode: 'payment',
-      success_url: `${req.protocol}://${req.get('host')}/account/orders`,
+      success_url: `${req.protocol}://${req.get(
+        'host'
+      )}/checkout/order-success`,
       cancel_url: `${req.protocol}://${req.get('host')}/cart`,
       // customer_email: res.locals.user.emailAddress,
       client_reference_id: client_ref_id,
@@ -296,6 +298,9 @@ exports.stripeCheckout = async (req, res, next) => {
     createOrder(event.data.object);
   }
   res.status(200).json({ recieved: true });
+};
+exports.renderSuccess = async (req, res, next) => {
+  res.status(200).render('order_success');
 };
 // Order.find({}).then((data) => console.log(data));
 // (async () => {

@@ -16,6 +16,7 @@ app.set('views', [
   path.join(__dirname, 'views/shop'),
   path.join(__dirname, 'views/admin'),
   path.join(__dirname, 'views/cart'),
+  path.join(__dirname, 'views/orders'),
 ]);
 app.set('view engine', 'pug');
 // SERVING STATIC

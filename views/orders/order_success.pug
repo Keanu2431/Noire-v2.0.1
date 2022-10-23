@@ -1,0 +1,9 @@
+extends base
+block  append head
+    link(rel="stylesheet", href="style.css")
+    script(src='/controllers/shopController.js' type='module')
+    script(src='/controllers/cartController.js' type='module')
+    script(src='https://code.jquery.com/jquery-3.6.1.js' integrity='sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=' crossorigin='anonymous')
+    title=`Noire | Cart`
+block bodyContent
+  h1 order good
