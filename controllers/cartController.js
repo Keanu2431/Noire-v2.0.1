@@ -56,6 +56,7 @@ exports.removeItem = async (req, res, next) => {
     });
   }
 };
+exports.clearCart = async (userID) => {};
 // exports.me = (req, res, next) => {
 //   res.status(200).render('cart');
 // };

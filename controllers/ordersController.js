@@ -1,6 +1,7 @@
 const User = require('../model/userModel');
 const Card = require('../model/cardModel');
 const Product = require('../model/productModel');
+const Order = require('../model/ordersModel');
 const jwt = require('jsonwebtoken');
 const util = require('util');
 const crypto = require('crypto');
@@ -84,9 +85,9 @@ exports.getCheckoutSession = async (req, res, next) => {
         },
       },
       adjustable_quantity: {
-        enabled: true,
-        minimum: 1,
-        maximum: 10,
+        enabled: false,
+        // minimum: 1,
+        // maximum: 10,
       },
       quantity: el.qty,
       // dynamic_tax_rates: [],
@@ -104,10 +105,17 @@ exports.getCheckoutSession = async (req, res, next) => {
     //   customer: customer.id,
     // });
     // payyment intent
+    totalAll = Number(totalAll) + 10;
+    if (String(totalAll).split('.')[1].length !== 2) {
+      totalAll = Number(String(totalAll) + '0') * 100 + 100;
+      // totalAll = 176.5;
+
+      console.log(totalAll);
+    }
     const paymentIntent = await stripe.paymentIntents.create({
       customer: customer.id,
       setup_future_usage: 'off_session',
-      amount: Number(totalAll) + 10,
+      amount: totalAll,
       currency: 'usd',
       automatic_payment_methods: {
         enabled: true,
@@ -186,72 +194,91 @@ exports.getCheckoutSession = async (req, res, next) => {
     });
   }
 };
-const createOrder = async (session) => {
-  console.log('hellow');
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const sessionInfo = session;
-  const metaData = sessionInfo.metadata;
-  const allItmes = JSON.parse(metaData.all_items);
-  let shipping_speed;
-  const date_long = new Date();
-  const date = {
-    date: date_long.getDate(),
-    month: date_long.getMonth(),
-    year: date_long.getFullYear(),
-  };
-  if (sessionInfo.shipping_cost.amount_subtotal == 500)
-    shipping_speed = {
-      name: 'standard',
-      speed: [5, 7],
-      cost: 5,
-      ship_ref_stripe: 'shr_1LvXbmDDM79MM6ApDi6UAETu',
+const createOrder = async (session, user) => {
+  try {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const sessionInfo = session;
+    const metaData = sessionInfo.metadata;
+    const allItmes = JSON.parse(metaData.all_items);
+    let shipping_speed;
+    const date_long = new Date();
+    const date = {
+      date: date_long.getDate(),
+      month: date_long.getMonth(),
+      year: date_long.getFullYear(),
     };
-  else if (sessionInfo.shipping_cost.amount_subtotal == 1000)
-    shipping_speed = {
-      name: 'fast',
-      speed: [2, 3],
-      cost: 10,
-      ship_ref_stripe: 'shr_1LvXbmDDM79MM6AprltuitPf',
-    };
-  const order = {
-    status: 'processing',
-    order_date: { date_keys: date, date_ms: sessionInfo.created },
-    order_number: metaData.order_number,
-    order_user: metaData.user_DB,
-    stripe_order_id: sessionInfo.id,
-    subTotal: sessionInfo.amount_subtotal,
-    allTotal: sessionInfo.amount_total,
-    client_reference_id: sessionInfo.client_reference_id,
-    stripe_customer_id: sessionInfo.customer,
-    customerInfo: {
-      username: metaData.user_DB,
-      name: sessionInfo.customer_details.name,
-      emailAddress: sessionInfo.customer_details.email,
-      phoneNumber: sessionInfo.customer_details.phone,
-    },
-    shipping_info: {
-      shipping_choice: shipping_speed,
-      address: {
-        ...sessionInfo.shipping_details.address,
-        name: sessionInfo.shipping_details.name,
+    if (sessionInfo.shipping_cost.amount_subtotal == 500)
+      shipping_speed = {
+        name: 'standard',
+        speed: [5, 7],
+        cost: 5,
+        ship_ref_stripe: 'shr_1LvXbmDDM79MM6ApDi6UAETu',
+      };
+    else if (sessionInfo.shipping_cost.amount_subtotal == 1000)
+      shipping_speed = {
+        name: 'fast',
+        speed: [2, 3],
+        cost: 10,
+        ship_ref_stripe: 'shr_1LvXbmDDM79MM6AprltuitPf',
+      };
+    const order = {
+      status: 'processing',
+      order_date: { date_keys: date, date_ms: sessionInfo.created },
+      order_number: metaData.order_number,
+      order_user: metaData.user_DB,
+      stripe_order_id: sessionInfo.id,
+      subTotal: sessionInfo.amount_subtotal,
+      allTotal: sessionInfo.amount_total,
+      client_reference_id: sessionInfo.client_reference_id,
+      stripe_customer_id: sessionInfo.customer,
+      customerInfo: {
+        username: metaData.user_DB,
+        name: sessionInfo.customer_details.name,
+        emailAddress: sessionInfo.customer_details.email,
+        phoneNumber: sessionInfo.customer_details.phone,
       },
-    },
-    product_info: allItmes,
-  };
-  console.log(order);
+      shipping_info: {
+        shipping_choice: shipping_speed,
+        address: {
+          ...sessionInfo.shipping_details.address,
+          name: sessionInfo.shipping_details.name,
+        },
+      },
+      product_info: allItmes,
+    };
+    // creating order in db
+    const newOrder = await Order.create({ ...order });
+    // pushing order in db to user
+    const updated = await User.findOneAndUpdate(
+      { userName: order.customerInfo.username },
+      {
+        $push: { userOrders: newOrder },
+      },
+      { new: true }
+    );
+    // clearing current cart
+    const cleared_cart = await User.findOneAndUpdate(
+      { userName: order.customerInfo.username },
+      { userCart: [] },
+      { new: true }
+    );
+    console.log(order.customerInfo.username);
+  } catch (error) {
+    console.log(error);
+  }
 };
 exports.stripeCheckout = async (req, res, next) => {
   const signature = req.headers['stripe-signature'];
@@ -270,3 +297,12 @@ exports.stripeCheckout = async (req, res, next) => {
   }
   res.status(200).json({ recieved: true });
 };
+// Order.find({}).then((data) => console.log(data));
+// (async () => {
+//   const new_use = await User.findOneAndUpdate(
+//     { userName: 'keanu2431' },
+//     { userCart: [] },
+//     { new: true }
+//   );
+//   console.log(new_use.userName);
+// })();
