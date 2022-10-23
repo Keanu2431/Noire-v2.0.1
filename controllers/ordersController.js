@@ -172,6 +172,7 @@ exports.getCheckoutSession = async (req, res, next) => {
         order_number: `NRE001-${Math.floor(
           100000000 + Math.random() * 900000000
         )}`,
+        all_items: JSON.stringify(cart),
       },
     });
     // send session as res
@@ -186,24 +187,39 @@ exports.getCheckoutSession = async (req, res, next) => {
   }
 };
 const createOrder = async (session) => {
-  // console.log('hellow');
+  console.log('hellow');
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
   const sessionInfo = session;
   const metaData = sessionInfo.metadata;
+  const allItmes = JSON.parse(metaData.all_items);
   let shipping_speed;
-  if (
-    sessionInfo.shipping_address_collection.shipping_cost.shipping_rate ==
-    'shr_1LvXbmDDM79MM6ApDi6UAETu'
-  )
+  const date_long = new Date();
+  const date = {
+    date: date_long.getDate(),
+    month: date_long.getMonth(),
+    year: date_long.getFullYear(),
+  };
+  if (sessionInfo.shipping_cost.amount_subtotal == 500)
     shipping_speed = {
       name: 'standard',
       speed: [5, 7],
       cost: 5,
       ship_ref_stripe: 'shr_1LvXbmDDM79MM6ApDi6UAETu',
     };
-  else if (
-    sessionInfo.shipping_address_collection.shipping_cost.shipping_rate ==
-    'shr_1LvXbmDDM79MM6AprltuitPf'
-  )
+  else if (sessionInfo.shipping_cost.amount_subtotal == 1000)
     shipping_speed = {
       name: 'fast',
       speed: [2, 3],
@@ -211,8 +227,10 @@ const createOrder = async (session) => {
       ship_ref_stripe: 'shr_1LvXbmDDM79MM6AprltuitPf',
     };
   const order = {
+    status: 'processing',
+    order_date: { date_keys: date, date_ms: sessionInfo.created },
     order_number: metaData.order_number,
-    order__user: metaData.user_DB,
+    order_user: metaData.user_DB,
     stripe_order_id: sessionInfo.id,
     subTotal: sessionInfo.amount_subtotal,
     allTotal: sessionInfo.amount_total,
@@ -227,11 +245,13 @@ const createOrder = async (session) => {
     shipping_info: {
       shipping_choice: shipping_speed,
       address: {
-        ...sessionInfo.shipping_address_collection.shipping_details.address,
-        name: sessionInfo.shipping_address_collection.shipping_details.name,
+        ...sessionInfo.shipping_details.address,
+        name: sessionInfo.shipping_details.name,
       },
     },
+    product_info: allItmes,
   };
+  console.log(order);
 };
 exports.stripeCheckout = async (req, res, next) => {
   const signature = req.headers['stripe-signature'];
