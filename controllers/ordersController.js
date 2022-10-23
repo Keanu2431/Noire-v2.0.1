@@ -185,3 +185,68 @@ exports.getCheckoutSession = async (req, res, next) => {
     });
   }
 };
+const createOrder = async (session) => {
+  // console.log('hellow');
+  const sessionInfo = session;
+  const metaData = sessionInfo.metadata;
+  let shipping_speed;
+  if (
+    sessionInfo.shipping_address_collection.shipping_cost.shipping_rate ==
+    'shr_1LvXbmDDM79MM6ApDi6UAETu'
+  )
+    shipping_speed = {
+      name: 'standard',
+      speed: [5, 7],
+      cost: 5,
+      ship_ref_stripe: 'shr_1LvXbmDDM79MM6ApDi6UAETu',
+    };
+  else if (
+    sessionInfo.shipping_address_collection.shipping_cost.shipping_rate ==
+    'shr_1LvXbmDDM79MM6AprltuitPf'
+  )
+    shipping_speed = {
+      name: 'fast',
+      speed: [2, 3],
+      cost: 10,
+      ship_ref_stripe: 'shr_1LvXbmDDM79MM6AprltuitPf',
+    };
+  const order = {
+    order_number: metaData.order_number,
+    order__user: metaData.user_DB,
+    stripe_order_id: sessionInfo.id,
+    subTotal: sessionInfo.amount_subtotal,
+    allTotal: sessionInfo.amount_total,
+    client_reference_id: sessionInfo.client_reference_id,
+    stripe_customer_id: sessionInfo.customer,
+    customerInfo: {
+      username: metaData.user_DB,
+      name: sessionInfo.customer_details.name,
+      emailAddress: sessionInfo.customer_details.email,
+      phoneNumber: sessionInfo.customer_details.phone,
+    },
+    shipping_info: {
+      shipping_choice: shipping_speed,
+      address: {
+        ...sessionInfo.shipping_address_collection.shipping_details.address,
+        name: sessionInfo.shipping_address_collection.shipping_details.name,
+      },
+    },
+  };
+};
+exports.stripeCheckout = async (req, res, next) => {
+  const signature = req.headers['stripe-signature'];
+  const endpointSecret =
+    'whsec_f843b3fcfdc680c734c1e6dc50508489080cbfcef50368f293fafc06d2b80c31';
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.body, signature, endpointSecret);
+  } catch (err) {
+    console.log(err);
+    response.status(400).send(`Webhook Error: ${err.message}`);
+    return;
+  }
+  if (event.type == 'checkout.session.completed') {
+    createOrder(event.data.object);
+  }
+  res.status(200).json({ recieved: true });
+};

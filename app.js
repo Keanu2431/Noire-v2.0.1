@@ -5,6 +5,10 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const morgan = require('morgan');
 const fs = require('fs');
+// stripe reqs
+const stripe = require('stripe');
+
+// stripe reqs
 const app = express();
 app.set('views', [
   path.join(__dirname, 'views'),
@@ -31,7 +35,14 @@ const adminRouter = require('./routes/adminRoute');
 const cartRouter = require('./routes/cartRoute');
 
 const orderRouter = require('./routes/ordersRoute');
+const ordersController = require('./controllers/ordersController');
 // MIDDLEWARE
+app.post(
+  '/checkout/stripe-webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  ordersController.stripeCheckout
+);
+
 app.use(morgan('dev'));
 app.use(express.json());
 // parses the data from cookie
