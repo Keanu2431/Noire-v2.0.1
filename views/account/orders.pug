@@ -18,75 +18,30 @@ block bodyContent
             h2
                 a.tabs(href='/account/reset-password') password
         .orders-container
-            .order
-                .order-data
-                    h2
-                        | $
-                        span 147.56$
-                    #right-side
+            for order in orders
+                .order
+                    .order-data
                         h2
-                            | Order Number: 
-                            span#order-number NRE001-885221547
-                        h3#order-date September 1st,2022
-                .item-data
-                    .item-card
-                        img#item-image(src='/Images/Models/Filler/filler-bras-2.jpeg' alt='')
-                    .middle-data
-                        h2#image-title Cotton Essential Cheeky
-                        h2#status Preparing for shipment
-                        h2(style='font-size: 12px')
-                            | quantity: 
-                            span#quantity 3
-                    .total-data
-                        h2
-                            | $
-                            span#item-total 37.82
-                .item-data
-                    .item-card
-                        img#item-image(src='/Images/Models/Filler/filler-bras-2.jpeg' alt='')
-                    .middle-data
-                        h2#image-title Cotton Essential Cheeky
-                        h2#status Preparing for shipment
-                        h2(style='font-size: 12px')
-                            | quantity: 
-                            span#quantity 3
-                    .total-data
-                        h2
-                            | $
-                            span#item-total 37.82
-            .order
-                .order-data
-                    h2
-                        | $
-                        span 147.56$
-                    #right-side
-                        h2
-                            | Order Number: 
-                            span#order-number NRE001-885221547
-                        h3#order-date September 1st,2022
-                .item-data
-                    .item-card
-                        img#item-image(src='/Images/Models/Filler/filler-bras-1.jpeg' alt='')
-                    .middle-data
-                        h2#image-title Cotton Essential Cheeky
-                        h2#status Preparing for shipment
-                        h2(style='font-size: 12px')
-                            | quantity: 
-                            span#quantity 3
-                    .total-data
-                        h2
-                            | $
-                            span#item-total 37.82
-                .item-data
-                    .item-card
-                        img#item-image(src='/Images/Models/Filler/filler-bras-1.jpeg' alt='')
-                    .middle-data
-                        h2#image-title Cotton Essential Cheeky
-                        h2#status Preparing for shipment
-                        h2(style='font-size: 12px')
-                            | quantity: 
-                            span#quantity 3
-                    .total-data
-                        h2
-                            | $
-                            span#item-total 37.82
+                            span= `$${order.allTotal/100}`
+                        #right-side
+                            h2
+                                | Order Number: 
+                                span#order-number= order.order_number
+                            h3#order-date=`${months[order.order_date.date_keys.month]} ${order.order_date.date_keys.date}, ${order.order_date.date_keys.year}`
+                    for item in order.product_info
+                        .item-data
+                            .item-card
+                                img#item-image(src=`/product-images/${item.category.toLowerCase()}/${item.subCategory.toLowerCase()}/${item.images[0]}` alt='')
+                            .middle-data
+                                h2#image-title=item.name
+                                h2#status=order.status
+                                h2(style='font-size: 12px')
+                                    | size: 
+                                    span#quantity=item.size.toUpperCase()
+                                h2(style='font-size: 12px')
+                                    | quantity: 
+                                    span#quantity=item.qty
+                            .total-data
+                                h2
+                                    | $
+                                    span#item-total= item.total

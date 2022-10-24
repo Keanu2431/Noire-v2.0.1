@@ -24,7 +24,7 @@ const goCheckout = async () => {
   window.location.href = resData.data.session_url;
 };
 cartRemove.forEach((el) => el.addEventListener('click', removeCart));
-checkoutBtn.addEventListener('click', goCheckout);
+checkoutBtn?.addEventListener('click', goCheckout);
 //
 //
 //

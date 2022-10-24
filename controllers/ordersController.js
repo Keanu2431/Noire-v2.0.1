@@ -154,12 +154,15 @@ exports.getCheckoutSession = async (req, res, next) => {
     ];
 
     // create check out
+    const order_number_generated = Math.floor(
+      100000000 + Math.random() * 900000000
+    );
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'us_bank_account'],
       mode: 'payment',
       success_url: `${req.protocol}://${req.get(
         'host'
-      )}/checkout/order-success`,
+      )}/checkout/order-success?order-number=NRE001-${order_number_generated}`,
       cancel_url: `${req.protocol}://${req.get('host')}/cart`,
       // customer_email: res.locals.user.emailAddress,
       client_reference_id: client_ref_id,
@@ -179,9 +182,7 @@ exports.getCheckoutSession = async (req, res, next) => {
       payment_intent_data: { setup_future_usage: 'on_session' },
       metadata: {
         user_DB: currUser.userName,
-        order_number: `NRE001-${Math.floor(
-          100000000 + Math.random() * 900000000
-        )}`,
+        order_number: `NRE001-${order_number_generated}`,
         all_items: JSON.stringify(cart),
       },
     });
@@ -300,7 +301,11 @@ exports.stripeCheckout = async (req, res, next) => {
   res.status(200).json({ recieved: true });
 };
 exports.renderSuccess = async (req, res, next) => {
-  res.status(200).render('order_success');
+  const user = await User.findById(res.locals.user._id);
+  const order_number = req.query['order-number'];
+  const order = user.userOrders[user.userOrders.length - 1];
+  // console.log(order);
+  res.status(200).render('order_success', { orderNumber: order_number });
 };
 // Order.find({}).then((data) => console.log(data));
 // (async () => {

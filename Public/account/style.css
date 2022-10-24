@@ -159,7 +159,12 @@ label {
   justify-content: center;
 }
 #item-image {
-  width: 150px;
+  /* width: 150px; */
+  max-width: 7vw;
+  /* max-height: 150px; */
+}
+#image-title {
+  min-width: 20vw;
 }
 #item-total {
   text-align: end;

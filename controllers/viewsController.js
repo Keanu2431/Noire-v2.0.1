@@ -32,7 +32,24 @@ exports.renderProfile = async (req, res, next) => {
   next();
 };
 exports.renderOrders = async (req, res, next) => {
-  res.status(200).render('orders');
+  const user = await User.findById(res.locals.user._id);
+  const orders = user.userOrders;
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  console.log(orders[3]);
+  res.status(200).render('orders', { orders, months });
   next();
 };
 exports.renderWishlist = async (req, res, next) => {
