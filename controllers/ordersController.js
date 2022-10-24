@@ -106,7 +106,7 @@ exports.getCheckoutSession = async (req, res, next) => {
     // });
     // payyment intent
     totalAll = Number(totalAll) + 10;
-    if (String(totalAll).split('.')[1].length !== 2) {
+    if (String(totalAll).split('.')[1]?.length !== 2) {
       totalAll = Number(String(totalAll) + '0') * 100 + 100;
       // totalAll = 176.5;
 

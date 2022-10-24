@@ -6,4 +6,18 @@ block  append head
     script(src='https://code.jquery.com/jquery-3.6.1.js' integrity='sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=' crossorigin='anonymous')
     title=`Noire | Cart`
 block bodyContent
-  h1 order good
+  .success-order-container
+    .basic-order-info
+      span.order-check ✔
+      h1 Thank you for your order.
+      h4 your order confirmation email should arrive within the next 5-30 minutes if not already.
+      h2.order-number your order number is NRE001-182911892
+      a(href="/shop/bra") 
+        button.continue-shop-btn continue shopping
+    .main-info-container
+      h4 date placed: October 12th,2022
+    .email-sub
+      h2 Get updates and never be left out of the know.
+      form(action="/email-subscription-signup", method="post")
+        input(type="email", name="email-sub" placeholder='Email')
+        button(type="submit" ) Sign Up 

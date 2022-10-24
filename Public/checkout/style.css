@@ -1,0 +1,67 @@
+@import url('/style.css');
+@import url('/account/style.css');
+
+.order-check {
+  /* font-size: 3vw; */
+  color: white;
+  background-color: var(--secondary-color);
+  padding: 12px;
+  height: 2vw;
+  width: 3vw;
+  border-radius: 50%;
+}
+.success-order-container {
+  margin: 0 auto;
+  width: fit-content;
+}
+.basic-order-info {
+  width: fit-content;
+  margin: 0 auto;
+  text-align: center;
+}
+.order-number {
+  /* background-color: var(--secondary-color);
+  border-radius: 12px; */
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+.continue-shop-btn {
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  font-size: 2vw;
+  display: block;
+  margin: 0 auto;
+  text-transform: capitalize;
+  border: 1px solid black;
+  margin-bottom: 12px;
+}
+.main-info-container {
+  min-height: 300px;
+  width: 100%;
+  /* background-color: green; */
+}
+.email-sub input {
+  background-color: transparent;
+  width: fit-content;
+  padding-right: 12px;
+  font-size: 1.5vw;
+}
+.email-sub button {
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  border: 1px solid black;
+  font-size: 1.5vw;
+}
+.email-sub form {
+  background-color: rgba(203, 159, 244, 0.34);
+  height: fit-content;
+  border-radius: 12px;
+  width: fit-content;
+  padding-left: 12px;
+  margin: 0 auto;
+}
+.email-sub {
+  margin: 0 auto;
+  width: fit-content;
+}
