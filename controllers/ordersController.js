@@ -7,7 +7,7 @@ const util = require('util');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
+const emailer = require('../utils/emailer');
 exports.getCheckoutSession = async (req, res, next) => {
   try {
     // getting cart data
@@ -110,7 +110,7 @@ exports.getCheckoutSession = async (req, res, next) => {
       totalAll = Number(String(totalAll) + '0') * 100 + 100;
       // totalAll = 176.5;
 
-      console.log(totalAll);
+      // console.log(totalAll);
     }
     const paymentIntent = await stripe.paymentIntents.create({
       customer: customer.id,
@@ -262,6 +262,10 @@ const createOrder = async (session, user) => {
       },
       product_info: allItmes,
     };
+    // creating order email
+    console.log(order);
+    emailer.orderConfirmEmail(order);
+
     // creating order in db
     const newOrder = await Order.create({ ...order });
     // pushing order in db to user
@@ -278,7 +282,7 @@ const createOrder = async (session, user) => {
       { userCart: [] },
       { new: true }
     );
-    console.log(order.customerInfo.username);
+    // console.log(order.customerInfo.username);
   } catch (error) {
     console.log(error);
   }

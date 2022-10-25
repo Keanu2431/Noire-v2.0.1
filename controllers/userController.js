@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../model/userModel');
 const Card = require('../model/cardModel');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const emailer = require('../utils/emailer');
 const emailExtension = [
   `@yahoo.com`,
   `@gmail.com`,
@@ -277,3 +278,5 @@ exports.logout = async (req, res) => {
   }
 };
 // {"userName":"keanu2431","password":"B@bycat19"}
+// emailer.orderConfirmEmail('verify-register');
+// emailer.orderConfirmEmail('order-confirm');
