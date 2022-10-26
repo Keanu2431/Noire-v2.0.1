@@ -45,6 +45,7 @@ const orderRouter = require('./routes/ordersRoute');
 const ordersController = require('./controllers/ordersController');
 
 // MIDDLEWARE
+app.enable('trust proxy');
 // CORS
 app.use(cors());
 // app.options('*', cors());
