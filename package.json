@@ -4,12 +4,10 @@
   "description": "full stack application",
   "main": "app.js",
   "scripts": {
-    "start": "pm2-runtime start ecosystem.config.js --env production",
     "start-production": "pm2 start server.js",
     "start-development": "nodemon server.js",
     "stop": "pm2 stop all",
-    "monitor": "pm2 monit",
-    "init": "pm2 init"
+    "monitor": "pm2 monit"
   },
   "repository": {
     "type": "git",
