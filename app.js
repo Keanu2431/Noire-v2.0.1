@@ -47,10 +47,10 @@ const ordersController = require('./controllers/ordersController');
 // MIDDLEWARE
 // CORS
 app.use(cors());
-app.options('*', cors());
+// app.options('*', cors());
 // Access-Control-Allow-Origin
 // allows other sites to use my api if i list them
-app.use(cors({ origin: 'http://127.0.0.1:3000' }));
+// app.use(cors({ origin: 'http://127.0.0.1:3000' }));
 //
 app.use('*', limiter);
 // app.use(helmet());
