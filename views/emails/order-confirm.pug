@@ -707,7 +707,7 @@ style.
                                           tbody
                                             tr
                                               td.esd-block-image(align='center' style='font-size:0')
-                                                a(target='_blank' href=`https://noire-lstudios.herokuapp.com/shop/${item.category}/${item.subCategory}/${item.ProductID}?color=${item.color}`)
+                                                a(target='_blank' href=`https://noire-lstudios.herokuapp.com/shop/${item.category.toLowerCase()}/${item.subCategory.toLowerCase()}/${item.ProductID}?color=${item.color}`)
                                                   img.adapt-img(src=`https://noire-lstudios.herokuapp.com/product-images/${item.category}/${item.subCategory}/${item.images[0]}` alt='' width='103')
                             //if mso
                               td(width='20')
