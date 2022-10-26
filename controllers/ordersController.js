@@ -300,7 +300,7 @@ exports.stripeCheckout = async (req, res, next) => {
     );
   } catch (err) {
     console.log(err);
-    response.status(400).send(`Webhook Error: ${err.message}`);
+    res.status(400).send(`Webhook Error: ${err.message}`);
     return;
   }
   if (event.type == 'checkout.session.completed') {
