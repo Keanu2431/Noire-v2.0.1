@@ -259,7 +259,7 @@ exports.addToCart = async (req, res, next) => {
     );
     cartItem.price = price;
     console.log(cartItem);
-
+    console.log(res.locals);
     const resData = await User.findOneAndUpdate(
       { _id: res.locals.user._id },
       { $push: { userCart: cartItem } },
