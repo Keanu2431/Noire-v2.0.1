@@ -289,8 +289,8 @@ const createOrder = async (session, user) => {
 };
 exports.stripeCheckout = async (req, res, next) => {
   const signature = req.headers['stripe-signature'];
-  const endpointSecret =
-    'whsec_f843b3fcfdc680c734c1e6dc50508489080cbfcef50368f293fafc06d2b80c31';
+  const endpointSecret = 'whsec_9G2GOsyI1eXqCPPdTzAqAcCkFv4V1TCi';
+  // 'whsec_f843b3fcfdc680c734c1e6dc50508489080cbfcef50368f293fafc06d2b80c31';
   let event;
   try {
     event = stripe.webhooks.constructEvent(
