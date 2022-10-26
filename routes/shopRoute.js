@@ -7,8 +7,6 @@ router.route('/:category/:subCat?').get(shopController.renderPage);
 router
   .route('/:category/:subCat/:productNumber')
   .get(shopController.renderItemOverview);
-router
-  .route('/add-to-cart')
-  .post(authController.protect, shopController.addToCart);
+router.route('/add-to-cart').post(shopController.addToCart);
 
 module.exports = router;
