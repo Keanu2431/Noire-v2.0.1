@@ -6,7 +6,6 @@ router
   .route('/dashboard')
   .get(
     authController.protect,
-    authController.isLoggedIn,
     authController.restrictTo('ADMIN'),
     adminController.renderDashboard
   );

@@ -67,7 +67,7 @@ const logOut = async function () {
       .insertAdjacentHTML('beforebegin', '<div class="loader"></div>');
     const res = await axios({
       method: 'GET',
-      url: 'http://127.0.0.1:3000/users/logout',
+      url: 'https://noire-lstudios.herokuapp.com/users/logout',
     });
     if (res.data.status == 'success') {
       setTimeout(() => {

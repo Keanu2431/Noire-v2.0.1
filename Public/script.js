@@ -1,4 +1,5 @@
 `use strict`;
+
 // IMPORTANT GLOBAL VARS
 let signedInStatus = sessionStorage.getItem(`signedInStatusKey`);
 const usersObj = {

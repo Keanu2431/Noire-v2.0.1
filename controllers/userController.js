@@ -157,6 +157,7 @@ exports.createUser = async (req, res) => {
       httpOnly: true,
       // secure: true,
     });
+    emailer.welcomeUserEmail(newUser);
     res.status(201).json({
       status: 'success',
       // sending the token essentially logs the user in when creating an account

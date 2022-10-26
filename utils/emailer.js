@@ -8,20 +8,35 @@ exports.orderConfirmEmail = async (order) => {
   );
   // transporter
   const transport = nodemailer.createTransport({
-    host: 'smtp.mailtrap.io',
-    port: 2525,
-    auth: {
-      user: '142a354a9d97da',
-      pass: '5187f6aea1d93b',
-    },
+    service: 'gmail',
+    auth: { user: 'noire.project.000@gmail.com', pass: 'yuacjbloqwnkegoe' },
   });
   let mailOptions = {
-    from: 'noire_order_no_reply@gmail.com', // sender address
+    from: 'noire.project.000@gmail.com', // sender address
     to: order.customerInfo.emailAddress, // list of receivers
     subject: 'Noire Order Confirmation', // Subject line
     text: 'Noire Order Confirmation', // plain text body
     html: htmlCode, // html body
   };
   const sending = await transport.sendMail(mailOptions);
-  console.log(sending);
+};
+exports.welcomeUserEmail = async (user) => {
+  // html
+  const htmlCode = pug.renderFile(
+    `${__dirname}/../views/emails/welcome-user.pug`,
+    { user }
+  );
+  // transporter
+  const transport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: 'noire.project.000@gmail.com', pass: 'yuacjbloqwnkegoe' },
+  });
+  let mailOptions = {
+    from: 'noire.project.000@gmail.com', // sender address
+    to: user.emailAddress, // list of receivers
+    subject: 'Welcome To Noire', // Subject line
+    text: 'Welcome To Noire', // plain text body
+    html: htmlCode, // html body
+  };
+  const sending = await transport.sendMail(mailOptions);
 };

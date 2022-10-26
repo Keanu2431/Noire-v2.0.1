@@ -258,7 +258,7 @@ const editCard = async (e) => {
   const index = e.target.dataset.info;
   let cardData = await axios({
     method: 'GET',
-    url: `http://127.0.0.1:3000/account/get-card/${index}`,
+    url: `https://noire-lstudios.herokuapp.com/account/get-card/${index}`,
   });
   cardData = cardData.data.data;
   console.log(cardData);

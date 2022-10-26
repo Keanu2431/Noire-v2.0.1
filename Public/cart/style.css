@@ -3,7 +3,7 @@
 @import url('/shop/style.css');
 .cart-container {
   width: 70%;
-  min-height: 40vw;
+  min-height: 50vw;
   /* background-color: black; */
   display: flex;
   margin: 0 auto;

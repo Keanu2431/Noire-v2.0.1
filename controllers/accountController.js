@@ -40,12 +40,12 @@ exports.updateBasic = async (req, res, next) => {
   try {
     let token = req.cookies.jwt;
     const data = req.body;
-    console.log(data);
+
     const decoded = await util.promisify(jwt.verify)(
       token,
       process.env.SECRET_STRING
     );
-    console.log('id');
+
     console.log(decoded.id);
     const newUserInfo = await User.findOneAndUpdate({ _id: decoded.id }, data, {
       new: true,
@@ -55,7 +55,7 @@ exports.updateBasic = async (req, res, next) => {
       name: newUserInfo.firstName + ' ' + newUserInfo.lastName,
       phone: '1' + newUserInfo.phoneNumber,
     });
-    // console.log(data);
+
     res.status(200).json({
       status: 'success',
       data: newUserInfo,
@@ -140,8 +140,7 @@ exports.addCard = async (req, res, next) => {
       process.env.SECRET_STRING
     );
     const newCard = await Card.create(data);
-    console.log('card id');
-    console.log(newCard._id);
+
     const newUserInfo = await User.findByIdAndUpdate(
       decoded.id,
       {
@@ -159,16 +158,13 @@ exports.addCard = async (req, res, next) => {
 };
 exports.deleteCard = async (req, res, next) => {
   try {
-    // const user = await User.findById(res.locals.user._id);
-    // const userCards = user.userCards;
-    // console.log(userCards);
     const cardObj = req.body;
-    console.log(cardObj);
+
     const delCard = await Card.findOneAndDelete(cardObj);
     const updatedInfo = await User.findByIdAndUpdate(res.locals.user._id, {
       $pull: { userCards: delCard },
     });
-    console.log(delCard);
+
     res.status(200).json({
       status: 'success',
       data: {
@@ -186,9 +182,7 @@ exports.deleteCard = async (req, res, next) => {
 exports.editCard = async (req, res, next) => {
   try {
     const { query, index, sendDataForm } = req.body;
-    // console.log(query);
-    // console.log(index);
-    // console.log(sendDataForm);
+
     const user = await User.findOne(res.locals.user._id).then((doc) => {
       item = doc.userCards[index];
       for (const [key, value] of Object.entries(sendDataForm)) {
@@ -198,22 +192,6 @@ exports.editCard = async (req, res, next) => {
       doc.save();
       console.log(item);
     });
-    // console.log(user.userName);
-    // const user = await User.updateOne(
-    //   res.locals.user._id,
-    //   {
-    //     $set: { 'userCards.$.cardHolder': sendDataForm.cardHolder },
-    //   },
-    //   { new: true }
-    // );
-    // const card = await Card.findOneAndUpdate(
-    //   query,
-    //   { ...sendDataForm },
-    //   {
-    //     new: true,
-    //   }
-    // );
-    // const cardInArr = user.userCards[index];
     res.status(200).json({
       data: user,
       query,

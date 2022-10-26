@@ -700,3 +700,16 @@ input[type='checkbox'] {
   vertical-align: top;
   margin-left: -10px;
 }
+/* error page */
+.no-exist-container {
+  min-height: 50vw;
+}
+.no-exist-container h1 {
+  text-align: center;
+  /* vertical-align: top; */
+  line-height: 30vw;
+}
+.no-exist-container a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
