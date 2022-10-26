@@ -4,6 +4,7 @@
   "description": "full stack application",
   "main": "app.js",
   "scripts": {
+    "start": "pm2 start server.js",
     "start-production": "pm2 start server.js",
     "start-development": "nodemon server.js",
     "stop": "pm2 stop all",
