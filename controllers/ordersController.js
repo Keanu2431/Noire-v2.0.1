@@ -80,7 +80,9 @@ exports.getCheckoutSession = async (req, res, next) => {
           name: el.name,
           description: `Comfortable ${el.subCategory.toLowerCase()} to brigthen your day`,
           images: [
-            'https://img.ltwebstatic.com/images3_pi/2021/11/16/1637026193d5c88c37d3eade07376dda1b6be2f958_thumbnail_900x.webp',
+            `https://noire-lstudios.herokuapp.com/product-images/${el.category.toLowerCase()}/${el.subCategory.toLowerCase()}/${
+              el.images[0]
+            }`,
           ],
         },
       },
