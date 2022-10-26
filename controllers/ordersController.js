@@ -293,11 +293,7 @@ exports.stripeCheckout = async (req, res, next) => {
   // 'whsec_f843b3fcfdc680c734c1e6dc50508489080cbfcef50368f293fafc06d2b80c31';
   let event;
   try {
-    event = stripe.webhooks.constructEvent(
-      req.rawBody,
-      signature,
-      endpointSecret
-    );
+    event = stripe.webhooks.constructEvent(req.body, signature, endpointSecret);
   } catch (err) {
     console.log(err);
     res.status(400).send(`Webhook Error: ${err.message}`);
