@@ -143,6 +143,9 @@ exports.renderPage = async (req, res, next) => {
   }
 };
 exports.renderItemOverview = async (req, res, next) => {
+const userIp=   req.headers['x-forwarded-for']?.split(',').shift()
+  || req.socket?.remoteAddress;
+console.log(userIp)
   try {
     if (!req.originalUrl.includes('?')) {
       lastPart = `${req.originalUrl}?`;
